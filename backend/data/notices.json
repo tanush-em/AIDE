@@ -1,0 +1,16 @@
+[
+  {
+    "id": "N001",
+    "title": "Exam Schedule Released",
+    "content": "The final exam schedule has been released. Check the portal for details.",
+    "author": "faculty1",
+    "date": "2024-06-01"
+  },
+  {
+    "id": "N002",
+    "title": "Holiday Notice",
+    "content": "College will remain closed on 5th June due to a public holiday.",
+    "author": "faculty1",
+    "date": "2024-06-02"
+  }
+]

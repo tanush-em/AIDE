@@ -1,0 +1,23 @@
+[
+  {
+    "username": "student1",
+    "password": "password123",
+    "role": "student",
+    "name": "Tanush Kumar",
+    "id": "S001"
+  },
+  {
+    "username": "student2",
+    "password": "password456",
+    "role": "student",
+    "name": "Priya Sharma",
+    "id": "S002"
+  },
+  {
+    "username": "faculty1",
+    "password": "facultypass",
+    "role": "faculty",
+    "name": "Dr. Mehta",
+    "id": "F001"
+  }
+]
