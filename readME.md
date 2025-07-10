@@ -11,4 +11,4 @@
 - Predefined Rulebook
 - Smart Query Assisstant
 - Resources
-- RAG for Resources
+- RAG for Resources`
