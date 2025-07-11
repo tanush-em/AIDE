@@ -1,0 +1,11 @@
+{
+  "attendance": [
+    {
+      "studentId": "CS2021001",
+      "subject": "Data Structures",
+      "date": "2024-01-15",
+      "status": "present",
+      "markedBy": "prof.smith"
+    }
+  ]
+} 

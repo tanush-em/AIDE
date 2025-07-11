@@ -1,0 +1,14 @@
+{
+  "leaveApplications": [
+    {
+      "id": 1,
+      "studentId": "CS2021001",
+      "leaveType": "sick",
+      "startDate": "2024-01-20",
+      "endDate": "2024-01-22",
+      "reason": "Fever and cold",
+      "status": "pending",
+      "appliedAt": "2024-01-18T09:00:00Z"
+    }
+  ]
+} 

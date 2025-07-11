@@ -5,10 +5,12 @@
 - Faculty (Coordinators)
 
 ## Student Profile Features
+- Cental Notice Board
 - Attendance Dashboard
 - Leave Management
 - Timetable Viewer
 - Predefined Rulebook
 - Smart Query Assisstant
 - Resources
-- RAG for Resources`
+- RAG for Resources
+
