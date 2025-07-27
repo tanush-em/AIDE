@@ -88,7 +88,7 @@ export default function DashboardPage({ params }) {
   const RoleIcon = getRoleIcon(user.role);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pt-0">
       {/* Welcome Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

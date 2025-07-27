@@ -52,38 +52,59 @@ export default function DashboardLayout({ children }) {
 
   const getMenuItems = (role) => {
     const baseItems = [
-      { name: 'Dashboard', href: `/dashboard/${role}`, icon: Home },
-      { name: 'Notifications', href: `/dashboard/${role}/notifications`, icon: Bell },
-      { name: 'Settings', href: `/dashboard/${role}/settings`, icon: Settings },
+      { 
+        section: 'Main',
+        items: [
+          { name: 'Dashboard', href: `/dashboard/${role}`, icon: Home },
+          { name: 'AI Assistant', href: `/dashboard/${role}/assistant`, icon: MessageSquare },
+        ]
+      },
+      {
+        section: 'Communication',
+        items: [
+          { name: 'Notifications', href: `/dashboard/${role}/notifications`, icon: Bell },
+        ]
+      }
     ];
 
     if (role === 'student') {
       return [
         ...baseItems,
-        { name: 'Timetable', href: `/dashboard/${role}/timetable`, icon: Calendar },
-        { name: 'Attendance', href: `/dashboard/${role}/attendance`, icon: BarChart3 },
-        { name: 'Resources', href: `/dashboard/${role}/resources`, icon: BookOpen },
-        { name: 'Leave Applications', href: `/dashboard/${role}/leave`, icon: FileText },
-        { name: 'AI Assistant', href: `/dashboard/${role}/assistant`, icon: MessageSquare },
+        {
+          section: 'Academic',
+          items: [
+            { name: 'Timetable', href: `/dashboard/${role}/timetable`, icon: Calendar },
+            { name: 'Attendance', href: `/dashboard/${role}/attendance`, icon: BarChart3 },
+            { name: 'Resources', href: `/dashboard/${role}/resources`, icon: BookOpen },
+            { name: 'Leave Applications', href: `/dashboard/${role}/leave`, icon: FileText },
+          ]
+        }
       ];
     } else if (role === 'faculty') {
       return [
         ...baseItems,
-        { name: 'Classes', href: `/dashboard/${role}/classes`, icon: Users },
-        { name: 'Resources', href: `/dashboard/${role}/resources`, icon: BookOpen },
-        { name: 'Question Papers', href: `/dashboard/${role}/questions`, icon: FileText },
-        { name: 'Attendance', href: `/dashboard/${role}/attendance`, icon: BarChart3 },
-        { name: 'Leave Requests', href: `/dashboard/${role}/leave-requests`, icon: Calendar },
-        { name: 'AI Assistant', href: `/dashboard/${role}/assistant`, icon: MessageSquare },
+        {
+          section: 'Teaching',
+          items: [
+            { name: 'Classes', href: `/dashboard/${role}/classes`, icon: Users },
+            { name: 'Resources', href: `/dashboard/${role}/resources`, icon: BookOpen },
+            { name: 'Question Papers', href: `/dashboard/${role}/questions`, icon: FileText },
+            { name: 'Attendance', href: `/dashboard/${role}/attendance`, icon: BarChart3 },
+            { name: 'Leave Requests', href: `/dashboard/${role}/leave-requests`, icon: Calendar },
+          ]
+        }
       ];
     } else if (role === 'coordinator') {
       return [
         ...baseItems,
-        { name: 'Events', href: `/dashboard/${role}/events`, icon: Calendar },
-        { name: 'Registrations', href: `/dashboard/${role}/registrations`, icon: Users },
-        { name: 'Notifications', href: `/dashboard/${role}/notifications`, icon: Bell },
-        { name: 'Reports', href: `/dashboard/${role}/reports`, icon: BarChart3 },
-        { name: 'AI Assistant', href: `/dashboard/${role}/assistant`, icon: MessageSquare },
+        {
+          section: 'Management',
+          items: [
+            { name: 'Events', href: `/dashboard/${role}/events`, icon: Calendar },
+            { name: 'Registrations', href: `/dashboard/${role}/registrations`, icon: Users },
+            { name: 'Reports', href: `/dashboard/${role}/reports`, icon: BarChart3 },
+          ]
+        }
       ];
     }
 
@@ -101,7 +122,7 @@ export default function DashboardLayout({ children }) {
   const menuItems = getMenuItems(user.role);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex">
       {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -119,7 +140,7 @@ export default function DashboardLayout({ children }) {
       <motion.div
         initial={{ x: -300 }}
         animate={{ x: sidebarOpen ? 0 : -300 }}
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 lg:block`}
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
@@ -155,7 +176,7 @@ export default function DashboardLayout({ children }) {
 
           {/* Navigation */}
           <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-            {menuItems.map((item) => {
+            {getMenuItems(user.role).map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
@@ -189,9 +210,9 @@ export default function DashboardLayout({ children }) {
       </motion.div>
 
       {/* Main content */}
-      <div className="lg:ml-64">
+      <div className="flex-1 lg:ml-0">
         {/* Header */}
-        <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+        <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30">
           <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
             <button
               onClick={() => setSidebarOpen(true)}
@@ -228,7 +249,7 @@ export default function DashboardLayout({ children }) {
         </header>
 
         {/* Page content */}
-        <main className="p-4 sm:p-6 lg:p-8">
+        <main className="p-4 sm:p-6 lg:p-8 min-h-[calc(100vh-4rem)]">
           {children}
         </main>
       </div>
