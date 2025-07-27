@@ -5,12 +5,11 @@
 - Faculty (Coordinators)
 
 ## Student Profile Features
-- Cental Notice Board
-- Attendance Dashboard
-- Leave Management
-- Timetable Viewer
-- Predefined Rulebook
-- Smart Query Assisstant
-- Resources
-- RAG for Resources
+- NOTES BASED QA - CONSIDERING QTYPE, QMARKS, ASTYLE
+- TIMETABLE VIEWING / SCHEDULES
+- DEADLINES (PENDING ACTIONS, UPCOMING EVENTS)
+- NOTICE BOARD
+- ATTENDANCE VIEWER, NOTIFICATION
+- LEAVE APPLICATION
+- RESOURCES
 
