@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Calendar, 
@@ -23,7 +23,7 @@ export default function DashboardPage({ params }) {
   const [user, setUser] = useState(null);
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { role } = params;
+  const { role } = use(params);
 
   useEffect(() => {
     const userData = localStorage.getItem('user');
