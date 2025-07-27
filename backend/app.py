@@ -18,9 +18,16 @@ def load_csv_data(file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                # Clean up whitespace in values
-                cleaned_row = {key.strip(): value.strip() if isinstance(value, str) else value 
-                             for key, value in row.items()}
+                # Clean up whitespace in values and remove quotes
+                cleaned_row = {}
+                for key, value in row.items():
+                    clean_key = key.strip()
+                    if isinstance(value, str):
+                        # Remove quotes and strip whitespace
+                        clean_value = value.strip().strip('"').strip("'")
+                    else:
+                        clean_value = value
+                    cleaned_row[clean_key] = clean_value
                 data.append(cleaned_row)
     return data
 
@@ -32,6 +39,8 @@ def login():
         email = data.get('email', '').strip()
         password = data.get('password', '').strip()
         role = data.get('role', '').strip().lower()
+        
+        print(f"Login attempt - Email: {email}, Role: {role}, Password: {password}")
         
         if not email or not password or not role:
             return jsonify({'error': 'Email, password, and role are required'}), 400
@@ -48,10 +57,17 @@ def login():
         else:
             return jsonify({'error': 'Invalid role. Must be student or faculty'}), 400
         
+        print(f"Loaded {len(users)} users for role {role}")
+        for u in users:
+            print(f"User: {u}")
+        
         # Find user
         user = None
         for u in users:
-            if u.get('email', '').strip() == email and str(u.get('password', '')).strip() == str(password):
+            user_email = u.get('email', '').strip()
+            user_password = str(u.get('password', '')).strip()
+            print(f"Comparing - Input: {email} vs {user_email}, Password: {password} vs {user_password}")
+            if user_email == email and user_password == str(password):
                 user = u
                 break
         
@@ -69,6 +85,7 @@ def login():
             return jsonify({'error': 'Invalid credentials'}), 401
             
     except Exception as e:
+        print(f"Login error: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/auth/validate', methods=['POST'])
