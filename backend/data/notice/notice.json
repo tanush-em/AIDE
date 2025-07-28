@@ -1,3 +1,10 @@
 {
-    
-}
+    "id": ,
+    "title": "title",
+    "content": "can contain markdown",
+    "posted_by": "",
+    "priority": "low | high | critical",
+    "pinned": true,
+  }
+  
+  I WANNA BUILD THE NOTICE BOARD FEATURE FOR THIS PROJECT. FOR NOW JUST DISPLYA THE DATA FROM NOTICE.JSON IN backend/data/notice/notice.json. NOtice board should be displayed in the dashbopard itslef right after the login. This is only for the student login.
