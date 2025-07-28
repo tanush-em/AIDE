@@ -19,14 +19,13 @@ import {
   MapPin,
   Users,
   Home,
-  Schedule,
+  CalendarDays,
   BookOpen as BookOpenIcon,
   BarChart3 as BarChart3Icon,
   MessageSquare as MessageSquareIcon,
   Settings
 } from 'lucide-react';
 import NoticeBoard from '../../../components/NoticeBoard';
-import { useState } from 'react';
 
 export default function StudentDashboard() {
   const [user, setUser] = useState(null);
@@ -104,7 +103,7 @@ export default function StudentDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6"
       >
         <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
           <div className="flex items-center justify-between">
@@ -163,20 +162,53 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
-      {/* Main Content Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Notice Board - Prominently Displayed */}
-          <NoticeBoard />
+      {/* Tab Navigation */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"
+      >
+        <div className="flex border-b border-slate-200 dark:border-slate-700">
+          {[
+            { id: 'notices', label: 'Notice Board', icon: Bell },
+            { id: 'schedule', label: 'Schedule', icon: CalendarDays },
+            { id: 'resources', label: 'Resources', icon: BookOpenIcon },
+            { id: 'attendance', label: 'Attendance', icon: BarChart3Icon },
+            { id: 'assistant', label: 'AI Assistant', icon: MessageSquareIcon },
+            { id: 'quick-actions', label: 'Quick Actions', icon: Settings }
+          ].map((tab) => {
+            const IconComponent = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center space-x-2 px-6 py-4 text-sm font-medium transition-colors ${
+                  activeTab === tab.id
+                    ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700'
+                }`}
+              >
+                <IconComponent className="w-4 h-4" />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </motion.div>
 
-          {/* Today's Schedule */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700"
-          >
+      {/* Tab Content */}
+      <motion.div
+        key={activeTab}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="min-h-[600px]"
+      >
+        {activeTab === 'notices' && <NoticeBoard />}
+        
+        {activeTab === 'schedule' && (
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
             <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 flex items-center">
               <Calendar className="w-5 h-5 mr-2" />
               Today's Schedule
@@ -203,92 +235,159 @@ export default function StudentDashboard() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
+        )}
 
-          {/* AI Assistant Widget */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold flex items-center">
-                <MessageSquare className="w-5 h-5 mr-2" />
+        {activeTab === 'resources' && (
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+            <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 flex items-center">
+              <BookOpen className="w-5 h-5 mr-2" />
+              Study Resources
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                <div className="flex items-center space-x-3 mb-3">
+                  <FileText className="w-5 h-5 text-blue-600" />
+                  <h3 className="font-medium text-slate-800 dark:text-slate-200">Mathematics Notes</h3>
+                </div>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">Comprehensive notes for Calculus and Linear Algebra</p>
+                <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">View Notes</button>
+              </div>
+              <div className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                <div className="flex items-center space-x-3 mb-3">
+                  <FileText className="w-5 h-5 text-green-600" />
+                  <h3 className="font-medium text-slate-800 dark:text-slate-200">Physics Lab Manual</h3>
+                </div>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">Lab procedures and experiment guidelines</p>
+                <button className="text-green-600 hover:text-green-700 text-sm font-medium">Download</button>
+              </div>
+              <div className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                <div className="flex items-center space-x-3 mb-3">
+                  <FileText className="w-5 h-5 text-purple-600" />
+                  <h3 className="font-medium text-slate-800 dark:text-slate-200">Chemistry Formulas</h3>
+                </div>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">Quick reference for chemical formulas</p>
+                <button className="text-purple-600 hover:text-purple-700 text-sm font-medium">View Sheet</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'attendance' && (
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+            <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 flex items-center">
+              <BarChart3 className="w-5 h-5 mr-2" />
+              Attendance Overview
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <div className="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                <div className="text-3xl font-bold text-blue-600 mb-2">{dashboardData?.attendance?.percentage || 85}%</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">Overall Attendance</div>
+              </div>
+              <div className="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                <div className="text-3xl font-bold text-green-600 mb-2">{dashboardData?.attendance?.present || 85}</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">Classes Attended</div>
+              </div>
+              <div className="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                <div className="text-3xl font-bold text-orange-600 mb-2">{dashboardData?.attendance?.total - dashboardData?.attendance?.present || 15}</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">Classes Missed</div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <h3 className="font-medium text-slate-800 dark:text-slate-200 mb-3">Subject-wise Attendance</h3>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                  <span className="text-slate-800 dark:text-slate-200">Mathematics</span>
+                  <span className="text-green-600 font-medium">92%</span>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                  <span className="text-slate-800 dark:text-slate-200">Physics</span>
+                  <span className="text-orange-600 font-medium">78%</span>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                  <span className="text-slate-800 dark:text-slate-200">Chemistry</span>
+                  <span className="text-green-600 font-medium">88%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'assistant' && (
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-8 text-white">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-semibold flex items-center">
+                <MessageSquare className="w-6 h-6 mr-3" />
                 AI Study Assistant
               </h2>
-              <Sparkles className="w-5 h-5" />
+              <Sparkles className="w-6 h-6" />
             </div>
-            <p className="text-blue-100 mb-4">
-              Get instant help with your studies, assignments, and academic questions.
+            <p className="text-blue-100 mb-6 text-lg">
+              Get instant help with your studies, assignments, and academic questions. Our AI assistant is here to support your learning journey.
             </p>
-            <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg font-medium transition-all duration-200">
-              Ask a Question
-            </button>
-          </motion.div>
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-6">
-          {/* Notifications */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700"
-          >
-            <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 flex items-center">
-              <Bell className="w-5 h-5 mr-2" />
-              Recent Notifications
-            </h2>
-            <div className="space-y-3">
-              {(dashboardData?.notifications || []).map((notification, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
-                  <div className={`w-2 h-2 rounded-full mt-2 ${
-                    notification.type === 'warning' ? 'bg-orange-500' : 'bg-blue-500'
-                  }`} />
-                  <div className="flex-1">
-                    <p className="text-sm text-slate-800 dark:text-slate-200">{notification.message}</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{notification.time}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-white/20 rounded-lg p-4">
+                <h3 className="font-semibold mb-2">Quick Questions</h3>
+                <p className="text-blue-100 text-sm">Ask about concepts, formulas, or get homework help</p>
+              </div>
+              <div className="bg-white/20 rounded-lg p-4">
+                <h3 className="font-semibold mb-2">Study Planning</h3>
+                <p className="text-blue-100 text-sm">Get personalized study schedules and tips</p>
+              </div>
             </div>
-          </motion.div>
+            <button className="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-lg font-medium transition-all duration-200 text-lg">
+              Start Chat with AI Assistant
+            </button>
+          </div>
+        )}
 
-          {/* Quick Actions */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700"
-          >
-            <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4">
+        {activeTab === 'quick-actions' && (
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+            <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4 flex items-center">
+              <Settings className="w-5 h-5 mr-2" />
               Quick Actions
             </h2>
-            <div className="space-y-2">
-              <button className="w-full text-left p-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <button className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors text-left">
                 <div className="flex items-center space-x-3">
                   <FileText className="w-5 h-5 text-blue-600" />
                   <span className="text-slate-700 dark:text-slate-300">Submit Leave Application</span>
                 </div>
               </button>
-              <button className="w-full text-left p-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+              <button className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors text-left">
                 <div className="flex items-center space-x-3">
                   <BookOpen className="w-5 h-5 text-green-600" />
                   <span className="text-slate-700 dark:text-slate-300">View Study Materials</span>
                 </div>
               </button>
-              <button className="w-full text-left p-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+              <button className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors text-left">
                 <div className="flex items-center space-x-3">
                   <BarChart3 className="w-5 h-5 text-purple-600" />
                   <span className="text-slate-700 dark:text-slate-300">Check Attendance</span>
                 </div>
               </button>
+              <button className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors text-left">
+                <div className="flex items-center space-x-3">
+                  <Calendar className="w-5 h-5 text-orange-600" />
+                  <span className="text-slate-700 dark:text-slate-300">View Timetable</span>
+                </div>
+              </button>
+              <button className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors text-left">
+                <div className="flex items-center space-x-3">
+                  <Bell className="w-5 h-5 text-red-600" />
+                  <span className="text-slate-700 dark:text-slate-300">Notifications</span>
+                </div>
+              </button>
+              <button className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors text-left">
+                <div className="flex items-center space-x-3">
+                  <MessageSquare className="w-5 h-5 text-indigo-600" />
+                  <span className="text-slate-700 dark:text-slate-300">Contact Support</span>
+                </div>
+              </button>
             </div>
-          </motion.div>
-        </div>
-      </div>
+          </div>
+        )}
+      </motion.div>
     </div>
   );
 } 
