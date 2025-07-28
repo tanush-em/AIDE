@@ -17,14 +17,22 @@ import {
   GraduationCap,
   Clock3,
   MapPin,
-  Users
+  Users,
+  Home,
+  Schedule,
+  BookOpen as BookOpenIcon,
+  BarChart3 as BarChart3Icon,
+  MessageSquare as MessageSquareIcon,
+  Settings
 } from 'lucide-react';
 import NoticeBoard from '../../../components/NoticeBoard';
+import { useState } from 'react';
 
 export default function StudentDashboard() {
   const [user, setUser] = useState(null);
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('notices');
 
   useEffect(() => {
     const userData = localStorage.getItem('user');
