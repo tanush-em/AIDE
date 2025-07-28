@@ -1,10 +1,58 @@
-{
-    "id": ,
-    "title": "title",
-    "content": "can contain markdown",
-    "posted_by": "",
-    "priority": "low | high | critical",
+[
+  {
+    "id": 1,
+    "title": "Mid-term Examination Schedule",
+    "content": "**Important Notice**\n\nMid-term examinations will be conducted from **January 15-20, 2024**.\n\n**Schedule:**\n- Mathematics: January 15, 9:00 AM\n- Physics: January 16, 2:00 PM\n- Chemistry: January 17, 9:00 AM\n\nPlease ensure you bring your student ID and necessary stationery.",
+    "posted_by": "Academic Department",
+    "priority": "high",
     "pinned": true,
+    "posted_date": "2024-01-10T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Annual Tech Fest Registration Open",
+    "content": "🎉 **Annual Tech Fest 2024** 🎉\n\nRegistration is now open for the Annual Tech Fest to be held on **January 25, 2024**.\n\n**Events include:**\n- Coding Competition\n- Project Showcase\n- Technical Quiz\n- Innovation Challenge\n\n**Registration Deadline:** January 20, 2024\n\nContact the Student Council for more details.",
+    "posted_by": "Student Council",
+    "priority": "high",
+    "pinned": true,
+    "posted_date": "2024-01-08T14:30:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Library Hours Extended",
+    "content": "The library will have **extended hours** during the examination period.\n\n**New Timings:**\n- Monday to Friday: 8:00 AM - 10:00 PM\n- Saturday: 9:00 AM - 8:00 PM\n- Sunday: 10:00 AM - 6:00 PM\n\nStudy rooms are available for group study sessions.",
+    "posted_by": "Library Department",
+    "priority": "low",
+    "pinned": false,
+    "posted_date": "2024-01-09T09:15:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Sports Meet Postponed",
+    "content": "Due to inclement weather, the **Annual Sports Meet** has been postponed.\n\n**New Date:** February 5, 2024\n\nAll registered participants will be notified individually. Practice sessions will continue as scheduled.",
+    "posted_by": "Physical Education Department",
+    "priority": "critical",
+    "pinned": true,
+    "posted_date": "2024-01-11T16:45:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Career Counseling Session",
+    "content": "**Career Counseling Session** for final year students.\n\n**Date:** January 18, 2024\n**Time:** 2:00 PM - 4:00 PM\n**Venue:** Auditorium\n\nTopics covered:\n- Resume Building\n- Interview Preparation\n- Job Market Trends\n- Higher Education Opportunities\n\nRegistration required. Limited seats available.",
+    "posted_by": "Career Guidance Cell",
+    "priority": "high",
+    "pinned": false,
+    "posted_date": "2024-01-07T11:20:00Z"
+  },
+  {
+    "id": 6,
+    "title": "WiFi Maintenance Notice",
+    "content": "**Scheduled WiFi Maintenance**\n\nCampus WiFi will be under maintenance on **January 12, 2024** from 2:00 AM to 6:00 AM.\n\n**Affected areas:**\n- Academic Block A\n- Library\n- Student Center\n\nAlternative internet access will be available in the Computer Lab.",
+    "posted_by": "IT Department",
+    "priority": "low",
+    "pinned": false,
+    "posted_date": "2024-01-06T13:30:00Z"
   }
+]
   
-  I WANNA BUILD THE NOTICE BOARD FEATURE FOR THIS PROJECT. FOR NOW JUST DISPLYA THE DATA FROM NOTICE.JSON IN backend/data/notice/notice.json. NOtice board should be displayed in the dashbopard itslef right after the login. This is only for the student login.
+  

@@ -179,5 +179,19 @@ def get_dashboard_data(role, user_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/notices', methods=['GET'])
+def get_notices():
+    """Get all notices"""
+    try:
+        notice_file_path = 'data/notice/notice.json'
+        if os.path.exists(notice_file_path):
+            with open(notice_file_path, 'r', encoding='utf-8') as file:
+                notices = json.load(file)
+            return jsonify(notices)
+        else:
+            return jsonify([])
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001) 
