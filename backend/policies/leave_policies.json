@@ -1,0 +1,85 @@
+{
+  "leave_types": {
+    "medical": {
+      "max_days_per_semester": 15,
+      "requires_certificate": true,
+      "auto_approve_threshold": 3,
+      "advance_notice_required": false,
+      "description": "Medical leave for health-related issues",
+      "documentation_required": ["medical_certificate"],
+      "approval_workflow": ["faculty", "hod"]
+    },
+    "personal": {
+      "max_days_per_semester": 10,
+      "requires_certificate": false,
+      "auto_approve_threshold": 1,
+      "advance_notice_required": true,
+      "min_advance_days": 3,
+      "description": "Personal leave for family events or personal matters",
+      "documentation_required": [],
+      "approval_workflow": ["faculty"]
+    },
+    "emergency": {
+      "max_days_per_semester": 7,
+      "requires_certificate": false,
+      "auto_approve_threshold": 2,
+      "advance_notice_required": false,
+      "post_approval_documentation": true,
+      "description": "Emergency leave for urgent situations",
+      "documentation_required": ["emergency_proof"],
+      "approval_workflow": ["faculty", "hod"]
+    },
+    "planned": {
+      "max_days_per_semester": 20,
+      "requires_certificate": false,
+      "auto_approve_threshold": 0,
+      "advance_notice_required": true,
+      "min_advance_days": 7,
+      "description": "Planned leave for pre-scheduled events",
+      "documentation_required": [],
+      "approval_workflow": ["faculty", "hod"]
+    }
+  },
+  "approval_workflow": {
+    "auto_approve_conditions": [
+      "leave_days <= auto_approve_threshold",
+      "student_attendance_percentage >= 75",
+      "no_pending_assignments",
+      "no_previous_violations"
+    ],
+    "escalation_rules": [
+      "leave_days > 7: require_hod_approval",
+      "medical_leave > 15: require_medical_board",
+      "consecutive_leaves > 3: require_parent_consent"
+    ],
+    "approval_hierarchy": {
+      "faculty": "class_teacher",
+      "hod": "head_of_department",
+      "principal": "institution_head"
+    }
+  },
+  "attendance_impact": {
+    "medical_leave": "exempted_from_attendance",
+    "personal_leave": "counted_as_absent",
+    "emergency_leave": "exempted_from_attendance",
+    "planned_leave": "counted_as_absent"
+  },
+  "notification_rules": {
+    "auto_approve": ["student", "faculty"],
+    "manual_approval": ["student", "faculty", "hod"],
+    "rejection": ["student", "faculty"],
+    "escalation": ["hod", "principal"]
+  },
+  "documentation_requirements": {
+    "medical_certificate": {
+      "required_for": ["medical"],
+      "validity_days": 30,
+      "format": ["pdf", "jpg", "png"]
+    },
+    "emergency_proof": {
+      "required_for": ["emergency"],
+      "validity_days": 7,
+      "format": ["pdf", "jpg", "png"]
+    }
+  }
+}

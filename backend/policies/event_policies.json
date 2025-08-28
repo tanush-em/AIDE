@@ -1,0 +1,118 @@
+{
+  "registration_rules": {
+    "advance_booking_days": 7,
+    "max_events_per_student_per_month": 5,
+    "cancellation_deadline_hours": 24,
+    "waitlist_enabled": true,
+    "max_waitlist_size": 20
+  },
+  "event_categories": {
+    "technical": {
+      "requires_approval": false,
+      "default_duration_hours": 4,
+      "max_participants_default": 100,
+      "faculty_oversight_required": false
+    },
+    "cultural": {
+      "requires_approval": true,
+      "default_duration_hours": 6,
+      "max_participants_default": 200,
+      "faculty_oversight_required": true
+    },
+    "sports": {
+      "requires_approval": false,
+      "default_duration_hours": 3,
+      "max_participants_default": 50,
+      "faculty_oversight_required": false
+    },
+    "academic": {
+      "requires_approval": true,
+      "default_duration_hours": 2,
+      "max_participants_default": 150,
+      "faculty_oversight_required": true
+    },
+    "workshop": {
+      "requires_approval": false,
+      "default_duration_hours": 8,
+      "max_participants_default": 30,
+      "faculty_oversight_required": true
+    },
+    "seminar": {
+      "requires_approval": true,
+      "default_duration_hours": 3,
+      "max_participants_default": 80,
+      "faculty_oversight_required": true
+    }
+  },
+  "approval_workflow": {
+    "approval_levels": {
+      "faculty": "class_teacher",
+      "hod": "head_of_department",
+      "principal": "institution_head"
+    },
+    "auto_approval_conditions": [
+      "event_type in ['technical', 'sports']",
+      "participants <= 50",
+      "duration <= 4_hours",
+      "no_external_speakers"
+    ],
+    "escalation_rules": [
+      "participants > 100: require_hod_approval",
+      "external_speakers: require_principal_approval",
+      "budget > 10000: require_principal_approval"
+    ]
+  },
+  "resource_allocation": {
+    "venue_booking": {
+      "advance_booking_days": 14,
+      "max_booking_duration_hours": 12,
+      "setup_time_minutes": 30,
+      "cleanup_time_minutes": 30
+    },
+    "equipment_requirements": {
+      "projector": "available_on_request",
+      "sound_system": "available_on_request",
+      "computers": "lab_booking_required",
+      "internet": "available_by_default"
+    }
+  },
+  "notification_rules": {
+    "event_creation": ["faculty", "students"],
+    "registration_open": ["students"],
+    "registration_closed": ["students", "faculty"],
+    "event_reminder": ["registered_students"],
+    "event_cancellation": ["registered_students", "faculty"],
+    "event_completion": ["faculty", "participants"]
+  },
+  "attendance_tracking": {
+    "mandatory_for": ["academic", "workshop"],
+    "optional_for": ["cultural", "sports", "technical"],
+    "attendance_method": "qr_code_scan",
+    "late_arrival_threshold_minutes": 15
+  },
+  "feedback_collection": {
+    "mandatory_feedback": ["workshop", "seminar"],
+    "optional_feedback": ["technical", "cultural", "sports"],
+    "feedback_questions": [
+      "event_organization_rating",
+      "content_quality_rating",
+      "speaker_effectiveness_rating",
+      "overall_satisfaction_rating",
+      "suggestions_for_improvement"
+    ]
+  },
+  "budget_guidelines": {
+    "technical_event": {
+      "max_budget": 5000,
+      "requires_approval_above": 2000
+    },
+    "cultural_event": {
+      "max_budget": 10000,
+      "requires_approval_above": 5000
+    },
+    "workshop": {
+      "max_budget": 15000,
+      "requires_approval_above": 8000
+    }
+  }
+}

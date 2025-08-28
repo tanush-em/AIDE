@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: academic_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    volumes:
+      - mongodb_data:/data/db
+      - ./backend/data:/docker-entrypoint-initdb.d
+    networks:
+      - academic_network
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: academic_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass redis123
+    volumes:
+      - redis_data:/data
+    networks:
+      - academic_network
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: academic_backend
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      - MONGODB_URI=mongodb://admin:password123@mongodb:27017/academic_ai
+      - REDIS_URL=redis://:redis123@redis:6379/0
+      - FLASK_ENV=development
+      - DEBUG=True
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - ./backend:/app
+      - uploads_data:/app/uploads
+      - chroma_data:/app/chroma_db
+    networks:
+      - academic_network
+
+  frontend:
+    build: 
+      context: ./aide
+      dockerfile: Dockerfile
+    container_name: academic_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5001/api/v1
+    depends_on:
+      - backend
+    networks:
+      - academic_network
+
+volumes:
+  mongodb_data:
+  redis_data:
+  uploads_data:
+  chroma_data:
+
+networks:
+  academic_network:
+    driver: bridge
