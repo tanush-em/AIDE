@@ -1,367 +1,277 @@
 # Academic AI Management System
 
-A comprehensive, agentic AI-powered academic management system built with Flask, Next.js, and advanced AI capabilities including RAG (Retrieval-Augmented Generation) for intelligent query handling.
+A comprehensive agentic AI-powered academic management system with Flask backend, Next.js frontend, and intelligent RAG capabilities.
 
-## 🚀 Features
+## 🚀 Project Overview
 
-### Core Academic Management
-- **📊 Attendance Management** - Mark, track, and analyze student attendance with policy validation
-- **📝 Leave Request System** - Complete workflow for leave requests with approval/rejection
-- **🎯 Event Management** - Create, register, and manage academic events with capacity control
-- **📢 Notice Board** - Priority-based notice posting with role-based access control
-- **📚 Resource Management** - File upload/download with access control and analytics
+This system provides a complete academic management solution with AI-powered agents for:
+- **Attendance Management** with intelligent tracking and analytics
+- **Leave Request Processing** with policy validation and automated workflows
+- **Event Coordination** with registration management and capacity planning
+- **Notice Board** with targeted announcements and priority management
+- **Resource Management** with secure file handling and access control
+- **Intelligent Query Handling** using RAG (Retrieval-Augmented Generation)
 
-### AI-Powered Features
-- **🤖 Multi-Agent System** - Specialized AI agents for different academic workflows
-- **🧠 RAG System** - Intelligent query handling with knowledge base integration
-- **📋 Policy Validation** - Automated validation against institutional policies
-- **🔍 Semantic Search** - Advanced search across policies, notices, and resources
+## ✨ Key Features
 
-### Security & Access Control
-- **🔐 Role-Based Authentication** - Student, Faculty, Coordinator roles
-- **🛡️ JWT Security** - Secure token-based authentication
-- **📁 File Access Control** - Role-based resource access
-- **🔒 Policy Enforcement** - Automated compliance checking
+### 🤖 AI Agent System
+- **LeaveAgent**: Handles leave requests, policy queries, and validation
+- **AttendanceAgent**: Manages attendance analytics and policy compliance
+- **EventAgent**: Coordinates events and registration workflows
+- **QAAgent**: General question answering with RAG capabilities
+- **AgentOrchestrator**: Intelligent routing and multi-agent coordination
+
+### 🔍 RAG (Retrieval-Augmented Generation)
+- **Multi-source Knowledge**: Static policies, dynamic records, vectorized knowledge base
+- **Contextual Search**: Semantic search across all data sources
+- **Policy Integration**: Real-time policy validation and guidance
+- **Personalized Responses**: Role-based and context-aware AI responses
+
+### 📊 Core Management Features
+- **Role-based Access Control**: Student, Faculty, and Coordinator roles
+- **Real-time Analytics**: Comprehensive statistics and insights
+- **Policy Compliance**: Automated validation against institutional policies
+- **File Management**: Secure resource upload and download system
+- **Notification System**: Targeted announcements and alerts
 
 ## 🏗️ Architecture
 
 ### Backend Stack
-- **Flask** - Web framework with Blueprint architecture
-- **MongoDB** - Primary database for dynamic data
-- **Redis** - Caching and session management
-- **ChromaDB** - Vector database for RAG system
-- **Groq** - LLM integration for AI agents
-- **Sentence-Transformers** - Text embeddings for semantic search
+- **Flask**: Web framework with Blueprint architecture
+- **MongoDB**: Primary database for dynamic records
+- **Redis**: Caching and session management
+- **ChromaDB**: Vector database for knowledge base
+- **Groq**: LLM client for AI agent interactions
+- **Sentence-Transformers**: Text embeddings for RAG
+- **Pydantic**: Data validation and serialization
 
 ### Frontend Stack
-- **Next.js 14** - React framework with App Router
-- **Tailwind CSS** - Utility-first CSS framework
-- **Zustand** - State management
-- **Axios** - HTTP client
-- **React Hook Form** - Form handling
+- **Next.js**: React framework with SSR capabilities
+- **React**: UI components and state management
+- **Tailwind CSS**: Utility-first CSS framework
+- **Axios**: HTTP client for API communication
+- **Zustand**: Lightweight state management
+- **React Query**: Server state management
 
 ### AI & ML Components
-- **LangChain** - AI agent framework
-- **RAG Pipeline** - Knowledge retrieval and generation
-- **Policy Engine** - Automated policy validation
-- **Multi-Agent Orchestration** - Coordinated AI workflows
+- **Langchain**: Framework for LLM applications
+- **Groq API**: High-performance LLM inference
+- **ChromaDB**: Vector similarity search
+- **Sentence-Transformers**: Text embedding models
 
-## 📊 Database Schema
+## 📋 Prerequisites
 
-### Core Collections
-```javascript
-// Users (extends existing CSV authentication)
-{
-  user_id: String,
-  email: String,
-  role: Enum['student', 'faculty', 'coordinator'],
-  profile: Object,
-  created_at: DateTime
-}
-
-// Attendance
-{
-  student_id: String,
-  course_code: String,
-  date: DateTime,
-  status: Enum['present', 'absent', 'late', 'excused'],
-  session_type: Enum['lecture', 'lab', 'tutorial'],
-  marked_by: String
-}
-
-// Leave Requests
-{
-  request_id: String,
-  student_id: String,
-  start_date: DateTime,
-  end_date: DateTime,
-  reason: String,
-  leave_type: Enum['medical', 'personal', 'academic'],
-  status: Enum['pending', 'approved', 'rejected'],
-  reviewed_by: String
-}
-
-// Events
-{
-  event_id: String,
-  title: String,
-  description: String,
-  event_type: Enum['workshop', 'seminar', 'conference'],
-  start_datetime: DateTime,
-  max_participants: Number,
-  current_registrations: Number
-}
-
-// Notices
-{
-  notice_id: String,
-  title: String,
-  content: String,
-  priority: Enum['low', 'medium', 'high'],
-  category: Enum['academic', 'administrative', 'event'],
-  target_audience: Array[String],
-  posted_by: String
-}
-
-// Resources
-{
-  resource_id: String,
-  title: String,
-  description: String,
-  file_path: String,
-  file_size: Number,
-  access_level: Enum['public', 'students', 'faculty'],
-  uploaded_by: String,
-  download_count: Number
-}
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
 - Python 3.8+
 - Node.js 18+
 - MongoDB 5.0+
 - Redis 6.0+
+- Docker & Docker Compose (optional)
 
-### Installation
+## 🛠️ Installation
 
-#### Option 1: Docker (Recommended)
-```bash
-# Clone the repository
-git clone <repository-url>
-cd AIDE
+### Option 1: Docker (Recommended)
 
-# Start all services
-docker-compose up -d
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd academic-ai-management
+   ```
 
-# Access the application
-# Backend: http://localhost:5001
-# Frontend: http://localhost:3000
-# MongoDB: localhost:27017
-# Redis: localhost:6379
-```
+2. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
 
-#### Option 2: Local Development
-```bash
-# Backend Setup
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+3. **Start services with Docker Compose**
+   ```bash
+   docker-compose up -d
+   ```
 
-# Set environment variables
-cp env.example .env
-# Edit .env with your configuration
+4. **Access the application**
+   - Backend API: http://localhost:5000
+   - Frontend: http://localhost:3000
+   - MongoDB: localhost:27017
+   - Redis: localhost:6379
 
-# Start backend
-python run.py
+### Option 2: Local Development
 
-# Frontend Setup (in new terminal)
-cd aide
-npm install
-npm run dev
-```
+1. **Backend Setup**
+   ```bash
+   cd backend
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
-### Environment Configuration
-```bash
-# Backend (.env)
+2. **Frontend Setup**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+3. **Database Setup**
+   ```bash
+   # Start MongoDB and Redis
+   mongod
+   redis-server
+   ```
+
+4. **Run the application**
+   ```bash
+   # Backend
+   cd backend
+   python run.py
+   
+   # Frontend (in another terminal)
+   cd frontend
+   npm run dev
+   ```
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+# Flask Configuration
 FLASK_ENV=development
 SECRET_KEY=your-secret-key
 JWT_SECRET_KEY=your-jwt-secret
+
+# Database Configuration
 MONGODB_URI=mongodb://localhost:27017/academic_ai
 REDIS_URL=redis://localhost:6379/0
+
+# AI Configuration
 GROQ_API_KEY=your-groq-api-key
 GROQ_MODEL=llama3-8b-8192
+
+# File Storage
+UPLOAD_FOLDER=uploads
+MAX_CONTENT_LENGTH=16777216
+
+# Email Configuration (optional)
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+EMAIL_USERNAME=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+
+# Development
+DEBUG=true
+LOG_LEVEL=INFO
 ```
 
-## 📚 API Documentation
+### Policy Files
+
+The system uses static JSON policy files for:
+- Leave policies (`backend/policies/leave_policies.json`)
+- Attendance policies (`backend/policies/attendance_policies.json`)
+- Event policies (`backend/policies/event_policies.json`)
+
+## 🚀 Usage
 
 ### Authentication
-```bash
-# Login
-POST /api/auth/login
-{
-  "email": "tmtanush@gmail.com",
-  "password": "1234",
-  "role": "student"
-}
 
-# Response
-{
-  "success": true,
-  "user": {...},
-  "access_token": "jwt-token",
-  "refresh_token": "refresh-token"
-}
-```
+The system preserves existing CSV-based authentication while adding JWT support:
 
-### Attendance Management
-```bash
-# Mark attendance
-POST /api/attendance/mark
-{
-  "student_id": "STU001",
-  "course_code": "CS101",
-  "date": "2024-01-15",
-  "status": "present",
-  "session_type": "lecture"
-}
+1. **Login**: `POST /api/auth/login`
+2. **Token Refresh**: `POST /api/auth/refresh`
+3. **Logout**: `POST /api/auth/logout`
 
-# View attendance
-GET /api/attendance/view/STU001?course_code=CS101
+### AI Agent Interaction
 
-# Get statistics
-GET /api/attendance/stats/STU001
-```
+1. **General Chat**: `POST /api/agents/chat`
+2. **Specific Agent**: `POST /api/agents/chat/{agent_name}`
+3. **Agent Capabilities**: `GET /api/agents/capabilities`
+4. **Agent Health**: `GET /api/agents/health`
 
-### Leave Management
-```bash
-# Create leave request
-POST /api/leaves/request
-{
-  "student_id": "STU001",
-  "start_date": "2024-01-20",
-  "end_date": "2024-01-22",
-  "reason": "Medical emergency",
-  "leave_type": "medical"
-}
+### Core Features
 
-# Approve/reject leave
-POST /api/leaves/approve/LR2024011501ABCD
-{
-  "action": "approve",
-  "remarks": "Approved with documentation"
-}
+#### Attendance Management
+- Mark attendance: `POST /api/attendance/mark`
+- Bulk attendance: `POST /api/attendance/bulk-mark`
+- View attendance: `GET /api/attendance/view/{student_id}`
+- Attendance stats: `GET /api/attendance/stats/{student_id}`
 
-# View leave balance
-GET /api/leaves/balance/STU001
-```
+#### Leave Management
+- Create leave request: `POST /api/leaves/request`
+- Approve/reject: `POST /api/leaves/approve/{request_id}`
+- View requests: `GET /api/leaves/view/{student_id}`
+- Leave balance: `GET /api/leaves/balance/{student_id}`
 
-### Event Management
-```bash
-# Create event
-POST /api/events/create
-{
-  "title": "AI Workshop",
-  "description": "Introduction to AI",
-  "event_type": "workshop",
-  "start_datetime": "2024-02-01T10:00:00",
-  "max_participants": 50
-}
+#### Event Management
+- Create event: `POST /api/events/create`
+- Register for event: `POST /api/events/register/{event_id}`
+- List events: `GET /api/events/list`
+- Event details: `GET /api/events/{event_id}`
 
-# Register for event
-POST /api/events/register/EVT2024011501ABCD
+#### Notice Board
+- Post notice: `POST /api/notices/post`
+- List notices: `GET /api/notices/list`
+- Update notice: `PUT /api/notices/update/{notice_id}`
+- Search notices: `GET /api/notices/search`
 
-# View event registrations
-GET /api/events/registrations/EVT2024011501ABCD
-```
-
-### Notice Board
-```bash
-# Post notice
-POST /api/notices/post
-{
-  "title": "Exam Schedule Update",
-  "content": "Updated exam schedule...",
-  "priority": "high",
-  "category": "academic",
-  "target_audience": ["students"]
-}
-
-# List notices
-GET /api/notices/list?priority=high&category=academic
-
-# Search notices
-GET /api/notices/search?q=exam schedule
-```
-
-### Resource Management
-```bash
-# Upload resource
-POST /api/resources/upload
-Content-Type: multipart/form-data
-{
-  "file": "document.pdf",
-  "title": "Course Syllabus",
-  "description": "CS101 Course Syllabus",
-  "category": "syllabus",
-  "access_level": "students"
-}
-
-# Download resource
-GET /api/resources/download/RES2024011501ABCD
-
-# Search resources
-GET /api/resources/search?q=syllabus
-```
+#### Resource Management
+- Upload resource: `POST /api/resources/upload`
+- Download resource: `GET /api/resources/download/{resource_id}`
+- List resources: `GET /api/resources/list`
+- Search resources: `GET /api/resources/search`
 
 ## 🤖 AI Agent System
 
-### Available Agents
-- **AttendanceAgent** - Handles attendance queries and analytics
-- **LeaveAgent** - Processes leave requests and policy validation
-- **EventAgent** - Manages event coordination and registration
-- **NoticeAgent** - Handles notice posting and distribution
-- **QAAgent** - General question answering with RAG
+### Agent Types
 
-### Agent Interaction
-```bash
-# Chat with AI agent
-POST /api/agents/chat
-{
-  "query": "What is the attendance policy for medical leave?",
-  "context": {
-    "user_role": "student",
-    "user_id": "STU001"
-  }
-}
+1. **LeaveAgent**
+   - Leave policy queries
+   - Request validation
+   - Balance calculation
+   - Approval recommendations
 
-# Get agent capabilities
-GET /api/agents/capabilities
-```
+2. **AttendanceAgent**
+   - Attendance analytics
+   - Policy compliance
+   - Statistics generation
+   - Alert management
 
-## 🔍 RAG System
+3. **EventAgent**
+   - Event creation guidance
+   - Registration management
+   - Capacity planning
+   - Coordination assistance
 
-### Knowledge Base Components
-- **Static Policies** - JSON-based institutional policies
-- **Dynamic Records** - MongoDB collections for real-time data
-- **Vector Database** - ChromaDB for semantic search
+4. **QAAgent**
+   - General academic queries
+   - Policy explanations
+   - Procedural guidance
+   - Knowledge base search
 
-### RAG Features
-- **Semantic Search** - Find relevant policies and information
-- **Context Retrieval** - Get contextual information for queries
-- **Policy Validation** - Automated compliance checking
-- **Query Expansion** - Enhanced search capabilities
+### RAG System
 
-## 📈 Analytics & Reporting
+The RAG system provides:
+- **Multi-source Retrieval**: Policies, records, knowledge base
+- **Contextual Understanding**: Role-based and query-specific context
+- **Policy Integration**: Real-time validation and guidance
+- **Personalized Responses**: User-specific and role-aware answers
 
-### Dashboard Features
-- **Real-time Statistics** - Live updates on system usage
-- **Role-based Views** - Customized dashboards per user role
-- **Trend Analysis** - Historical data visualization
-- **Export Capabilities** - Data export in multiple formats
+## 📊 Database Schema
 
-### Available Reports
-- Attendance reports by course, student, or date range
-- Leave request analytics and processing times
-- Event registration and participation statistics
-- Notice engagement and readership metrics
-- Resource usage and download analytics
+### Collections
 
-## 🔒 Security Features
+1. **users**: User profiles and authentication
+2. **attendance**: Attendance records and statistics
+3. **leave_requests**: Leave applications and approvals
+4. **events**: Event details and registrations
+5. **notices**: Announcements and notifications
+6. **resources**: File metadata and access control
 
-### Authentication & Authorization
-- **JWT Tokens** - Secure session management
-- **Role-based Access Control** - Granular permissions
-- **CSRF Protection** - Cross-site request forgery prevention
-- **Input Validation** - Comprehensive data validation
+### Key Fields
 
-### Data Protection
-- **File Encryption** - Secure file storage
-- **Access Logging** - Comprehensive audit trails
-- **Data Backup** - Automated backup systems
-- **Privacy Compliance** - GDPR and FERPA compliance
+- **Role-based Access**: `role` field controls permissions
+- **Audit Trail**: `created_at`, `updated_at`, `created_by`
+- **Soft Deletes**: `is_deleted` flag for data retention
+- **Status Tracking**: Various status fields for workflow management
 
 ## 🧪 Testing
 
@@ -369,154 +279,145 @@ GET /api/agents/capabilities
 ```bash
 cd backend
 python -m pytest tests/
-python -m pytest tests/ --cov=app --cov-report=html
 ```
 
 ### Frontend Testing
 ```bash
-cd aide
+cd frontend
 npm test
-npm run test:coverage
 ```
 
 ### API Testing
 ```bash
-# Using curl
-curl -X POST http://localhost:5001/api/auth/login \
+# Using curl or Postman
+curl -X POST http://localhost:5000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"tmtanush@gmail.com","password":"1234","role":"student"}'
-
-# Using Postman
-# Import the provided Postman collection
+  -d '{"email": "student@example.com", "password": "password"}'
 ```
 
-## 📊 Monitoring & Logging
+## 📈 Monitoring
 
-### Application Monitoring
-- **Health Checks** - System health monitoring
-- **Performance Metrics** - Response time tracking
-- **Error Tracking** - Comprehensive error logging
-- **Usage Analytics** - User behavior analysis
+### Logs
+- Application logs: `logs/app.log`
+- Error tracking: Centralized error logging
+- Performance monitoring: Request/response timing
 
-### Log Management
-- **Structured Logging** - JSON-formatted logs
-- **Log Levels** - Configurable logging levels
-- **Log Rotation** - Automated log management
-- **Centralized Logging** - Unified log collection
+### Health Checks
+- API health: `GET /health`
+- Agent health: `GET /api/agents/health`
+- Database connectivity: Automatic connection testing
+
+## 🔒 Security
+
+### Authentication & Authorization
+- JWT-based session management
+- Role-based access control
+- Password hashing with bcrypt
+- CSRF protection
+
+### Data Protection
+- Input validation with Pydantic
+- SQL injection prevention
+- File upload security
+- Secure filename handling
+
+### API Security
+- Rate limiting
+- Request validation
+- Error message sanitization
+- CORS configuration
 
 ## 🚀 Deployment
 
-### Production Deployment
+### Production Setup
+1. Set `FLASK_ENV=production`
+2. Configure production databases
+3. Set up reverse proxy (nginx)
+4. Configure SSL certificates
+5. Set up monitoring and logging
+
+### Docker Deployment
 ```bash
-# Using Docker
 docker-compose -f docker-compose.prod.yml up -d
-
-# Using Kubernetes
-kubectl apply -f k8s/
-
-# Using AWS
-aws ecs create-service --cluster academic-ai --service-name backend
-```
-
-### Environment Variables
-```bash
-# Production settings
-FLASK_ENV=production
-DEBUG=False
-LOG_LEVEL=WARNING
-MONGODB_URI=mongodb://prod-mongo:27017/academic_ai
-REDIS_URL=redis://prod-redis:6379/0
 ```
 
 ## 🤝 Contributing
 
-### Development Workflow
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
 4. Add tests
 5. Submit a pull request
 
-### Code Standards
-- **Python** - PEP 8 compliance
-- **JavaScript** - ESLint configuration
-- **Documentation** - Comprehensive docstrings
-- **Testing** - Minimum 80% coverage
-
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## 🆘 Support
 
-### Getting Help
-- **Documentation** - Comprehensive guides and tutorials
-- **Issues** - GitHub issues for bug reports
-- **Discussions** - Community discussions and Q&A
-- **Email Support** - Direct support for enterprise users
-
-### Community
-- **Discord Server** - Real-time community support
-- **GitHub Discussions** - Technical discussions
-- **Blog** - Latest updates and tutorials
-- **Newsletter** - Monthly updates and tips
+For support and questions:
+- Create an issue on GitHub
+- Check the documentation
+- Review the API reference
 
 ## 🗺️ Roadmap
 
-### ✅ Completed Phases
-- **Phase 1: Foundation** - Authentication, database setup, basic architecture
-- **Phase 2: RAG & Knowledge Base** - AI agents, policy management, vector database
-- **Phase 3: Core Features** - Complete CRUD operations for all modules
+### ✅ Phase 1: Foundation (Complete)
+- [x] Project structure setup
+- [x] Basic Flask application
+- [x] MongoDB integration
+- [x] Authentication system
+- [x] Basic API endpoints
 
-### 🔄 Current Phase
-- **Phase 4: AI Agents** - Advanced agent implementation and Groq integration
+### ✅ Phase 2: Core Infrastructure (Complete)
+- [x] RAG system implementation
+- [x] Policy management
+- [x] Knowledge base setup
+- [x] Agent framework foundation
+- [x] Docker configuration
 
-### 📋 Upcoming Phases
-- **Phase 5: Advanced Features** - Real-time notifications, mobile app, analytics
-- **Phase 6: Enterprise Features** - Multi-tenant support, advanced security
-- **Phase 7: AI Enhancement** - Advanced RAG, multi-modal AI, predictive analytics
+### ✅ Phase 3: Core Features (Complete)
+- [x] Attendance management
+- [x] Leave request system
+- [x] Event management
+- [x] Notice board
+- [x] Resource management
+- [x] Role-based access control
+- [x] Policy validation
 
-## 🏆 Features Summary
+### ✅ Phase 4: AI Agents (Complete)
+- [x] Specialized agent implementation
+- [x] Groq LLM integration
+- [x] Advanced RAG features
+- [x] Multi-agent orchestration
+- [x] Agent API endpoints
+- [x] Intelligent query routing
 
-| Feature | Status | Description |
-|---------|--------|-------------|
-| Authentication | ✅ Complete | JWT-based with role management |
-| Attendance | ✅ Complete | Full CRUD with analytics |
-| Leave Management | ✅ Complete | End-to-end workflow |
-| Event Management | ✅ Complete | Creation, registration, analytics |
-| Notice Board | ✅ Complete | Priority-based with search |
-| Resource Management | ✅ Complete | File upload/download with access control |
-| AI Agents | 🔄 In Progress | Specialized agents for workflows |
-| RAG System | ✅ Complete | Knowledge base and semantic search |
-| Policy Engine | ✅ Complete | Automated validation |
-| Analytics | ✅ Complete | Comprehensive reporting |
-| Security | ✅ Complete | Role-based access control |
-| Testing | ✅ Complete | Unit and integration tests |
+### 🔄 Phase 5: Advanced Features (In Progress)
+- [ ] Real-time notifications
+- [ ] Advanced analytics dashboard
+- [ ] Mobile app support
+- [ ] Third-party integrations
+- [ ] Performance optimization
+- [ ] Advanced security features
 
-## 🎯 Use Cases
+### 📋 Phase 6: Enterprise Features (Planned)
+- [ ] Multi-tenant support
+- [ ] Advanced reporting
+- [ ] Workflow automation
+- [ ] Integration APIs
+- [ ] Advanced monitoring
+- [ ] Backup and recovery
 
-### For Students
-- View attendance records and statistics
-- Submit and track leave requests
-- Register for academic events
-- Access course resources and notices
-- Get AI-powered assistance for queries
-
-### For Faculty
-- Mark and manage student attendance
-- Approve/reject leave requests
-- Create and manage events
-- Post notices and announcements
-- Upload and manage course resources
-
-### For Coordinators
-- Oversee all academic activities
-- Generate comprehensive reports
-- Manage institutional policies
-- Coordinate multi-department events
-- Monitor system analytics
+### 🚀 Phase 7: AI Enhancement (Planned)
+- [ ] Advanced RAG capabilities
+- [ ] Multi-modal AI support
+- [ ] Predictive analytics
+- [ ] Natural language processing
+- [ ] Machine learning models
+- [ ] AI-powered insights
 
 ---
 
-**Built with ❤️ for modern academic institutions**
+**Current Status**: Phase 4 (AI Agents) completed. Moving to Phase 5 (Advanced Features).
 
