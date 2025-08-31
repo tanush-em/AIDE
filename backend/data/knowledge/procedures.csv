@@ -1,0 +1,6 @@
+procedure_name,description,steps,responsible_party,timeframe
+Student Registration,Process for new student enrollment,"1. Submit application form, 2. Verify documents, 3. Pay fees, 4. Assign student ID",Admissions Office,2-3 business days
+Course Enrollment,Students selecting courses for semester,"1. Review course catalog, 2. Check prerequisites, 3. Submit enrollment form, 4. Get approval",Academic Advisor,1 week
+Grade Submission,Faculty submitting final grades,"1. Calculate grades, 2. Review with department head, 3. Submit to registrar, 4. Publish to students",Faculty,Within 48 hours of exam
+Leave Approval,Processing leave requests,"1. Submit leave application, 2. Review by coordinator, 3. Check leave balance, 4. Approve/reject",Faculty Coordinator,3-5 business days
+Event Planning,Organizing academic events,"1. Submit event proposal, 2. Get budget approval, 3. Book venues, 4. Send invitations",Event Coordinator,2-4 weeks

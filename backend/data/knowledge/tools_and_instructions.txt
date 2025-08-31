@@ -1,0 +1,38 @@
+ACADEMIC MANAGEMENT SYSTEM TOOLS AND INSTRUCTIONS
+
+1. ATTENDANCE MANAGEMENT TOOL
+   - Purpose: Track student attendance for all courses
+   - Features: Daily attendance recording, weekly reports, attendance analytics
+   - Usage: Faculty can mark attendance, students can view their records
+   - Data Storage: All attendance data is stored securely with timestamps
+
+2. LEAVE MANAGEMENT SYSTEM
+   - Purpose: Handle student and faculty leave requests
+   - Features: Leave application, approval workflow, leave balance tracking
+   - Usage: Users submit leave requests, coordinators approve/reject
+   - Notifications: Automatic email notifications for status updates
+
+3. EVENT COORDINATION PLATFORM
+   - Purpose: Plan and manage academic events
+   - Features: Event scheduling, resource allocation, participant management
+   - Usage: Create events, assign resources, track registrations
+   - Integration: Connects with calendar systems and notification services
+
+4. QUERY HANDLING SYSTEM
+   - Purpose: Provide intelligent responses to academic queries
+   - Features: Natural language processing, context-aware responses
+   - Usage: Users ask questions, system provides relevant answers
+   - Knowledge Base: Access to academic policies, procedures, and guidelines
+
+5. REPORTING AND ANALYTICS
+   - Purpose: Generate insights from academic data
+   - Features: Attendance reports, performance analytics, trend analysis
+   - Usage: Generate reports for different stakeholders
+   - Export: Reports can be exported in PDF, Excel, or CSV formats
+
+SYSTEM INSTRUCTIONS:
+- All tools require proper authentication and authorization
+- Data privacy and security are top priorities
+- Regular backups are performed automatically
+- System maintenance occurs during off-peak hours
+- Users should report any issues through the support portal

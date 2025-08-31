@@ -1,0 +1,46 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class RAGConfig:
+    """Configuration settings for the RAG system"""
+    
+    # API Keys
+    GROQ_API_KEY = os.getenv('GROQ_API_KEY')
+    
+    # Model Settings
+    EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+    LLM_MODEL = "llama3-8b-8192"  # Groq model
+    
+    # Vector Store Settings
+    VECTOR_STORE_PATH = "data/vector_store"
+    CHUNK_SIZE = 1000
+    CHUNK_OVERLAP = 200
+    
+    # Memory Settings
+    MAX_CONVERSATION_HISTORY = 10
+    SESSION_TIMEOUT = 3600  # 1 hour
+    
+    # Knowledge Base Settings
+    KNOWLEDGE_BASE_PATH = "data/knowledge"
+    SUPPORTED_FORMATS = ['.txt', '.json', '.csv', '.md']
+    
+    # Agent Settings
+    MAX_RETRIEVAL_RESULTS = 5
+    SIMILARITY_THRESHOLD = 0.7
+    
+    # Response Settings
+    MAX_RESPONSE_LENGTH = 1000
+    TEMPERATURE = 0.7
+    
+    @classmethod
+    def validate(cls):
+        """Validate required configuration"""
+        if not cls.GROQ_API_KEY:
+            raise ValueError("GROQ_API_KEY is required in environment variables")
+        
+        if not os.path.exists(cls.KNOWLEDGE_BASE_PATH):
+            raise ValueError(f"Knowledge base path does not exist: {cls.KNOWLEDGE_BASE_PATH}")
+        
+        return True

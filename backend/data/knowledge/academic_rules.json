@@ -1,0 +1,26 @@
+{
+  "title": "Academic Management Rules",
+  "category": "rules",
+  "content": {
+    "attendance": {
+      "minimum_attendance": "75%",
+      "consequences": "Students with less than 75% attendance may be barred from examinations",
+      "documentation": "Attendance must be recorded daily and submitted weekly"
+    },
+    "leave_management": {
+      "types": ["sick leave", "personal leave", "emergency leave"],
+      "approval_process": "All leaves must be approved by faculty coordinator",
+      "documentation_required": "Medical certificates for sick leave exceeding 3 days"
+    },
+    "event_coordination": {
+      "planning_timeline": "Events must be planned at least 2 weeks in advance",
+      "approval_required": "All events need faculty and administrative approval",
+      "budget_limits": "Events must stay within allocated budget limits"
+    },
+    "grading": {
+      "scale": "A+ to F",
+      "passing_grade": "C-",
+      "grade_distribution": "Grades should follow normal distribution"
+    }
+  }
+}
