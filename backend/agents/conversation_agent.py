@@ -63,14 +63,16 @@ class ConversationManagerAgent(BaseAgent):
     
     async def _execute_rag_workflow(self, workflow_data: Dict[str, Any]) -> Dict[str, Any]:
         """Execute the complete RAG workflow with all agents"""
-        # This method will be implemented when we create the orchestrator
-        # For now, return a placeholder response
-        return {
-            'response': "I'm processing your request. The RAG workflow is being set up.",
-            'confidence': 'medium',
-            'suggestions': ['Please wait while I set up the complete system'],
-            'agent_status': {'status': 'initializing'}
-        }
+        # This will be set by the main application
+        if hasattr(self, 'orchestrator'):
+            return await self.orchestrator.process_query_parallel(workflow_data)
+        else:
+            return {
+                'response': "I'm processing your request. The RAG workflow is being set up.",
+                'confidence': 'medium',
+                'suggestions': ['Please wait while I set up the complete system'],
+                'agent_status': {'status': 'initializing'}
+            }
     
     def get_session_info(self, session_id: str) -> Dict[str, Any]:
         """Get information about a specific session"""

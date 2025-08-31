@@ -12,6 +12,10 @@ app = Flask(__name__)
 # Enable CORS for all routes
 CORS(app, origins=["http://localhost:3000"], supports_credentials=True)
 
+# Import and register RAG blueprint
+from api.rag import rag_bp
+app.register_blueprint(rag_bp, url_prefix='/api/rag')
+
 @app.route('/')
 def home():
     return jsonify({"message": "Flask Backend API is running!"})
