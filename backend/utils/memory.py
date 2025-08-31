@@ -94,3 +94,15 @@ class MemoryManager:
     def get_all_sessions(self) -> Dict[str, ConversationMemory]:
         """Get all active sessions"""
         return self.sessions.copy()
+    
+    def get_sessions_info(self) -> Dict[str, Dict[str, Any]]:
+        """Get serializable information about all sessions"""
+        sessions_info = {}
+        for session_id, session in self.sessions.items():
+            sessions_info[session_id] = {
+                'session_start': session.session_start,
+                'last_activity': session.last_activity,
+                'message_count': len(session.messages),
+                'is_active': session.is_session_active()
+            }
+        return sessions_info

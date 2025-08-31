@@ -1,16 +1,21 @@
 import os
+import sys
 from typing import Dict, Any, Optional
-from ..utils.config import RAGConfig
-from ..utils.memory import MemoryManager
-from ..rag.embeddings import EmbeddingManager
-from ..rag.vector_store import FAISSVectorStore
-from ..rag.document_loader import DocumentLoader
-from ..agents.orchestrator import RAGOrchestrator
-from ..agents.query_agent import QueryUnderstandingAgent
-from ..agents.retrieval_agent import KnowledgeRetrievalAgent
-from ..agents.synthesis_agent import ContextSynthesisAgent
-from ..agents.generation_agent import ResponseGenerationAgent
-from ..agents.conversation_agent import ConversationManagerAgent
+
+# Add the backend directory to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from utils.config import RAGConfig
+from utils.memory import MemoryManager
+from rag.embeddings import EmbeddingManager
+from rag.vector_store import FAISSVectorStore
+from rag.document_loader import DocumentLoader
+from agents.orchestrator import RAGOrchestrator
+from agents.query_agent import QueryUnderstandingAgent
+from agents.retrieval_agent import KnowledgeRetrievalAgent
+from agents.synthesis_agent import ContextSynthesisAgent
+from agents.generation_agent import ResponseGenerationAgent
+from agents.conversation_agent import ConversationManagerAgent
 
 class RAGService:
     """Main service class that manages the entire RAG system"""
@@ -175,7 +180,7 @@ class RAGService:
         if self.is_initialized:
             status.update({
                 'vector_store': self.vector_store.get_statistics(),
-                'memory_manager': self.memory_manager.get_all_sessions(),
+                'memory_manager': self.memory_manager.get_sessions_info(),
                 'orchestrator': self.orchestrator.get_system_health() if self.orchestrator else None
             })
         

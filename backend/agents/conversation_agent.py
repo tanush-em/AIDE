@@ -1,8 +1,14 @@
-from .base_agent import BaseAgent
+import sys
+import os
 from typing import Dict, Any, List
-from ..utils.memory import ConversationMemory, MemoryManager
 import uuid
 import time
+
+# Add the backend directory to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from agents.base_agent import BaseAgent
+from utils.memory import ConversationMemory, MemoryManager
 
 class ConversationManagerAgent(BaseAgent):
     """Agent responsible for managing conversation sessions and coordinating other agents"""

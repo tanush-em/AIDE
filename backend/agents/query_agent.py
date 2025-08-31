@@ -1,6 +1,12 @@
-from .base_agent import BaseAgent
+import sys
+import os
 from typing import Dict, Any
 import re
+
+# Add the backend directory to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from agents.base_agent import BaseAgent
 
 class QueryUnderstandingAgent(BaseAgent):
     """Agent responsible for understanding and analyzing user queries"""

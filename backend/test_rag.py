@@ -39,6 +39,12 @@ async def test_rag_system():
             "Tell me about grading policies"
         ]
         
+        # Note: This test requires a Groq API key to be set in the environment
+        if not rag_service.config.GROQ_API_KEY:
+            print("⚠️  No Groq API key found. Skipping query processing tests.")
+            print("   Set GROQ_API_KEY in your .env file to test full functionality.")
+            return True
+        
         session_id = "test-session-123"
         
         for i, query in enumerate(test_queries, 1):

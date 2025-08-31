@@ -1,6 +1,12 @@
-from .base_agent import BaseAgent
+import sys
+import os
 from typing import Dict, Any, List
-from ..rag.vector_store import FAISSVectorStore
+
+# Add the backend directory to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from agents.base_agent import BaseAgent
+from rag.vector_store import FAISSVectorStore
 
 class KnowledgeRetrievalAgent(BaseAgent):
     """Agent responsible for retrieving relevant knowledge from the vector store"""

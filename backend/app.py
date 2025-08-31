@@ -10,9 +10,15 @@ load_dotenv()
 app = Flask(__name__)
 
 # Enable CORS for all routes
-CORS(app, origins=["http://localhost:3000"], supports_credentials=True)
+CORS(app, origins=["http://localhost:3000", "http://localhost:5001"], supports_credentials=True)
 
 # Import and register RAG blueprint
+import sys
+import os
+
+# Add the current directory to Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from api.rag import rag_bp
 app.register_blueprint(rag_bp, url_prefix='/api/rag')
 
@@ -38,6 +44,6 @@ def get_data():
     })
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 5001))
     debug = os.environ.get('FLASK_ENV') == 'development'
     app.run(host='0.0.0.0', port=port, debug=debug)

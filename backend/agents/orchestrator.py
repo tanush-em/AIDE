@@ -1,10 +1,16 @@
 import asyncio
+import sys
+import os
 from typing import Dict, Any, List
-from .query_agent import QueryUnderstandingAgent
-from .retrieval_agent import KnowledgeRetrievalAgent
-from .synthesis_agent import ContextSynthesisAgent
-from .generation_agent import ResponseGenerationAgent
-from .conversation_agent import ConversationManagerAgent
+
+# Add the backend directory to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from agents.query_agent import QueryUnderstandingAgent
+from agents.retrieval_agent import KnowledgeRetrievalAgent
+from agents.synthesis_agent import ContextSynthesisAgent
+from agents.generation_agent import ResponseGenerationAgent
+from agents.conversation_agent import ConversationManagerAgent
 
 class RAGOrchestrator:
     """Orchestrates the execution of all RAG agents"""
@@ -41,14 +47,14 @@ class RAGOrchestrator:
         try:
             # Step 1: Query Understanding
             agent_status['query'] = 'processing'
-            query_analysis = await self.query_agent.execute_with_status({
+            query_analysis = await self.query_agent.process({
                 'query': query
             })
             agent_status['query'] = 'completed'
             
             # Step 2: Knowledge Retrieval
             agent_status['retrieval'] = 'processing'
-            retrieval_result = await self.retrieval_agent.execute_with_status({
+            retrieval_result = await self.retrieval_agent.process({
                 'query': query,
                 'query_analysis': query_analysis,
                 'max_results': 5,
@@ -58,7 +64,7 @@ class RAGOrchestrator:
             
             # Step 3: Context Synthesis
             agent_status['synthesis'] = 'processing'
-            synthesis_result = await self.synthesis_agent.execute_with_status({
+            synthesis_result = await self.synthesis_agent.process({
                 'query': query,
                 'search_results': retrieval_result.get('search_results', []),
                 'conversation_history': conversation_history,
@@ -68,7 +74,7 @@ class RAGOrchestrator:
             
             # Step 4: Response Generation
             agent_status['generation'] = 'processing'
-            generation_result = await self.generation_agent.execute_with_status({
+            generation_result = await self.generation_agent.process({
                 'query': query,
                 'comprehensive_context': synthesis_result.get('comprehensive_context', ''),
                 'query_analysis': query_analysis,

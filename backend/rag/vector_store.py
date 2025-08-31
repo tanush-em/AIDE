@@ -2,11 +2,16 @@ import faiss
 import numpy as np
 import pickle
 import os
+import sys
 from typing import List, Dict, Any, Tuple
 from pathlib import Path
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from .embeddings import EmbeddingManager
-from .document_loader import DocumentLoader
+
+# Add the backend directory to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from rag.embeddings import EmbeddingManager
+from rag.document_loader import DocumentLoader
 
 class FAISSVectorStore:
     """FAISS-based vector store for document storage and retrieval"""

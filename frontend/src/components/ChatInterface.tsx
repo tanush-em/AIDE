@@ -48,7 +48,7 @@ export default function ChatInterface() {
 
   const checkSystemStatus = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/rag/health')
+      const response = await fetch('http://localhost:5001/api/rag/health')
       const data = await response.json()
       setSystemStatus(data.status)
     } catch (error) {
@@ -73,7 +73,7 @@ export default function ChatInterface() {
     setAgentStatus({})
 
     try {
-      const response = await fetch('http://localhost:5000/api/rag/chat', {
+      const response = await fetch('http://localhost:5001/api/rag/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -135,7 +135,7 @@ export default function ChatInterface() {
     if (!sessionId) return
 
     try {
-      const response = await fetch(`http://localhost:5000/api/rag/export/${sessionId}?format=${format}`)
+      const response = await fetch(`http://localhost:5001/api/rag/export/${sessionId}?format=${format}`)
       const data = await response.json()
 
       if (response.ok) {
@@ -158,7 +158,7 @@ export default function ChatInterface() {
     if (!sessionId) return
 
     try {
-      await fetch(`http://localhost:5000/api/rag/clear/${sessionId}`, {
+      await fetch(`http://localhost:5001/api/rag/clear/${sessionId}`, {
         method: 'DELETE'
       })
       setMessages([])

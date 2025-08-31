@@ -1,8 +1,13 @@
-from .base_agent import BaseAgent
+import sys
+import os
 from typing import Dict, Any
 from langchain_groq import ChatGroq
 from langchain.schema import HumanMessage, SystemMessage
-import os
+
+# Add the backend directory to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from agents.base_agent import BaseAgent
 
 class ResponseGenerationAgent(BaseAgent):
     """Agent responsible for generating responses using the Groq LLM"""

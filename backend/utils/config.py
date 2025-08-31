@@ -34,6 +34,9 @@ class RAGConfig:
     MAX_RESPONSE_LENGTH = 1000
     TEMPERATURE = 0.7
     
+    # Server Settings
+    DEFAULT_PORT = 5001
+    
     @classmethod
     def validate(cls):
         """Validate required configuration"""
