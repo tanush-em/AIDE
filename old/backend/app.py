@@ -3,6 +3,7 @@ from flask_cors import CORS
 import csv
 import os
 import json
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -193,5 +194,148 @@ def get_notices():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/attendance/student/<student_id>', methods=['GET'])
+def get_student_attendance(student_id):
+    """Get student attendance data"""
+    try:
+        # Mock attendance data
+        attendance_data = {
+            'overall': {'present': 85, 'total': 100, 'percentage': 85},
+            'subjects': [
+                {'subject': 'Mathematics', 'present': 18, 'total': 20, 'percentage': 90},
+                {'subject': 'Physics', 'present': 16, 'total': 20, 'percentage': 80},
+                {'subject': 'Chemistry', 'present': 17, 'total': 20, 'percentage': 85},
+            ],
+            'recent_records': [
+                {'date': '2024-01-10', 'subject': 'Mathematics', 'status': 'present'},
+                {'date': '2024-01-09', 'subject': 'Physics', 'status': 'absent'},
+                {'date': '2024-01-08', 'subject': 'Chemistry', 'status': 'present'},
+            ]
+        }
+        return jsonify(attendance_data)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/leaves/student/<student_id>', methods=['GET'])
+def get_student_leaves(student_id):
+    """Get student leave requests"""
+    try:
+        # Mock leave data
+        leaves_data = [
+            {
+                'id': 1,
+                'type': 'Medical',
+                'reason': 'Fever and cold',
+                'start_date': '2024-01-12',
+                'end_date': '2024-01-14',
+                'status': 'approved',
+                'submitted_date': '2024-01-10'
+            },
+            {
+                'id': 2,
+                'type': 'Personal',
+                'reason': 'Family function',
+                'start_date': '2024-01-20',
+                'end_date': '2024-01-21',
+                'status': 'pending',
+                'submitted_date': '2024-01-11'
+            }
+        ]
+        return jsonify(leaves_data)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/leaves', methods=['POST'])
+def submit_leave_request():
+    """Submit a new leave request"""
+    try:
+        data = request.get_json()
+        # Mock response - in real app, save to database
+        return jsonify({
+            'success': True,
+            'message': 'Leave request submitted successfully',
+            'request_id': 123
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/events', methods=['GET'])
+def get_events():
+    """Get all events"""
+    try:
+        # Mock events data
+        events_data = [
+            {
+                'id': 1,
+                'name': 'Annual Tech Fest',
+                'description': 'Annual technical festival with coding competitions and project showcases',
+                'date': '2024-01-25',
+                'time': '9:00 AM - 6:00 PM',
+                'venue': 'Main Auditorium',
+                'type': 'academic',
+                'registrations': 150
+            },
+            {
+                'id': 2,
+                'name': 'Career Fair',
+                'description': 'Meet with top companies and explore career opportunities',
+                'date': '2024-01-30',
+                'time': '10:00 AM - 4:00 PM',
+                'venue': 'Conference Hall',
+                'type': 'career',
+                'registrations': 89
+            }
+        ]
+        return jsonify(events_data)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/resources', methods=['GET'])
+def get_resources():
+    """Get study resources"""
+    try:
+        # Mock resources data
+        resources_data = [
+            {
+                'id': 1,
+                'title': 'Mathematics Notes',
+                'description': 'Comprehensive notes for Calculus and Linear Algebra',
+                'type': 'pdf',
+                'subject': 'Mathematics',
+                'upload_date': '2024-01-05',
+                'downloads': 45
+            },
+            {
+                'id': 2,
+                'title': 'Physics Lab Manual',
+                'description': 'Lab procedures and experiment guidelines',
+                'type': 'pdf',
+                'subject': 'Physics',
+                'upload_date': '2024-01-03',
+                'downloads': 32
+            },
+            {
+                'id': 3,
+                'title': 'Chemistry Formulas',
+                'description': 'Quick reference for chemical formulas',
+                'type': 'pdf',
+                'subject': 'Chemistry',
+                'upload_date': '2024-01-01',
+                'downloads': 67
+            }
+        ]
+        return jsonify(resources_data)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    """Health check endpoint"""
+    return jsonify({
+        'status': 'healthy',
+        'message': 'Academic AI Management System is running',
+        'timestamp': datetime.now().isoformat()
+    })
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5001) 
+    app.run(debug=True, port=5001, host='0.0.0.0') 
