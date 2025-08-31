@@ -23,7 +23,7 @@ class KnowledgeRetrievalAgent(BaseAgent):
         query = input_data.get('query', '')
         query_analysis = input_data.get('query_analysis', {})
         max_results = input_data.get('max_results', 5)
-        threshold = input_data.get('threshold', 0.7)
+        threshold = input_data.get('threshold', 0.3)  # Very low threshold for better retrieval
         
         # Perform similarity search
         search_results = self.vector_store.similarity_search(
