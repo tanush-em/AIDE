@@ -1,6 +1,0 @@
-venv
-env
-.DS_Store
-.py_caches
-__pycache__
-*.pyc
