@@ -1,24 +1,19 @@
 from datetime import datetime
-from typing import Dict, Any, List, Optional
-from pydantic import BaseModel, Field
+from typing import Dict, Any, List, Optional, Annotated
+from pydantic import BaseModel, Field, GetJsonSchemaHandler
+from pydantic.json_schema import JsonSchemaValue
 from bson import ObjectId
 import json
 
 class PyObjectId(ObjectId):
     """Custom ObjectId for Pydantic compatibility"""
     @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, v):
-        if not ObjectId.is_valid(v):
-            raise ValueError("Invalid ObjectId")
-        return ObjectId(v)
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        field_schema.update(type="string")
+    def __get_pydantic_json_schema__(
+        cls,
+        _core_schema: Any,
+        _handler: GetJsonSchemaHandler,
+    ) -> JsonSchemaValue:
+        return {"type": "string"}
 
 class User(BaseModel):
     """User model for MongoDB"""
@@ -32,11 +27,11 @@ class User(BaseModel):
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     preferences: Dict[str, Any] = Field(default_factory=dict)
     
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
-        schema_extra = {
+    model_config = {
+        "populate_by_name": True,
+        "arbitrary_types_allowed": True,
+        "json_encoders": {ObjectId: str},
+        "json_schema_extra": {
             "example": {
                 "username": "john_doe",
                 "email": "john@example.com",
@@ -45,6 +40,7 @@ class User(BaseModel):
                 "status": "active"
             }
         }
+    }
 
 class Document(BaseModel):
     """Document model for MongoDB"""
@@ -61,10 +57,11 @@ class Document(BaseModel):
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     metadata: Dict[str, Any] = Field(default_factory=dict)
     
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+        "arbitrary_types_allowed": True,
+        "json_encoders": {ObjectId: str}
+    }
 
 class Conversation(BaseModel):
     """Conversation model for MongoDB"""
@@ -78,10 +75,11 @@ class Conversation(BaseModel):
     status: str = "active"  # active, archived, deleted
     metadata: Dict[str, Any] = Field(default_factory=dict)
     
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+        "arbitrary_types_allowed": True,
+        "json_encoders": {ObjectId: str}
+    }
 
 class Analytics(BaseModel):
     """Analytics model for MongoDB"""
@@ -97,10 +95,11 @@ class Analytics(BaseModel):
     timestamp: datetime = Field(default_factory=datetime.utcnow)
     metadata: Dict[str, Any] = Field(default_factory=dict)
     
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+        "arbitrary_types_allowed": True,
+        "json_encoders": {ObjectId: str}
+    }
 
 class QueryLog(BaseModel):
     """Query log model for MongoDB"""
@@ -118,10 +117,11 @@ class QueryLog(BaseModel):
     success: bool = True
     error_message: Optional[str] = None
     
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+        "arbitrary_types_allowed": True,
+        "json_encoders": {ObjectId: str}
+    }
 
 # Helper functions for model conversion
 def model_to_dict(model: BaseModel) -> Dict[str, Any]:
