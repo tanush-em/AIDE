@@ -36,6 +36,15 @@ class User(BaseModel):
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
+        schema_extra = {
+            "example": {
+                "username": "john_doe",
+                "email": "john@example.com",
+                "full_name": "John Doe",
+                "role": "user",
+                "status": "active"
+            }
+        }
 
 class Document(BaseModel):
     """Document model for MongoDB"""
