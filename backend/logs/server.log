@@ -1,0 +1,67 @@
+2025-09-03 07:23:10,585 - utils.logging_config - INFO - Logging system initialized
+2025-09-03 07:23:10,585 - utils.logging_config - INFO - Log level: INFO
+2025-09-03 07:23:10,585 - utils.logging_config - INFO - Log files: logs
+2025-09-03 07:31:59,029 - utils.logging_config - INFO - Logging system initialized
+2025-09-03 07:31:59,029 - utils.logging_config - INFO - Log level: INFO
+2025-09-03 07:31:59,029 - utils.logging_config - INFO - Log files: logs
+2025-09-03 07:32:37,495 - utils.logging_config - INFO - Logging system initialized
+2025-09-03 07:32:37,495 - utils.logging_config - INFO - Log level: INFO
+2025-09-03 07:32:37,496 - utils.logging_config - INFO - Log files: logs
+2025-09-03 07:34:02,058 - utils.logging_config - INFO - Logging system initialized
+2025-09-03 07:34:02,058 - utils.logging_config - INFO - Log level: INFO
+2025-09-03 07:34:02,058 - utils.logging_config - INFO - Log files: logs
+2025-09-03 07:35:51,882 - utils.logging_config - INFO - Logging system initialized
+2025-09-03 07:35:51,882 - utils.logging_config - INFO - Log level: INFO
+2025-09-03 07:35:51,882 - utils.logging_config - INFO - Log files: logs
+2025-09-03 07:35:57,771 - __main__ - INFO - Starting Flask backend on port 5005
+2025-09-03 07:35:57,771 - __main__ - INFO - Debug mode: True
+2025-09-03 07:35:57,810 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5005
+ * Running on http://192.168.29.226:5005
+2025-09-03 07:35:57,810 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-09-03 07:35:57,811 - werkzeug - INFO -  * Restarting with stat
+2025-09-03 07:35:57,938 - utils.logging_config - INFO - Logging system initialized
+2025-09-03 07:35:57,939 - utils.logging_config - INFO - Log level: INFO
+2025-09-03 07:35:57,939 - utils.logging_config - INFO - Log files: logs
+2025-09-03 07:36:00,405 - __main__ - INFO - Starting Flask backend on port 5005
+2025-09-03 07:36:00,405 - __main__ - INFO - Debug mode: True
+2025-09-03 07:36:00,427 - werkzeug - WARNING -  * Debugger is active!
+2025-09-03 07:36:00,439 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-03 07:36:43,097 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py', reloading
+2025-09-03 07:36:43,604 - werkzeug - INFO -  * Restarting with stat
+2025-09-03 07:36:43,746 - utils.logging_config - INFO - Logging system initialized
+2025-09-03 07:36:43,746 - utils.logging_config - INFO - Log level: INFO
+2025-09-03 07:36:43,746 - utils.logging_config - INFO - Log files: logs
+2025-09-03 07:36:47,072 - __main__ - INFO - Starting Flask backend on port 5005
+2025-09-03 07:36:47,072 - __main__ - INFO - Debug mode: True
+2025-09-03 07:36:47,087 - werkzeug - WARNING -  * Debugger is active!
+2025-09-03 07:36:47,094 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-03 07:37:44,568 - __main__ - INFO - Request: GET http://127.0.0.1:5005/
+2025-09-03 07:37:44,569 - __main__ - INFO - Headers: {'Host': '127.0.0.1:5005', 'Connection': 'keep-alive', 'Sec-Ch-Ua': '"Not;A=Brand";v="99", "Brave";v="139", "Chromium";v="139"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Ch-Ua-Platform': '"macOS"', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.7', 'Sec-Fetch-Site': 'none', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-User': '?1', 'Sec-Fetch-Dest': 'document', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-03 07:37:44,569 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-03 07:37:44,569 - __main__ - INFO - Home endpoint accessed
+2025-09-03 07:37:44,570 - __main__ - INFO - Response Status: 200
+2025-09-03 07:37:44,570 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '49'}
+2025-09-03 07:37:44,572 - werkzeug - INFO - 127.0.0.1 - - [03/Sep/2025 07:37:44] "GET / HTTP/1.1" 200 -
+2025-09-03 07:37:44,604 - __main__ - INFO - Request: GET http://127.0.0.1:5005/favicon.ico
+2025-09-03 07:37:44,604 - __main__ - INFO - Headers: {'Host': '127.0.0.1:5005', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not;A=Brand";v="99", "Brave";v="139", "Chromium";v="139"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.7', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'no-cors', 'Sec-Fetch-Dest': 'image', 'Referer': 'http://127.0.0.1:5005/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-03 07:37:44,604 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-03 07:37:44,604 - __main__ - ERROR - Error in 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-09-03 07:37:44,606 - __main__ - INFO - Response Status: 404
+2025-09-03 07:37:44,606 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '36', 'Access-Control-Allow-Origin': 'http://localhost:3000', 'Access-Control-Allow-Credentials': 'true', 'Vary': 'Origin'}
+2025-09-03 07:37:44,607 - werkzeug - INFO - 127.0.0.1 - - [03/Sep/2025 07:37:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

@@ -1,11 +1,15 @@
 import asyncio
 import logging
 from typing import Dict, Any, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import re
 
 from database.mongodb_service import mongodb_service
 from database.models import User, Document, Conversation, Analytics, QueryLog
+
+def utc_now():
+    """Get current UTC datetime (replacement for deprecated datetime.utcnow())"""
+    return datetime.now(timezone.utc)
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +32,7 @@ class MongoDBTools:
             Dictionary with search results and metadata
         """
         try:
-            start_time = datetime.utcnow()
+            start_time = utc_now()
             
             # Parse natural language query to determine search type
             search_type = self._determine_search_type(query, collection)
@@ -42,7 +46,7 @@ class MongoDBTools:
             else:
                 results = await self._general_search(query, collection, limit)
             
-            processing_time = (datetime.utcnow() - start_time).total_seconds()
+            processing_time = (utc_now() - start_time).total_seconds()
             
             return {
                 "success": True,
@@ -75,7 +79,7 @@ class MongoDBTools:
             Dictionary with record data
         """
         try:
-            start_time = datetime.utcnow()
+            start_time = utc_now()
             
             if collection == "users":
                 result = await self.service.get_user(record_id)
@@ -90,7 +94,7 @@ class MongoDBTools:
                     "result": None
                 }
             
-            processing_time = (datetime.utcnow() - start_time).total_seconds()
+            processing_time = (utc_now() - start_time).total_seconds()
             
             return {
                 "success": True,
@@ -121,7 +125,7 @@ class MongoDBTools:
             Dictionary with update result
         """
         try:
-            start_time = datetime.utcnow()
+            start_time = utc_now()
             
             if collection == "users":
                 result = await self.service.update_user(record_id, update_data)
@@ -136,7 +140,7 @@ class MongoDBTools:
                     "result": None
                 }
             
-            processing_time = (datetime.utcnow() - start_time).total_seconds()
+            processing_time = (utc_now() - start_time).total_seconds()
             
             return {
                 "success": True,
@@ -167,7 +171,7 @@ class MongoDBTools:
             Dictionary with aggregation results
         """
         try:
-            start_time = datetime.utcnow()
+            start_time = utc_now()
             
             # Parse natural language to aggregation pipeline
             pipeline = self._parse_aggregation_query(query, collection)
@@ -180,7 +184,7 @@ class MongoDBTools:
                 }
             
             results = await self.service.aggregate_data(collection, pipeline)
-            processing_time = (datetime.utcnow() - start_time).total_seconds()
+            processing_time = (utc_now() - start_time).total_seconds()
             
             return {
                 "success": True,
@@ -212,7 +216,7 @@ class MongoDBTools:
             Dictionary with created record
         """
         try:
-            start_time = datetime.utcnow()
+            start_time = utc_now()
             
             if collection == "users":
                 result = await self.service.create_user(record_data)
@@ -227,7 +231,7 @@ class MongoDBTools:
                     "result": None
                 }
             
-            processing_time = (datetime.utcnow() - start_time).total_seconds()
+            processing_time = (utc_now() - start_time).total_seconds()
             
             return {
                 "success": True,
@@ -321,11 +325,11 @@ class MongoDBTools:
         
         # Extract date filters
         if "recent" in query_lower or "today" in query_lower:
-            filters["created_at"] = {"$gte": datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)}
+            filters["created_at"] = {"$gte": utc_now().replace(hour=0, minute=0, second=0, microsecond=0)}
         elif "this week" in query_lower:
             # Calculate start of week
             from datetime import timedelta
-            today = datetime.utcnow()
+            today = utc_now()
             start_of_week = today - timedelta(days=today.weekday())
             filters["created_at"] = {"$gte": start_of_week}
         

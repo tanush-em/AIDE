@@ -2,10 +2,14 @@ import asyncio
 import logging
 import re
 from typing import Dict, Any, List, Optional, Tuple
-from datetime import datetime
+from datetime import datetime, timezone
 
 from agents.mongodb_tools import mongodb_tools
 from database.mongodb_service import mongodb_service
+
+def utc_now():
+    """Get current UTC datetime (replacement for deprecated datetime.utcnow())"""
+    return datetime.now(timezone.utc)
 
 logger = logging.getLogger(__name__)
 
@@ -91,7 +95,7 @@ class QueryRouter:
             Dictionary with routing decision and metadata
         """
         try:
-            start_time = datetime.utcnow()
+            start_time = utc_now()
             
             # Analyze query to determine routing strategy
             query_analysis = self._analyze_query(query)
@@ -110,7 +114,7 @@ class QueryRouter:
                 # Default to RAG for unknown query types
                 result = await self._handle_rag_query(query, query_analysis)
             
-            processing_time = (datetime.utcnow() - start_time).total_seconds()
+            processing_time = (utc_now() - start_time).total_seconds()
             
             # Add metadata to result
             result.update({
@@ -353,7 +357,8 @@ class QueryRouter:
                 "confidence": analysis["confidence"],
                 "reasoning": analysis["reasoning"],
                 "patterns_matched": analysis["patterns_matched"],
-                "timestamp": datetime.utcnow(),
+                "processing_time": 0.0,  # Default processing time
+                "timestamp": utc_now(),
                 "success": True
             }
             

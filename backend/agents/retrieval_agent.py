@@ -6,12 +6,12 @@ from typing import Dict, Any, List
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from agents.base_agent import BaseAgent
-from rag.vector_store import FAISSVectorStore
+from rag.vector_store import ChromaDBVectorStore
 
 class KnowledgeRetrievalAgent(BaseAgent):
     """Agent responsible for retrieving relevant knowledge from the vector store"""
     
-    def __init__(self, vector_store: FAISSVectorStore):
+    def __init__(self, vector_store: ChromaDBVectorStore):
         super().__init__(
             name="Knowledge Retrieval Agent",
             description="Retrieves relevant documents and information from the knowledge base"

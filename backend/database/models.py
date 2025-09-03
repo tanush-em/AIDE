@@ -1,9 +1,13 @@
-from datetime import datetime
-from typing import Dict, Any, List, Optional, Annotated
+from datetime import datetime, timezone
+from typing import Dict, Any, List, Optional, Annotated, Union
 from pydantic import BaseModel, Field, GetJsonSchemaHandler
 from pydantic.json_schema import JsonSchemaValue
 from bson import ObjectId
 import json
+
+def utc_now():
+    """Get current UTC datetime (replacement for deprecated datetime.utcnow())"""
+    return datetime.now(timezone.utc)
 
 class PyObjectId(ObjectId):
     """Custom ObjectId for Pydantic compatibility"""
@@ -23,8 +27,8 @@ class User(BaseModel):
     full_name: Optional[str] = None
     role: str = "user"
     status: str = "active"
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=utc_now)
+    updated_at: datetime = Field(default_factory=utc_now)
     preferences: Dict[str, Any] = Field(default_factory=dict)
     
     model_config = {
@@ -53,8 +57,8 @@ class Document(BaseModel):
     author: Optional[str] = None
     version: str = "1.0"
     status: str = "active"  # active, draft, archived
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=utc_now)
+    updated_at: datetime = Field(default_factory=utc_now)
     metadata: Dict[str, Any] = Field(default_factory=dict)
     
     model_config = {
@@ -70,8 +74,8 @@ class Conversation(BaseModel):
     user_id: Optional[str] = None
     title: Optional[str] = None
     messages: List[Dict[str, Any]] = Field(default_factory=list)
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=utc_now)
+    updated_at: datetime = Field(default_factory=utc_now)
     status: str = "active"  # active, archived, deleted
     metadata: Dict[str, Any] = Field(default_factory=dict)
     
@@ -90,9 +94,9 @@ class Analytics(BaseModel):
     query: Optional[str] = None
     response: Optional[str] = None
     source: str = "rag"  # rag, mongodb, combined
-    confidence: Optional[float] = None
+    confidence: Optional[Union[float, str]] = None
     processing_time: Optional[float] = None
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=utc_now)
     metadata: Dict[str, Any] = Field(default_factory=dict)
     
     model_config = {
@@ -110,10 +114,10 @@ class QueryLog(BaseModel):
     session_id: Optional[str] = None
     response: Optional[str] = None
     confidence: Optional[float] = None
-    processing_time: float
+    processing_time: Optional[float] = None
     agents_used: List[str] = Field(default_factory=list)
     data_sources: List[str] = Field(default_factory=list)
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=utc_now)
     success: bool = True
     error_message: Optional[str] = None
     

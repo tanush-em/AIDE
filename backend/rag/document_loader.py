@@ -4,6 +4,10 @@ import os
 from typing import List, Dict, Any
 from pathlib import Path
 import pandas as pd
+import logging
+
+# Setup logging
+logger = logging.getLogger(__name__)
 
 class DocumentLoader:
     """Loads and processes documents from the knowledge base"""
@@ -23,6 +27,7 @@ class DocumentLoader:
                     if doc:
                         documents.append(doc)
                 except Exception as e:
+                    logger.error(f"Error loading {file_path}: {e}")
                     print(f"Error loading {file_path}: {e}")
         
         return documents

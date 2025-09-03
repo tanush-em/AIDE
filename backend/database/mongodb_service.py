@@ -1,13 +1,17 @@
 import asyncio
 import logging
 from typing import Dict, Any, List, Optional, Union
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from bson import ObjectId
 from pymongo import ASCENDING, DESCENDING
 from pymongo.errors import PyMongoError
 
 from .connection import mongodb_connection
 from .models import User, Document, Conversation, Analytics, QueryLog, model_to_dict, dict_to_model
+
+def utc_now():
+    """Get current UTC datetime (replacement for deprecated datetime.utcnow())"""
+    return datetime.now(timezone.utc)
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +63,7 @@ class MongoDBService:
     async def update_user(self, user_id: str, update_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """Update user"""
         try:
-            update_data["updated_at"] = datetime.utcnow()
+            update_data["updated_at"] = utc_now()
             collection = self.connection.get_collection("users")
             result = await collection.update_one(
                 {"_id": ObjectId(user_id)},
@@ -109,7 +113,7 @@ class MongoDBService:
     async def update_document(self, document_id: str, update_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """Update document"""
         try:
-            update_data["updated_at"] = datetime.utcnow()
+            update_data["updated_at"] = utc_now()
             collection = self.connection.get_collection("documents")
             result = await collection.update_one(
                 {"_id": ObjectId(document_id)},
@@ -178,7 +182,7 @@ class MongoDBService:
     async def update_conversation(self, session_id: str, update_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """Update conversation"""
         try:
-            update_data["updated_at"] = datetime.utcnow()
+            update_data["updated_at"] = utc_now()
             collection = self.connection.get_collection("conversations")
             result = await collection.update_one(
                 {"session_id": session_id},
@@ -199,7 +203,7 @@ class MongoDBService:
                 {"session_id": session_id},
                 {
                     "$push": {"messages": message},
-                    "$set": {"updated_at": datetime.utcnow()}
+                    "$set": {"updated_at": utc_now()}
                 }
             )
             return result.modified_count > 0

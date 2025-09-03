@@ -1,28 +1,54 @@
 import sys
 import os
 from typing import Dict, Any
-from langchain_groq import ChatGroq
-from langchain.schema import HumanMessage, SystemMessage
+import logging
 
 # Add the backend directory to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from agents.base_agent import BaseAgent
 
+# Setup logging
+logger = logging.getLogger(__name__)
+
 class ResponseGenerationAgent(BaseAgent):
-    """Agent responsible for generating responses using the Groq LLM"""
+    """Agent responsible for generating responses using the Groq LLM or fallback"""
     
-    def __init__(self, api_key: str, model_name: str = "llama3-8b-8192"):
+    def __init__(self, api_key: str = None, model_name: str = "llama3-8b-8192"):
         super().__init__(
             name="Response Generation Agent",
             description="Generates conversational responses using Groq LLM based on synthesized context"
         )
-        self.llm = ChatGroq(
-            groq_api_key=api_key,
-            model_name=model_name,
-            temperature=0.7,
-            max_tokens=1000
-        )
+        
+        self.api_key = api_key
+        self.model_name = model_name
+        self.llm = None
+        self.use_fallback = False
+        
+        # Try to initialize Groq LLM if API key is available
+        if api_key and api_key != "your_groq_api_key_here":
+            try:
+                from langchain_groq import ChatGroq
+                self.llm = ChatGroq(
+                    groq_api_key=api_key,
+                    model_name=model_name,
+                    temperature=0.7,
+                    max_tokens=1000
+                )
+                logger.info("Groq LLM initialized successfully")
+                print("Groq LLM initialized successfully")
+            except ImportError:
+                logger.warning("langchain-groq not available, using fallback mode")
+                print("langchain-groq not available, using fallback mode")
+                self.use_fallback = True
+            except Exception as e:
+                logger.warning(f"Failed to initialize Groq LLM: {e}, using fallback mode")
+                print(f"Failed to initialize Groq LLM: {e}, using fallback mode")
+                self.use_fallback = True
+        else:
+            logger.warning("No GROQ API key provided, using fallback mode")
+            print("No GROQ API key provided, using fallback mode")
+            self.use_fallback = True
         
         # System prompt for academic management context
         self.system_prompt = """You are an AI assistant for an academic management system. Your role is to help users with questions about academic policies, procedures, rules, and tools.
@@ -46,7 +72,7 @@ Important guidelines:
 Current context and relevant information will be provided to help you answer the user's question accurately."""
     
     async def process(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate a response using the LLM"""
+        """Generate a response using the LLM or fallback"""
         query = input_data.get('query', '')
         comprehensive_context = input_data.get('comprehensive_context', '')
         query_analysis = input_data.get('query_analysis', {})
@@ -56,8 +82,12 @@ Current context and relevant information will be provided to help you answer the
         prompt = self._prepare_prompt(query, comprehensive_context, query_analysis, information_sufficiency)
         
         try:
-            # Generate response
-            response = await self._generate_response(prompt)
+            if self.llm and not self.use_fallback:
+                # Generate response using Groq LLM
+                response = await self._generate_response(prompt)
+            else:
+                # Use fallback response generation
+                response = self._generate_fallback_response(query, comprehensive_context, information_sufficiency)
             
             # Process and enhance the response
             enhanced_response = self._enhance_response(response, query_analysis, information_sufficiency)
@@ -68,7 +98,7 @@ Current context and relevant information will be provided to help you answer the
                 'confidence': enhanced_response['confidence'],
                 'suggestions': enhanced_response['suggestions'],
                 'response_metadata': {
-                    'model_used': self.llm.model_name,
+                    'model_used': self.model_name if self.llm else 'fallback',
                     'response_length': len(enhanced_response['response']),
                     'information_sufficiency': information_sufficiency.get('sufficient', False)
                 }
@@ -101,129 +131,118 @@ Current context and relevant information will be provided to help you answer the
         
         # Add query analysis
         if query_analysis:
-            intent = query_analysis.get('intent', 'general_inquiry')
-            domains = query_analysis.get('domains', ['general'])
-            prompt_parts.append(f"\nQuery Analysis:")
-            prompt_parts.append(f"- Intent: {intent}")
-            prompt_parts.append(f"- Domains: {', '.join(domains)}")
+            prompt_parts.append(f"\nQuery Analysis:\n{query_analysis}")
         
-        # Add information sufficiency status
+        # Add information sufficiency
         if information_sufficiency:
-            sufficient = information_sufficiency.get('sufficient', False)
-            reason = information_sufficiency.get('reason', '')
-            suggestion = information_sufficiency.get('suggestion', '')
-            
-            prompt_parts.append(f"\nInformation Status:")
-            prompt_parts.append(f"- Sufficient Information: {sufficient}")
-            if reason:
-                prompt_parts.append(f"- Reason: {reason}")
-            if suggestion and not sufficient:
-                prompt_parts.append(f"- Suggestion: {suggestion}")
+            prompt_parts.append(f"\nInformation Sufficiency:\n{information_sufficiency}")
         
-        # Add the user query
-        prompt_parts.append(f"\nUser Question: {query}")
-        prompt_parts.append("\nPlease provide a helpful and accurate response:")
+        # Add the user's query
+        prompt_parts.append(f"\nUser Query: {query}")
         
         return "\n".join(prompt_parts)
     
     async def _generate_response(self, prompt: str) -> str:
-        """Generate response using the LLM"""
-        messages = [
-            SystemMessage(content=prompt)
-        ]
-        
-        response = await self.llm.agenerate([messages])
-        return response.generations[0][0].text.strip()
+        """Generate response using Groq LLM"""
+        try:
+            from langchain.schema import HumanMessage, SystemMessage
+            
+            messages = [
+                SystemMessage(content=self.system_prompt),
+                HumanMessage(content=prompt)
+            ]
+            
+            response = await self.llm.agenerate([messages])
+            return response.generations[0][0].text
+            
+        except Exception as e:
+            logger.error(f"Error generating response with Groq LLM: {e}")
+            raise e
+    
+    def _generate_fallback_response(self, query: str, context: str = "", information_sufficiency: Dict[str, Any] = None) -> str:
+        """Generate a fallback response when LLM is not available"""
+        try:
+            # Simple rule-based response generation
+            query_lower = query.lower()
+            
+            # Check for common academic topics
+            if any(word in query_lower for word in ['attendance', 'present', 'absent']):
+                response = "Based on the academic rules, attendance is typically tracked and may affect your academic standing. "
+                if context:
+                    response += f"From the available information: {context[:200]}... "
+                response += "For specific attendance policies, please consult your institution's academic handbook."
+                
+            elif any(word in query_lower for word in ['leave', 'vacation', 'time off']):
+                response = "Leave management procedures vary by institution. "
+                if context:
+                    response += f"Here's what I found: {context[:200]}... "
+                response += "Please check with your academic advisor for specific leave policies."
+                
+            elif any(word in query_lower for word in ['grade', 'grading', 'score']):
+                response = "Grading policies are important for academic success. "
+                if context:
+                    response += f"Based on the information: {context[:200]}... "
+                response += "Refer to your course syllabus for specific grading criteria."
+                
+            elif any(word in query_lower for word in ['rule', 'policy', 'procedure']):
+                response = "Academic policies and procedures are designed to ensure fair and consistent practices. "
+                if context:
+                    response += f"Here's relevant information: {context[:200]}... "
+                response += "For detailed policies, please consult your institution's official documentation."
+                
+            else:
+                response = "I understand you're asking about academic management. "
+                if context:
+                    response += f"Here's what I found: {context[:200]}... "
+                response += "Could you please provide more specific details about what you'd like to know?"
+            
+            return response
+            
+        except Exception as e:
+            logger.error(f"Error in fallback response generation: {e}")
+            return f"I'm here to help with academic management questions. Your query was: '{query}'. Please provide more specific details about what you need assistance with."
     
     def _enhance_response(self, response: str, query_analysis: Dict[str, Any], 
                          information_sufficiency: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhance the generated response"""
-        enhanced_response = response
-        
-        # Add clarification request if information is insufficient
-        if not information_sufficiency.get('sufficient', True):
-            suggestion = information_sufficiency.get('suggestion', '')
-            if suggestion:
-                enhanced_response += f"\n\n💡 Tip: {suggestion}"
-        
-        # Add domain-specific guidance
-        domains = query_analysis.get('domains', [])
-        if 'attendance' in domains:
-            enhanced_response += "\n\n📊 For more detailed attendance information, you can check the attendance management tool."
-        elif 'leave' in domains:
-            enhanced_response += "\n\n📋 You can submit leave requests through the leave management system."
-        elif 'events' in domains:
-            enhanced_response += "\n\n📅 Event coordination can be managed through the event platform."
-        
-        # Calculate confidence based on response quality
-        confidence = self._calculate_response_confidence(response, query_analysis, information_sufficiency)
-        
-        # Generate follow-up suggestions
-        suggestions = self._generate_suggestions(query_analysis, information_sufficiency)
-        
-        return {
-            'response': enhanced_response,
-            'confidence': confidence,
-            'suggestions': suggestions
+        """Enhance the response with additional context and suggestions"""
+        enhanced = {
+            'response': response,
+            'confidence': 'medium',
+            'suggestions': []
         }
+        
+        # Adjust confidence based on information sufficiency
+        if information_sufficiency and information_sufficiency.get('sufficient', False):
+            enhanced['confidence'] = 'high'
+        elif information_sufficiency and not information_sufficiency.get('sufficient', True):
+            enhanced['confidence'] = 'low'
+        
+        # Generate suggestions based on query analysis
+        if query_analysis:
+            domains = query_analysis.get('domains', [])
+            if domains:
+                enhanced['suggestions'].append(f"Consider asking about related {domains[0]} topics")
+            
+            intent = query_analysis.get('intent', '')
+            if intent == 'information_request':
+                enhanced['suggestions'].append("You can ask for more specific details")
+            elif intent == 'procedure_help':
+                enhanced['suggestions'].append("I can help you understand the step-by-step process")
+        
+        # Add general suggestions
+        enhanced['suggestions'].extend([
+            "Feel free to ask follow-up questions",
+            "I can help with various academic management topics"
+        ])
+        
+        return enhanced
     
-    def _calculate_response_confidence(self, response: str, query_analysis: Dict[str, Any], 
-                                     information_sufficiency: Dict[str, Any]) -> str:
-        """Calculate confidence in the generated response"""
-        # Base confidence on information sufficiency
-        if information_sufficiency.get('sufficient', False):
-            base_confidence = 0.8
-        else:
-            base_confidence = 0.4
-        
-        # Adjust based on response length and quality
-        if len(response) > 100:
-            base_confidence += 0.1
-        
-        # Adjust based on query complexity
-        complexity = query_analysis.get('complexity', 'moderate')
-        if complexity == 'simple':
-            base_confidence += 0.1
-        elif complexity == 'complex':
-            base_confidence -= 0.1
-        
-        # Determine confidence level
-        if base_confidence >= 0.8:
-            return 'high'
-        elif base_confidence >= 0.6:
-            return 'medium'
-        else:
-            return 'low'
-    
-    def _generate_suggestions(self, query_analysis: Dict[str, Any], 
-                            information_sufficiency: Dict[str, Any]) -> list:
-        """Generate follow-up suggestions"""
-        suggestions = []
-        
-        domains = query_analysis.get('domains', [])
-        
-        if 'attendance' in domains:
-            suggestions.append("Ask about attendance tracking procedures")
-            suggestions.append("Inquire about attendance requirements")
-        elif 'leave' in domains:
-            suggestions.append("Ask about leave application process")
-            suggestions.append("Inquire about leave types and policies")
-        elif 'events' in domains:
-            suggestions.append("Ask about event planning procedures")
-            suggestions.append("Inquire about event approval process")
-        elif 'grades' in domains:
-            suggestions.append("Ask about grading policies")
-            suggestions.append("Inquire about grade submission procedures")
-        
-        if not information_sufficiency.get('sufficient', True):
-            suggestions.append("Try asking a more specific question")
-            suggestions.append("Check if your topic is covered in our knowledge base")
-        
-        return suggestions[:3]  # Limit to 3 suggestions
-    
-    def _generate_fallback_response(self, query: str, information_sufficiency: Dict[str, Any]) -> str:
-        """Generate a fallback response when LLM fails"""
-        if not information_sufficiency.get('sufficient', True):
-            return "I'm having trouble finding specific information about your question. Could you please rephrase it or ask about a different aspect of academic management?"
-        else:
-            return "I'm experiencing technical difficulties right now. Please try asking your question again in a moment."
+    def get_system_health(self) -> Dict[str, Any]:
+        """Get the health status of the generation agent"""
+        return {
+            'status': 'healthy' if self.llm or self.use_fallback else 'error',
+            'model_available': bool(self.llm),
+            'fallback_mode': self.use_fallback,
+            'model_name': self.model_name if self.llm else 'fallback',
+            'api_key_configured': bool(self.api_key and self.api_key != "your_groq_api_key_here")
+        }

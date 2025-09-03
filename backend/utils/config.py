@@ -18,6 +18,11 @@ class RAGConfig:
     CHUNK_SIZE = 1000
     CHUNK_OVERLAP = 200
     
+    # ChromaDB Settings
+    CHROMADB_COLLECTION_NAME = "documents"
+    CHROMADB_PERSIST_DIRECTORY = "data/vector_store"
+    CHROMADB_DISTANCE_METRIC = "cosine"
+    
     # Memory Settings
     MAX_CONVERSATION_HISTORY = 10
     SESSION_TIMEOUT = 3600  # 1 hour

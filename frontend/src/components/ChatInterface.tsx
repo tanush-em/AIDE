@@ -48,9 +48,30 @@ export default function ChatInterface() {
 
   const checkSystemStatus = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/rag/health')
-      const data = await response.json()
-      setSystemStatus(data.status)
+      // Try RAG health first
+      let response = await fetch('http://localhost:5001/api/rag/health')
+      if (response.ok) {
+        const data = await response.json()
+        setSystemStatus(data.status)
+        return
+      }
+      
+      // Fallback to main health endpoint
+      response = await fetch('http://localhost:5001/api/health')
+      if (response.ok) {
+        const data = await response.json()
+        setSystemStatus('healthy')
+        return
+      }
+      
+      // If both fail, check if backend is reachable
+      response = await fetch('http://localhost:5001/')
+      if (response.ok) {
+        setSystemStatus('partial')
+        return
+      }
+      
+      setSystemStatus('error')
     } catch (error) {
       setSystemStatus('error')
       console.error('Error checking system status:', error)
@@ -73,6 +94,7 @@ export default function ChatInterface() {
     setAgentStatus({})
 
     try {
+      // Use the RAG chat endpoint
       const response = await fetch('http://localhost:5001/api/rag/chat', {
         method: 'POST',
         headers: {
@@ -111,10 +133,11 @@ export default function ChatInterface() {
         setMessages(prev => [...prev, errorMessage])
       }
     } catch (error) {
+      console.error('Network error:', error)
       const errorMessage: Message = {
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again.',
+        content: 'Network error: Unable to connect to the backend. Please check if the server is running on port 5001.',
         timestamp: new Date(),
         confidence: 'low'
       }
@@ -195,7 +218,8 @@ export default function ChatInterface() {
           <div className="flex items-center space-x-4">
             <div className={`px-2 py-1 rounded text-sm ${
               systemStatus === 'healthy' ? 'bg-green-500' : 
-              systemStatus === 'initializing' ? 'bg-yellow-500' : 'bg-red-500'
+              systemStatus === 'initializing' ? 'bg-yellow-500' : 
+              systemStatus === 'partial' ? 'bg-orange-500' : 'bg-red-500'
             }`}>
               {systemStatus}
             </div>

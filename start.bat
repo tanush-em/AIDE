@@ -19,7 +19,7 @@ cd ..
 
 echo Applications started!
 echo Frontend: http://localhost:3000
-echo Backend: http://localhost:5000
+echo Backend: http://localhost:5001
 echo.
 echo Press any key to stop both applications...
 pause >nul

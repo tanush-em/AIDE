@@ -57,9 +57,6 @@ def get_database_stats():
     """Get database statistics"""
     try:
         # Use a new event loop for each request
-        import nest_asyncio
-        nest_asyncio.apply()
-        
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         

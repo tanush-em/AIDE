@@ -1,6 +1,7 @@
 import os
 import sys
 from typing import Dict, Any, Optional
+import logging
 
 # Add the backend directory to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -8,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.config import RAGConfig
 from utils.memory import MemoryManager
 from rag.embeddings import EmbeddingManager
-from rag.vector_store import FAISSVectorStore
+from rag.vector_store import ChromaDBVectorStore
 from rag.document_loader import DocumentLoader
 from agents.orchestrator import RAGOrchestrator
 from agents.query_agent import QueryUnderstandingAgent
@@ -16,6 +17,9 @@ from agents.retrieval_agent import KnowledgeRetrievalAgent
 from agents.synthesis_agent import ContextSynthesisAgent
 from agents.generation_agent import ResponseGenerationAgent
 from agents.conversation_agent import ConversationManagerAgent
+
+# Setup logging
+logger = logging.getLogger(__name__)
 
 class RAGService:
     """Main service class that manages the entire RAG system"""
@@ -38,28 +42,35 @@ class RAGService:
     async def initialize(self):
         """Initialize the RAG system"""
         try:
+            logger.info("Initializing RAG system...")
             print("Initializing RAG system...")
             
             # Initialize embedding manager
+            logger.info("Loading embedding model...")
             print("Loading embedding model...")
             self.embedding_manager = EmbeddingManager(self.config.EMBEDDING_MODEL)
             
             # Initialize vector store
+            logger.info("Initializing vector store...")
             print("Initializing vector store...")
-            self.vector_store = FAISSVectorStore(
+            self.vector_store = ChromaDBVectorStore(
                 self.config.VECTOR_STORE_PATH,
-                self.embedding_manager
+                self.embedding_manager,
+                self.config.CHROMADB_COLLECTION_NAME
             )
             
             # Initialize memory manager
+            logger.info("Initializing memory manager...")
             print("Initializing memory manager...")
             self.memory_manager = MemoryManager()
             
             # Initialize agents
+            logger.info("Initializing agents...")
             print("Initializing agents...")
             self._initialize_agents()
             
             # Initialize orchestrator
+            logger.info("Initializing orchestrator...")
             print("Initializing orchestrator...")
             self.orchestrator = RAGOrchestrator(
                 query_agent=self.query_agent,
@@ -74,14 +85,17 @@ class RAGService:
             
             # Build vector store if needed
             if self.vector_store.get_document_count() == 0:
+                logger.info("Building vector store from knowledge base...")
                 print("Building vector store from knowledge base...")
                 await self._build_vector_store()
             
             self.is_initialized = True
+            logger.info("RAG system initialized successfully!")
             print("RAG system initialized successfully!")
             
         except Exception as e:
             self.initialization_error = str(e)
+            logger.error(f"Error initializing RAG system: {e}")
             print(f"Error initializing RAG system: {e}")
             raise
     
@@ -110,11 +124,14 @@ class RAGService:
                     chunk_size=self.config.CHUNK_SIZE,
                     chunk_overlap=self.config.CHUNK_OVERLAP
                 )
+                logger.info(f"Vector store built with {len(documents)} documents")
                 print(f"Vector store built with {len(documents)} documents")
             else:
+                logger.warning("No documents found in knowledge base")
                 print("No documents found in knowledge base")
                 
         except Exception as e:
+            logger.error(f"Error building vector store: {e}")
             print(f"Error building vector store: {e}")
             raise
     
@@ -148,6 +165,7 @@ class RAGService:
             raise RuntimeError("RAG system not initialized")
         
         try:
+            logger.info("Rebuilding knowledge base...")
             print("Rebuilding knowledge base...")
             self.vector_store.rebuild_index(self.config.KNOWLEDGE_BASE_PATH)
             

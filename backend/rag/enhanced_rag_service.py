@@ -1,12 +1,16 @@
 import asyncio
 import logging
 from typing import Dict, Any, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 from rag.rag_service import RAGService
 from agents.query_router import query_router
 from database.mongodb_service import mongodb_service
 from agents.mongodb_tools import mongodb_tools
+
+def utc_now():
+    """Get current UTC datetime (replacement for deprecated datetime.utcnow())"""
+    return datetime.now(timezone.utc)
 
 logger = logging.getLogger(__name__)
 
@@ -31,9 +35,11 @@ class EnhancedRAGService:
             
             self.is_initialized = True
             logger.info("Enhanced RAG service initialized successfully")
+            print("Enhanced RAG service initialized successfully")
             
         except Exception as e:
             logger.error(f"Failed to initialize Enhanced RAG service: {str(e)}")
+            print(f"Failed to initialize Enhanced RAG service: {str(e)}")
             self.is_initialized = False
             raise e
     
@@ -50,7 +56,7 @@ class EnhancedRAGService:
             Dictionary with response and metadata
         """
         try:
-            start_time = datetime.utcnow()
+            start_time = utc_now()
             
             # Route the query to determine the best approach
             routing_result = await self.query_router.route_query(query, user_id, session_id)
@@ -67,7 +73,7 @@ class EnhancedRAGService:
                 result = await self._process_rag_query(session_id, query, user_id, routing_result)
             
             # Add processing metadata
-            processing_time = (datetime.utcnow() - start_time).total_seconds()
+            processing_time = (utc_now() - start_time).total_seconds()
             result["processing_time"] = processing_time
             result["route_type"] = routing_result["route_type"]
             result["query_analysis"] = routing_result.get("query_analysis", {})
@@ -328,6 +334,12 @@ class EnhancedRAGService:
     async def _log_analytics(self, query: str, result: Dict[str, Any], user_id: Optional[str], session_id: Optional[str], processing_time: float):
         """Log analytics for the query"""
         try:
+            # Convert confidence to float if possible
+            confidence_value = result.get("confidence", "medium")
+            if isinstance(confidence_value, str):
+                confidence_map = {"low": 0.3, "medium": 0.6, "high": 0.9}
+                confidence_value = confidence_map.get(confidence_value.lower(), 0.5)
+            
             analytics_data = {
                 "event_type": "query",
                 "user_id": user_id,
@@ -335,9 +347,9 @@ class EnhancedRAGService:
                 "query": query,
                 "response": result.get("response", "")[:500],  # Truncate long responses
                 "source": result.get("route_type", "unknown"),
-                "confidence": result.get("confidence", "medium"),
+                "confidence": confidence_value,
                 "processing_time": processing_time,
-                "timestamp": datetime.utcnow(),
+                "timestamp": utc_now(),
                 "metadata": {
                     "data_source": result.get("data_source", "unknown"),
                     "result_count": result.get("result_count", 0),
@@ -354,7 +366,17 @@ class EnhancedRAGService:
         """Get overall system status including both RAG and MongoDB"""
         try:
             rag_status = self.rag_service.get_system_status()
-            mongodb_status = asyncio.run(self.mongodb_service.get_database_stats())
+            
+            # Use the current event loop instead of creating a new one
+            try:
+                loop = asyncio.get_event_loop()
+                if loop.is_running():
+                    # If we're in an async context, return a placeholder
+                    mongodb_status = {"status": "async_context", "message": "Cannot get stats in async context"}
+                else:
+                    mongodb_status = loop.run_until_complete(self.mongodb_service.get_database_stats())
+            except RuntimeError:
+                mongodb_status = {"status": "no_loop", "message": "No event loop available"}
             
             return {
                 "enhanced_rag_status": "healthy" if self.is_initialized else "not_initialized",
