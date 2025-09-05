@@ -16,6 +16,8 @@ interface AgentStatus {
   [key: string]: string
 }
 
+const BACKEND_URL = 'http://localhost:5001'
+
 export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputMessage, setInputMessage] = useState('')
@@ -23,6 +25,7 @@ export default function ChatInterface() {
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({})
   const [systemStatus, setSystemStatus] = useState<string>('initializing')
+  const [connectionError, setConnectionError] = useState<string | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // Auto-scroll to bottom
@@ -44,12 +47,17 @@ export default function ChatInterface() {
   // Check system status
   useEffect(() => {
     checkSystemStatus()
+    // Set up periodic status check
+    const interval = setInterval(checkSystemStatus, 30000) // Check every 30 seconds
+    return () => clearInterval(interval)
   }, [])
 
   const checkSystemStatus = async () => {
     try {
+      setConnectionError(null)
+      
       // Try RAG health first
-      let response = await fetch('http://localhost:5001/api/rag/health')
+      let response = await fetch(`${BACKEND_URL}/api/rag/health`)
       if (response.ok) {
         const data = await response.json()
         setSystemStatus(data.status)
@@ -57,23 +65,25 @@ export default function ChatInterface() {
       }
       
       // Fallback to main health endpoint
-      response = await fetch('http://localhost:5001/api/health')
+      response = await fetch(`${BACKEND_URL}/api/health`)
       if (response.ok) {
-        const data = await response.json()
+        await response.json() // Just consume the response
         setSystemStatus('healthy')
         return
       }
       
       // If both fail, check if backend is reachable
-      response = await fetch('http://localhost:5001/')
+      response = await fetch(`${BACKEND_URL}/`)
       if (response.ok) {
         setSystemStatus('partial')
         return
       }
       
       setSystemStatus('error')
+      setConnectionError('Backend server is not responding')
     } catch (error) {
       setSystemStatus('error')
+      setConnectionError('Cannot connect to backend server')
       console.error('Error checking system status:', error)
     }
   }
@@ -95,7 +105,7 @@ export default function ChatInterface() {
 
     try {
       // Use the RAG chat endpoint
-      const response = await fetch('http://localhost:5001/api/rag/chat', {
+      const response = await fetch(`${BACKEND_URL}/api/rag/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -158,7 +168,7 @@ export default function ChatInterface() {
     if (!sessionId) return
 
     try {
-      const response = await fetch(`http://localhost:5001/api/rag/export/${sessionId}?format=${format}`)
+      const response = await fetch(`${BACKEND_URL}/api/rag/export/${sessionId}?format=${format}`)
       const data = await response.json()
 
       if (response.ok) {
@@ -181,7 +191,7 @@ export default function ChatInterface() {
     if (!sessionId) return
 
     try {
-      await fetch(`http://localhost:5001/api/rag/clear/${sessionId}`, {
+      await fetch(`${BACKEND_URL}/api/rag/clear/${sessionId}`, {
         method: 'DELETE'
       })
       setMessages([])
@@ -209,6 +219,23 @@ export default function ChatInterface() {
     }
   }
 
+  const getSystemStatusDisplay = () => {
+    switch (systemStatus) {
+      case 'healthy':
+        return { text: 'System Ready', color: 'bg-green-500', icon: '✅' }
+      case 'initializing':
+        return { text: 'Initializing', color: 'bg-yellow-500', icon: '⏳' }
+      case 'partial':
+        return { text: 'Partial', color: 'bg-orange-500', icon: '⚠️' }
+      case 'error':
+        return { text: 'Error', color: 'bg-red-500', icon: '❌' }
+      default:
+        return { text: 'Unknown', color: 'bg-gray-500', icon: '❓' }
+    }
+  }
+
+  const statusDisplay = getSystemStatusDisplay()
+
   return (
     <div className="flex flex-col h-screen max-w-4xl mx-auto bg-white">
       {/* Header */}
@@ -216,12 +243,9 @@ export default function ChatInterface() {
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">Academic Management AI Assistant</h1>
           <div className="flex items-center space-x-4">
-            <div className={`px-2 py-1 rounded text-sm ${
-              systemStatus === 'healthy' ? 'bg-green-500' : 
-              systemStatus === 'initializing' ? 'bg-yellow-500' : 
-              systemStatus === 'partial' ? 'bg-orange-500' : 'bg-red-500'
-            }`}>
-              {systemStatus}
+            <div className={`px-3 py-1 rounded text-sm flex items-center space-x-2 ${statusDisplay.color}`}>
+              <span>{statusDisplay.icon}</span>
+              <span>{statusDisplay.text}</span>
             </div>
             <button
               onClick={() => checkSystemStatus()}
@@ -232,6 +256,24 @@ export default function ChatInterface() {
           </div>
         </div>
       </div>
+
+      {/* Connection Error Banner */}
+      {connectionError && (
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <span className="text-red-500 mr-2">⚠️</span>
+              <span>{connectionError}</span>
+            </div>
+            <button
+              onClick={() => checkSystemStatus()}
+              className="text-red-700 hover:text-red-900 underline"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Agent Status */}
       {Object.keys(agentStatus).length > 0 && (
@@ -261,6 +303,13 @@ export default function ChatInterface() {
             <p className="text-sm">
               Ask me about academic policies, procedures, attendance, leave management, events, and more!
             </p>
+            {systemStatus === 'error' && (
+              <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-700 text-sm">
+                  ⚠️ Backend connection issue detected. Please ensure the backend server is running on port 5001.
+                </p>
+              </div>
+            )}
           </div>
         ) : (
           messages.map((message) => (
@@ -334,11 +383,11 @@ export default function ChatInterface() {
             placeholder="Ask me about academic management..."
             className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             rows={1}
-            disabled={isLoading}
+            disabled={isLoading || systemStatus === 'error'}
           />
           <button
             onClick={sendMessage}
-            disabled={isLoading || !inputMessage.trim()}
+            disabled={isLoading || !inputMessage.trim() || systemStatus === 'error'}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
             Send
@@ -350,20 +399,23 @@ export default function ChatInterface() {
           <div className="flex space-x-2">
             <button
               onClick={() => exportConversation('json')}
-              className="hover:text-blue-600 transition"
+              className="hover:text-blue-600 transition disabled:opacity-50"
+              disabled={systemStatus === 'error'}
             >
               Export JSON
             </button>
             <button
               onClick={() => exportConversation('txt')}
-              className="hover:text-blue-600 transition"
+              className="hover:text-blue-600 transition disabled:opacity-50"
+              disabled={systemStatus === 'error'}
             >
               Export TXT
             </button>
           </div>
           <button
             onClick={clearConversation}
-            className="text-red-600 hover:text-red-700 transition"
+            className="text-red-600 hover:text-red-700 transition disabled:opacity-50"
+            disabled={systemStatus === 'error'}
           >
             Clear Chat
           </button>

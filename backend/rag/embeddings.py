@@ -18,6 +18,22 @@ class EmbeddingManager:
         embeddings = self.model.encode(text, convert_to_numpy=True)
         return embeddings
     
+    def embed_single_text(self, text: str) -> List[float]:
+        """Generate embedding for a single text and return as a flat list"""
+        embedding = self.embed_text(text)
+        # Ensure we return a flat list, not nested lists
+        if isinstance(embedding, np.ndarray):
+            if embedding.ndim == 2:
+                return embedding[0].tolist()  # Extract the first embedding and convert to list
+            elif embedding.ndim == 1:
+                return embedding.tolist()  # Already 1D, just convert to list
+        elif isinstance(embedding, list):
+            # If it's already a list, return the first element if it's nested
+            if len(embedding) > 0 and isinstance(embedding[0], list):
+                return embedding[0]
+            return embedding
+        return embedding.tolist()[0] if hasattr(embedding, 'tolist') else embedding
+    
     def embed_documents(self, documents: List[str]) -> np.ndarray:
         """Generate embeddings for multiple documents"""
         return self.embed_text(documents)

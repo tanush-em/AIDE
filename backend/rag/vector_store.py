@@ -77,35 +77,64 @@ class ChromaDBVectorStore:
                 
                 for i, chunk in enumerate(chunks):
                     # Generate embedding for chunk
-                    embedding = self.embedding_manager.embed_text(chunk)
+                    embedding = self.embedding_manager.embed_single_text(chunk)
                     
-                    # Prepare metadata
+                    # Prepare metadata - ChromaDB only accepts str, int, float, bool, or None
+                    original_meta = doc.get('metadata', {})
                     metadata = {
-                        'source': doc.get('source', 'unknown'),
-                        'title': doc.get('title', 'Untitled'),
-                        'category': doc.get('category', 'general'),
-                        'chunk_index': i,
-                        'total_chunks': len(chunks),
-                        'original_metadata': doc.get('metadata', {}),
-                        'chunk_size': len(chunk),
-                        'document_type': doc.get('document_type', 'text')
+                        'source': str(doc.get('source', 'unknown')),
+                        'title': str(doc.get('title', 'Untitled')),
+                        'category': str(doc.get('category', 'general')),
+                        'chunk_index': int(i),
+                        'total_chunks': int(len(chunks)),
+                        'chunk_size': int(len(chunk)),
+                        'document_type': str(doc.get('document_type', 'text'))
                     }
+                    
+                    # Add flattened original metadata as separate fields
+                    if isinstance(original_meta, dict):
+                        for key, value in original_meta.items():
+                            if isinstance(value, (str, int, float, bool)) or value is None:
+                                metadata[f'meta_{key}'] = value
+                            else:
+                                metadata[f'meta_{key}'] = str(value)
                     
                     # Generate unique ID for the chunk
                     chunk_id = f"chunk_{chunk_counter}_{doc.get('source', 'unknown')}_{i}"
                     
                     all_chunks.append(chunk)
-                    all_embeddings.append(embedding.tolist())  # Convert numpy array to list
+                    all_embeddings.append(embedding)
                     all_metadatas.append(metadata)
                     all_ids.append(chunk_id)
                     
                     chunk_counter += 1
             
             if all_chunks:
+                # Ensure embeddings are in the correct format for ChromaDB
+                # ChromaDB expects embeddings to be a list of lists, where each inner list is an embedding
+                formatted_embeddings = []
+                for embedding in all_embeddings:
+                    if isinstance(embedding, list):
+                        # If it's already a list of floats, use it as is
+                        if len(embedding) > 0 and isinstance(embedding[0], (int, float)):
+                            formatted_embeddings.append(embedding)
+                        else:
+                            # If it's nested, flatten it
+                            flattened = []
+                            for item in embedding:
+                                if isinstance(item, list):
+                                    flattened.extend(item)
+                                else:
+                                    flattened.append(item)
+                            formatted_embeddings.append([float(x) for x in flattened])
+                    else:
+                        # If it's not a list, convert it to the expected format
+                        formatted_embeddings.append([float(x) for x in embedding])
+                
                 # Add all chunks to ChromaDB collection
                 self.collection.add(
                     documents=all_chunks,
-                    embeddings=all_embeddings,
+                    embeddings=formatted_embeddings,
                     metadatas=all_metadatas,
                     ids=all_ids
                 )
@@ -122,11 +151,34 @@ class ChromaDBVectorStore:
         """Search for similar documents using ChromaDB"""
         try:
             # Generate query embedding
-            query_embedding = self.embedding_manager.embed_text(query)
+            query_embedding = self.embedding_manager.embed_single_text(query)
+            
+            # Ensure query embedding is in the right format for ChromaDB (list of lists)
+            # ChromaDB expects query_embeddings to be a list of lists, where each inner list is an embedding
+            if isinstance(query_embedding, list):
+                # Check if it's already properly formatted
+                if len(query_embedding) > 0 and isinstance(query_embedding[0], (int, float)):
+                    # It's a flat list of floats, wrap it in another list
+                    query_embedding = [query_embedding]
+                elif len(query_embedding) > 0 and isinstance(query_embedding[0], list):
+                    # It's already a list of lists, use as is
+                    pass
+                else:
+                    # Flatten and wrap
+                    flattened = []
+                    for item in query_embedding:
+                        if isinstance(item, list):
+                            flattened.extend(item)
+                        else:
+                            flattened.append(item)
+                    query_embedding = [[float(x) for x in flattened]]
+            else:
+                # If it's not a list, convert it to the expected format
+                query_embedding = [[float(x) for x in query_embedding]]
             
             # Search in ChromaDB collection
             results = self.collection.query(
-                query_embeddings=[query_embedding.tolist()],
+                query_embeddings=query_embedding,
                 n_results=k,
                 include=['documents', 'metadatas', 'distances']
             )
@@ -226,13 +278,13 @@ class ChromaDBVectorStore:
         """Update a specific document in the store"""
         try:
             # Generate new embedding
-            new_embedding = self.embedding_manager.embed_text(new_content)
+            new_embedding = self.embedding_manager.embed_single_text(new_content)
             
             # Update the document
             self.collection.update(
                 ids=[document_id],
                 documents=[new_content],
-                embeddings=[new_embedding.tolist()],
+                embeddings=new_embedding,
                 metadatas=[new_metadata]
             )
             

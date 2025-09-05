@@ -168,32 +168,42 @@ Current context and relevant information will be provided to help you answer the
             # Check for common academic topics
             if any(word in query_lower for word in ['attendance', 'present', 'absent']):
                 response = "Based on the academic rules, attendance is typically tracked and may affect your academic standing. "
-                if context:
+                if context and len(context) > 200:
                     response += f"From the available information: {context[:200]}... "
+                elif context:
+                    response += f"From the available information: {context} "
                 response += "For specific attendance policies, please consult your institution's academic handbook."
                 
             elif any(word in query_lower for word in ['leave', 'vacation', 'time off']):
                 response = "Leave management procedures vary by institution. "
-                if context:
+                if context and len(context) > 200:
                     response += f"Here's what I found: {context[:200]}... "
+                elif context:
+                    response += f"Here's what I found: {context} "
                 response += "Please check with your academic advisor for specific leave policies."
                 
             elif any(word in query_lower for word in ['grade', 'grading', 'score']):
                 response = "Grading policies are important for academic success. "
-                if context:
+                if context and len(context) > 200:
                     response += f"Based on the information: {context[:200]}... "
+                elif context:
+                    response += f"Based on the information: {context} "
                 response += "Refer to your course syllabus for specific grading criteria."
                 
             elif any(word in query_lower for word in ['rule', 'policy', 'procedure']):
                 response = "Academic policies and procedures are designed to ensure fair and consistent practices. "
-                if context:
+                if context and len(context) > 200:
                     response += f"Here's relevant information: {context[:200]}... "
+                elif context:
+                    response += f"Here's relevant information: {context} "
                 response += "For detailed policies, please consult your institution's official documentation."
                 
             else:
                 response = "I understand you're asking about academic management. "
-                if context:
+                if context and len(context) > 200:
                     response += f"Here's what I found: {context[:200]}... "
+                elif context:
+                    response += f"Here's what I found: {context} "
                 response += "Could you please provide more specific details about what you'd like to know?"
             
             return response
