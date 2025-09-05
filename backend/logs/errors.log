@@ -290,3 +290,5 @@ Error generating response with Groq LLM: Error code: 401 - {'error': {'message':
 Error generating response with Groq LLM: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
 Error generating response with Groq LLM: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
 Error generating response with Groq LLM: Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}
+Error in task execution: ChromaDBVectorStore.__init__() missing 2 required positional arguments: 'store_path' and 'embedding_manager'
+Error in task-based processing: ChromaDBVectorStore.__init__() missing 2 required positional arguments: 'store_path' and 'embedding_manager'

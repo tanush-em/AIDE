@@ -23,12 +23,12 @@ class TaskExecutor:
     """Executes tasks sequentially with real-time progress updates"""
     
     def __init__(self):
-        # Initialize agents
-        self.query_agent = QueryUnderstandingAgent()
-        self.retrieval_agent = KnowledgeRetrievalAgent()
-        self.synthesis_agent = ContextSynthesisAgent()
-        self.generation_agent = ResponseGenerationAgent()
-        self.conversation_agent = ConversationManagerAgent()
+        # Initialize agents (will be initialized when needed to avoid circular imports)
+        self.query_agent = None
+        self.retrieval_agent = None
+        self.synthesis_agent = None
+        self.generation_agent = None
+        self.conversation_agent = None
         
         # Task execution context
         self.execution_context = {}
@@ -37,6 +37,30 @@ class TaskExecutor:
     def set_progress_callback(self, callback: Callable[[Dict[str, Any]], None]):
         """Set callback function for progress updates"""
         self.progress_callback = callback
+    
+    async def _initialize_agents(self):
+        """Initialize agents when needed"""
+        if self.query_agent is None:
+            self.query_agent = QueryUnderstandingAgent()
+        if self.retrieval_agent is None:
+            # Import and initialize vector store with required parameters
+            from rag.vector_store import ChromaDBVectorStore
+            from rag.embeddings import EmbeddingManager
+            
+            # Initialize embedding manager
+            embedding_manager = EmbeddingManager()
+            
+            # Initialize vector store with proper parameters
+            store_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'vector_store')
+            vector_store = ChromaDBVectorStore(store_path=store_path, embedding_manager=embedding_manager)
+            
+            self.retrieval_agent = KnowledgeRetrievalAgent(vector_store)
+        if self.synthesis_agent is None:
+            self.synthesis_agent = ContextSynthesisAgent()
+        if self.generation_agent is None:
+            self.generation_agent = ResponseGenerationAgent()
+        if self.conversation_agent is None:
+            self.conversation_agent = ConversationManagerAgent()
     
     async def execute_tasks(self, tasks: List[Task]) -> Dict[str, Any]:
         """
@@ -50,6 +74,9 @@ class TaskExecutor:
         """
         try:
             logger.info(f"Starting execution of {len(tasks)} tasks")
+            
+            # Initialize agents
+            await self._initialize_agents()
             
             completed_tasks = []
             failed_tasks = []

@@ -10,6 +10,31 @@ interface Message {
   confidence?: string
   suggestions?: string[]
   agentStatus?: Record<string, string>
+  tasks?: Task[]
+  taskExecutionSummary?: TaskExecutionSummary
+  workflowType?: string
+}
+
+interface Task {
+  task_id: string
+  task_type: string
+  description: string
+  agent_type: string
+  status: 'pending' | 'in_progress' | 'completed' | 'failed' | 'skipped'
+  result?: any
+  error?: string
+  started_at?: string
+  completed_at?: string
+  created_at: string
+  dependencies: string[]
+  priority: number
+}
+
+interface TaskExecutionSummary {
+  total_tasks: number
+  completed_tasks: number
+  failed_tasks: number
+  skipped_tasks: number
 }
 
 interface AgentStatus {
@@ -26,6 +51,13 @@ export default function ChatInterface() {
   const [agentStatus, setAgentStatus] = useState<AgentStatus>({})
   const [systemStatus, setSystemStatus] = useState<string>('initializing')
   const [connectionError, setConnectionError] = useState<string | null>(null)
+  const [useTaskWorkflow, setUseTaskWorkflow] = useState(true)
+  const [currentTasks, setCurrentTasks] = useState<Task[]>([])
+  const [taskProgress, setTaskProgress] = useState<{
+    total: number
+    completed: number
+    current?: Task
+  }>({ total: 0, completed: 0 })
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // Auto-scroll to bottom
@@ -102,10 +134,14 @@ export default function ChatInterface() {
     setInputMessage('')
     setIsLoading(true)
     setAgentStatus({})
+    setCurrentTasks([])
+    setTaskProgress({ total: 0, completed: 0 })
 
     try {
-      // Use the RAG chat endpoint
-      const response = await fetch(`${BACKEND_URL}/api/rag/chat`, {
+      // Choose endpoint based on workflow preference
+      const endpoint = useTaskWorkflow ? '/api/tasks/chat/stream' : '/api/rag/chat'
+      
+      const response = await fetch(`${BACKEND_URL}${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +149,11 @@ export default function ChatInterface() {
         body: JSON.stringify({
           message: inputMessage,
           session_id: sessionId,
-          user_id: 'default'
+          user_id: 'default',
+          conversation_history: messages.map(msg => ({
+            role: msg.role,
+            content: msg.content
+          }))
         }),
       })
 
@@ -127,11 +167,23 @@ export default function ChatInterface() {
           timestamp: new Date(),
           confidence: data.confidence,
           suggestions: data.suggestions,
-          agentStatus: data.agent_status
+          agentStatus: data.agent_status,
+          tasks: data.tasks,
+          taskExecutionSummary: data.task_execution_summary,
+          workflowType: data.workflow_type
         }
 
         setMessages(prev => [...prev, assistantMessage])
         setAgentStatus(data.agent_status || {})
+        
+        // Update task information if using task workflow
+        if (useTaskWorkflow && data.tasks) {
+          setCurrentTasks(data.tasks)
+          setTaskProgress({
+            total: data.task_execution_summary?.total_tasks || 0,
+            completed: data.task_execution_summary?.completed_tasks || 0
+          })
+        }
       } else {
         const errorMessage: Message = {
           id: crypto.randomUUID(),
@@ -210,6 +262,28 @@ export default function ChatInterface() {
     }
   }
 
+  const getTaskStatusColor = (status: string) => {
+    switch (status) {
+      case 'pending': return 'text-gray-500'
+      case 'in_progress': return 'text-blue-500'
+      case 'completed': return 'text-green-500'
+      case 'failed': return 'text-red-500'
+      case 'skipped': return 'text-yellow-500'
+      default: return 'text-gray-500'
+    }
+  }
+
+  const getTaskStatusIcon = (status: string) => {
+    switch (status) {
+      case 'pending': return '⏳'
+      case 'in_progress': return '🔄'
+      case 'completed': return '✅'
+      case 'failed': return '❌'
+      case 'skipped': return '⏭️'
+      default: return '❓'
+    }
+  }
+
   const getConfidenceColor = (confidence: string) => {
     switch (confidence) {
       case 'high': return 'text-green-600'
@@ -243,6 +317,21 @@ export default function ChatInterface() {
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">Academic Management AI Assistant</h1>
           <div className="flex items-center space-x-4">
+            {/* Task Workflow Toggle */}
+            <div className="flex items-center space-x-2">
+              <span className="text-sm">Task Workflow:</span>
+              <button
+                onClick={() => setUseTaskWorkflow(!useTaskWorkflow)}
+                className={`px-3 py-1 rounded text-sm transition ${
+                  useTaskWorkflow 
+                    ? 'bg-green-500 hover:bg-green-600' 
+                    : 'bg-gray-500 hover:bg-gray-600'
+                }`}
+              >
+                {useTaskWorkflow ? 'ON' : 'OFF'}
+              </button>
+            </div>
+            
             <div className={`px-3 py-1 rounded text-sm flex items-center space-x-2 ${statusDisplay.color}`}>
               <span>{statusDisplay.icon}</span>
               <span>{statusDisplay.text}</span>
@@ -275,8 +364,48 @@ export default function ChatInterface() {
         </div>
       )}
 
-      {/* Agent Status */}
-      {Object.keys(agentStatus).length > 0 && (
+      {/* Task Progress Display */}
+      {useTaskWorkflow && currentTasks.length > 0 && (
+        <div className="bg-blue-50 p-4 border-b">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="text-lg font-semibold text-blue-800">Task Execution Progress</h3>
+            <div className="text-sm text-blue-600">
+              {taskProgress.completed} / {taskProgress.total} tasks completed
+            </div>
+          </div>
+          
+          {/* Progress Bar */}
+          <div className="w-full bg-blue-200 rounded-full h-2 mb-3">
+            <div 
+              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${taskProgress.total > 0 ? (taskProgress.completed / taskProgress.total) * 100 : 0}%` }}
+            ></div>
+          </div>
+          
+          {/* Task List */}
+          <div className="space-y-2">
+            {currentTasks.map((task) => (
+              <div key={task.task_id} className="flex items-center justify-between p-2 bg-white rounded border">
+                <div className="flex items-center space-x-3">
+                  <span className="text-lg">{getTaskStatusIcon(task.status)}</span>
+                  <div>
+                    <div className="font-medium text-sm">{task.description}</div>
+                    <div className="text-xs text-gray-500">
+                      {task.agent_type} • Priority: {task.priority}
+                    </div>
+                  </div>
+                </div>
+                <div className={`text-sm font-medium ${getTaskStatusColor(task.status)}`}>
+                  {task.status.replace('_', ' ')}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Agent Status (Legacy) */}
+      {!useTaskWorkflow && Object.keys(agentStatus).length > 0 && (
         <div className="bg-gray-50 p-3 border-b">
           <div className="flex space-x-4 text-sm">
             {Object.entries(agentStatus).map(([agent, status]) => (
@@ -300,9 +429,18 @@ export default function ChatInterface() {
           <div className="text-center text-gray-500 mt-8">
             <div className="text-4xl mb-4">🤖</div>
             <h3 className="text-lg font-semibold mb-2">Welcome to Academic Management AI</h3>
-            <p className="text-sm">
+            <p className="text-sm mb-4">
               Ask me about academic policies, procedures, attendance, leave management, events, and more!
             </p>
+            
+            {useTaskWorkflow && (
+              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-blue-700 text-sm">
+                  🎯 <strong>Task Workflow Enabled:</strong> Your queries will be broken down into tasks and executed sequentially with real-time progress updates.
+                </p>
+              </div>
+            )}
+            
             {systemStatus === 'error' && (
               <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                 <p className="text-red-700 text-sm">
@@ -335,6 +473,21 @@ export default function ChatInterface() {
                     </span>
                   )}
                 </div>
+
+                {/* Task Execution Summary */}
+                {message.taskExecutionSummary && (
+                  <div className="mt-2 pt-2 border-t border-gray-200">
+                    <div className="text-xs text-gray-600 mb-1">Task Execution Summary:</div>
+                    <div className="text-xs text-gray-500">
+                      {message.taskExecutionSummary.completed_tasks} of {message.taskExecutionSummary.total_tasks} tasks completed
+                      {message.taskExecutionSummary.failed_tasks > 0 && (
+                        <span className="text-red-500 ml-2">
+                          ({message.taskExecutionSummary.failed_tasks} failed)
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 {/* Suggestions */}
                 {message.suggestions && message.suggestions.length > 0 && (
