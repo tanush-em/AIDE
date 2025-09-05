@@ -58,9 +58,17 @@ class TaskExecutor:
         if self.synthesis_agent is None:
             self.synthesis_agent = ContextSynthesisAgent()
         if self.generation_agent is None:
-            self.generation_agent = ResponseGenerationAgent()
+            # Load API key from environment variables
+            groq_api_key = os.environ.get('GROQ_API_KEY')
+            if not groq_api_key or groq_api_key == 'your_groq_api_key_here':
+                logger.warning("GROQ_API_KEY not found in environment variables")
+                print("GROQ_API_KEY not found in environment variables")
+            self.generation_agent = ResponseGenerationAgent(api_key=groq_api_key)
         if self.conversation_agent is None:
-            self.conversation_agent = ConversationManagerAgent()
+            # Import and initialize memory manager
+            from utils.memory import MemoryManager
+            memory_manager = MemoryManager()
+            self.conversation_agent = ConversationManagerAgent(memory_manager)
     
     async def execute_tasks(self, tasks: List[Task]) -> Dict[str, Any]:
         """
@@ -205,27 +213,122 @@ class TaskExecutor:
         """Prepare task parameters with context from previous tasks"""
         params = task.parameters.copy()
         
-        # Add context from previous tasks
-        for dep_task_id in task.dependencies:
-            if dep_task_id in self.execution_context:
-                dep_result = self.execution_context[dep_task_id]
-                
-                # Map dependency results to current task parameters
-                if task.task_type == TaskType.KNOWLEDGE_RETRIEVAL:
-                    if 'query_analysis' not in params:
+        # Add context from previous tasks based on task type
+        if task.task_type == TaskType.KNOWLEDGE_RETRIEVAL:
+            # Get query analysis from previous task
+            for dep_task_id in task.dependencies:
+                if dep_task_id in self.execution_context:
+                    dep_result = self.execution_context[dep_task_id]
+                    if 'query_analysis' in dep_result:
+                        params['query_analysis'] = dep_result['query_analysis']
+                    else:
                         params['query_analysis'] = dep_result
-                elif task.task_type == TaskType.CONTEXT_SYNTHESIS:
-                    if 'search_results' not in params:
-                        params['search_results'] = dep_result.get('search_results', [])
-                elif task.task_type == TaskType.RESPONSE_GENERATION:
-                    if 'comprehensive_context' not in params:
-                        params['comprehensive_context'] = dep_result.get('comprehensive_context', '')
-                    if 'query_analysis' not in params:
-                        # Find query analysis from earlier tasks
-                        for ctx_task_id, ctx_result in self.execution_context.items():
-                            if 'query_analysis' in ctx_result:
-                                params['query_analysis'] = ctx_result['query_analysis']
-                                break
+                    break
+                    
+        elif task.task_type == TaskType.DATA_QUERY:
+            # Get query analysis for database queries
+            for dep_task_id in task.dependencies:
+                if dep_task_id in self.execution_context:
+                    dep_result = self.execution_context[dep_task_id]
+                    if 'query_analysis' in dep_result:
+                        params['query_analysis'] = dep_result['query_analysis']
+                    else:
+                        params['query_analysis'] = dep_result
+                    break
+                    
+        elif task.task_type == TaskType.CONTEXT_SYNTHESIS:
+            # Get search results and query analysis
+            search_results = []
+            query_analysis = {}
+            
+            for dep_task_id in task.dependencies:
+                if dep_task_id in self.execution_context:
+                    dep_result = self.execution_context[dep_task_id]
+                    
+                    # Check if this is retrieval results
+                    if 'search_results' in dep_result:
+                        search_results.extend(dep_result['search_results'])
+                    # Check if this is data query results
+                    elif 'mongodb_result' in dep_result:
+                        # Convert MongoDB results to search results format
+                        mongodb_data = dep_result['mongodb_result']
+                        if 'data' in mongodb_data:
+                            for item in mongodb_data['data']:
+                                search_results.append({
+                                    'content': str(item),
+                                    'metadata': {'source': 'mongodb', 'type': 'database_record'},
+                                    'score': 1.0
+                                })
+                    # Check if this is data query with search_results
+                    elif 'search_results' in dep_result:
+                        search_results.extend(dep_result['search_results'])
+                    # Check if this is query analysis
+                    elif 'query_analysis' in dep_result:
+                        query_analysis = dep_result['query_analysis']
+                    else:
+                        query_analysis = dep_result
+            
+            params['search_results'] = search_results
+            params['query_analysis'] = query_analysis
+            
+        elif task.task_type == TaskType.RESPONSE_GENERATION:
+            # Get comprehensive context and query analysis
+            comprehensive_context = ""
+            query_analysis = {}
+            
+            for dep_task_id in task.dependencies:
+                if dep_task_id in self.execution_context:
+                    dep_result = self.execution_context[dep_task_id]
+                    
+                    if 'comprehensive_context' in dep_result:
+                        comprehensive_context = dep_result['comprehensive_context']
+                    elif 'search_results' in dep_result:
+                        # Build context from search results
+                        context_parts = []
+                        for result in dep_result['search_results']:
+                            context_parts.append(f"Source: {result.get('content', '')}")
+                        comprehensive_context = "\n\n".join(context_parts)
+                    elif 'mongodb_result' in dep_result:
+                        # Build context from MongoDB results
+                        mongodb_data = dep_result['mongodb_result']
+                        if 'data' in mongodb_data:
+                            context_parts = []
+                            for item in mongodb_data['data']:
+                                context_parts.append(f"Database Record: {str(item)}")
+                            comprehensive_context = "\n\n".join(context_parts)
+                    
+                    if 'query_analysis' in dep_result:
+                        query_analysis = dep_result['query_analysis']
+                    elif not query_analysis:
+                        query_analysis = dep_result
+            
+            # If we still don't have context, try to get it from any available source
+            if not comprehensive_context:
+                for ctx_task_id, ctx_result in self.execution_context.items():
+                    if 'search_results' in ctx_result and ctx_result['search_results']:
+                        context_parts = []
+                        for result in ctx_result['search_results']:
+                            context_parts.append(f"Source: {result.get('content', '')}")
+                        comprehensive_context = "\n\n".join(context_parts)
+                        break
+                    elif 'mongodb_result' in ctx_result and ctx_result['mongodb_result'].get('data'):
+                        context_parts = []
+                        for item in ctx_result['mongodb_result']['data']:
+                            context_parts.append(f"Database Record: {str(item)}")
+                        comprehensive_context = "\n\n".join(context_parts)
+                        break
+            
+            params['comprehensive_context'] = comprehensive_context
+            params['query_analysis'] = query_analysis
+            
+        elif task.task_type == TaskType.CONVERSATION_UPDATE:
+            # Get the final response from generation task
+            for dep_task_id in task.dependencies:
+                if dep_task_id in self.execution_context:
+                    dep_result = self.execution_context[dep_task_id]
+                    if 'response' in dep_result:
+                        params['response'] = dep_result['response']
+                    break
         
         return params
 
@@ -254,17 +357,49 @@ class TaskExecutor:
             collection = "documents"
         elif any(word in query_lower for word in ["conversation", "conversations", "chat", "session"]):
             collection = "conversations"
+        elif any(word in query_lower for word in ["leave", "attendance", "policy", "policies", "procedure", "procedures"]):
+            collection = "documents"  # Look for policy documents
         else:
             collection = "documents"  # Default
         
         # Execute appropriate MongoDB tool
+        print(f"\n=== TASK EXECUTOR DEBUG - Data Query ===")
+        print(f"Query: {query}")
+        print(f"Collection: {collection}")
+        
         if any(word in query_lower for word in ["count", "sum", "average", "group by", "aggregate"]):
             result = await mongodb_tools.aggregate_data_tool(query, collection)
         else:
             result = await mongodb_tools.search_database_tool(query, collection)
         
-        self.execution_context['data_query'] = result
-        return result
+        print(f"MongoDB Result: {result}")
+        
+        # Store result with proper key for context flow
+        self.execution_context['data_query'] = {
+            'mongodb_result': result,
+            'search_results': self._convert_mongodb_to_search_results(result)
+        }
+        
+        print(f"Converted search results: {self.execution_context['data_query']['search_results']}")
+        return self.execution_context['data_query']
+    
+    def _convert_mongodb_to_search_results(self, mongodb_result: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Convert MongoDB results to search results format"""
+        search_results = []
+        
+        if 'data' in mongodb_result and mongodb_result['data']:
+            for item in mongodb_result['data']:
+                search_results.append({
+                    'content': str(item),
+                    'metadata': {
+                        'source': 'mongodb',
+                        'type': 'database_record',
+                        'collection': 'documents'
+                    },
+                    'score': 1.0
+                })
+        
+        return search_results
 
     async def _execute_context_synthesis(self, params: Dict[str, Any]) -> Dict[str, Any]:
         """Execute context synthesis task"""
@@ -274,6 +409,12 @@ class TaskExecutor:
 
     async def _execute_response_generation(self, params: Dict[str, Any]) -> Dict[str, Any]:
         """Execute response generation task"""
+        print(f"\n=== TASK EXECUTOR DEBUG - Response Generation ===")
+        print(f"Params received: {params}")
+        print(f"Execution context keys: {list(self.execution_context.keys())}")
+        for key, value in self.execution_context.items():
+            print(f"Context {key}: {str(value)[:200]}...")
+        
         result = await self.generation_agent.process(params)
         self.execution_context['generation'] = result
         return result

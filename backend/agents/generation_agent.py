@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 class ResponseGenerationAgent(BaseAgent):
     """Agent responsible for generating responses using the Groq LLM or fallback"""
     
-    def __init__(self, api_key: str = None, model_name: str = "llama3-8b-8192"):
+    def __init__(self, api_key: str = None, model_name: str = "llama-3.1-8b-instant"):
         super().__init__(
             name="Response Generation Agent",
             description="Generates conversational responses using Groq LLM based on synthesized context"
@@ -78,16 +78,35 @@ Current context and relevant information will be provided to help you answer the
         query_analysis = input_data.get('query_analysis', {})
         information_sufficiency = input_data.get('information_sufficiency', {})
         
+        # DEBUG: Print input data
+        print(f"\n=== LLM DEBUG - Input Data ===")
+        print(f"Query: {query}")
+        print(f"Comprehensive Context Length: {len(comprehensive_context)}")
+        print(f"Comprehensive Context: {comprehensive_context[:500]}...")
+        print(f"Query Analysis: {query_analysis}")
+        print(f"Information Sufficiency: {information_sufficiency}")
+        print(f"LLM Available: {self.llm is not None}")
+        print(f"Using Fallback: {self.use_fallback}")
+        
         # Prepare the prompt
         prompt = self._prepare_prompt(query, comprehensive_context, query_analysis, information_sufficiency)
+        
+        # DEBUG: Print prompt
+        print(f"\n=== LLM DEBUG - Prompt ===")
+        print(f"Prompt Length: {len(prompt)}")
+        print(f"Prompt: {prompt[:1000]}...")
         
         try:
             if self.llm and not self.use_fallback:
                 # Generate response using Groq LLM
+                print(f"\n=== LLM DEBUG - Calling Groq LLM ===")
                 response = await self._generate_response(prompt)
+                print(f"LLM Response: {response[:500]}...")
             else:
                 # Use fallback response generation
+                print(f"\n=== LLM DEBUG - Using Fallback ===")
                 response = self._generate_fallback_response(query, comprehensive_context, information_sufficiency)
+                print(f"Fallback Response: {response[:500]}...")
             
             # Process and enhance the response
             enhanced_response = self._enhance_response(response, query_analysis, information_sufficiency)

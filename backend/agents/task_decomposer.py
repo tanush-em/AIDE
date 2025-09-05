@@ -169,7 +169,9 @@ class TaskDecomposer:
             'show me', 'find', 'search for', 'get', 'retrieve', 'list',
             'display', 'view', 'count', 'sum', 'average', 'group by',
             'filter', 'where', 'all users', 'all documents', 'recent',
-            'today', 'this week', 'status', 'type', 'category'
+            'today', 'this week', 'status', 'type', 'category',
+            'leave policies', 'leave management', 'attendance', 'procedures',
+            'rules', 'regulations', 'guidelines', 'policies'
         ]
         
         # Check for RAG patterns
