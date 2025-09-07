@@ -58,11 +58,9 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from api.rag import rag_bp
-from api.mongodb import mongodb_bp
 from api.task_workflow import task_workflow_bp
 
 app.register_blueprint(rag_bp, url_prefix='/api/rag')
-app.register_blueprint(mongodb_bp, url_prefix='/api/mongodb')
 app.register_blueprint(task_workflow_bp, url_prefix='/api/tasks')
 
 @app.route('/')
@@ -83,8 +81,7 @@ def health_check():
             "task_chat": "/api/tasks/chat",
             "task_chat_stream": "/api/tasks/chat/stream",
             "health": "/api/rag/health",
-            "task_health": "/api/tasks/health",
-            "mongodb": "/api/mongodb/health"
+            "task_health": "/api/tasks/health"
         }
     })
 

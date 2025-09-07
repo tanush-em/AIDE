@@ -29,7 +29,7 @@ class RAGConfig:
     
     # Knowledge Base Settings
     KNOWLEDGE_BASE_PATH = "data/knowledge"
-    SUPPORTED_FORMATS = ['.txt', '.json', '.csv', '.md']
+    SUPPORTED_FORMATS = ['.txt', '.json', '.csv', '.md', '.pdf', '.docx', '.doc', '.xlsx', '.xls', '.pptx', '.ppt']
     
     # Agent Settings
     MAX_RETRIEVAL_RESULTS = 5

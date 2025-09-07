@@ -15,7 +15,7 @@ from agents.retrieval_agent import KnowledgeRetrievalAgent
 from agents.synthesis_agent import ContextSynthesisAgent
 from agents.generation_agent import ResponseGenerationAgent
 from agents.conversation_agent import ConversationManagerAgent
-from agents.mongodb_tools import mongodb_tools
+# MongoDB tools removed - system now uses only file-based data sources
 
 logger = logging.getLogger(__name__)
 
@@ -248,17 +248,10 @@ class TaskExecutor:
                     # Check if this is retrieval results
                     if 'search_results' in dep_result:
                         search_results.extend(dep_result['search_results'])
-                    # Check if this is data query results
-                    elif 'mongodb_result' in dep_result:
-                        # Convert MongoDB results to search results format
-                        mongodb_data = dep_result['mongodb_result']
-                        if 'data' in mongodb_data:
-                            for item in mongodb_data['data']:
-                                search_results.append({
-                                    'content': str(item),
-                                    'metadata': {'source': 'mongodb', 'type': 'database_record'},
-                                    'score': 1.0
-                                })
+                    # Check if this is data query results (now file-based)
+                    elif 'search_results' in dep_result and 'mongodb_result' not in dep_result:
+                        # Use file-based search results
+                        search_results.extend(dep_result['search_results'])
                     # Check if this is data query with search_results
                     elif 'search_results' in dep_result:
                         search_results.extend(dep_result['search_results'])
@@ -288,14 +281,7 @@ class TaskExecutor:
                         for result in dep_result['search_results']:
                             context_parts.append(f"Source: {result.get('content', '')}")
                         comprehensive_context = "\n\n".join(context_parts)
-                    elif 'mongodb_result' in dep_result:
-                        # Build context from MongoDB results
-                        mongodb_data = dep_result['mongodb_result']
-                        if 'data' in mongodb_data:
-                            context_parts = []
-                            for item in mongodb_data['data']:
-                                context_parts.append(f"Database Record: {str(item)}")
-                            comprehensive_context = "\n\n".join(context_parts)
+                    # MongoDB context building removed - using file-based sources only
                     
                     if 'query_analysis' in dep_result:
                         query_analysis = dep_result['query_analysis']
@@ -311,12 +297,7 @@ class TaskExecutor:
                             context_parts.append(f"Source: {result.get('content', '')}")
                         comprehensive_context = "\n\n".join(context_parts)
                         break
-                    elif 'mongodb_result' in ctx_result and ctx_result['mongodb_result'].get('data'):
-                        context_parts = []
-                        for item in ctx_result['mongodb_result']['data']:
-                            context_parts.append(f"Database Record: {str(item)}")
-                        comprehensive_context = "\n\n".join(context_parts)
-                        break
+                    # MongoDB context building removed - using file-based sources only
             
             params['comprehensive_context'] = comprehensive_context
             params['query_analysis'] = query_analysis
@@ -345,61 +326,34 @@ class TaskExecutor:
         return result
 
     async def _execute_data_query(self, params: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute database query task"""
-        # Use MongoDB tools for data queries
+        """Execute data query task - now uses file-based knowledge retrieval"""
         query = params.get('query', '')
         
-        # Determine collection and tool based on query content
-        query_lower = query.lower()
-        if any(word in query_lower for word in ["user", "users", "person", "people"]):
-            collection = "users"
-        elif any(word in query_lower for word in ["document", "documents", "file", "files"]):
-            collection = "documents"
-        elif any(word in query_lower for word in ["conversation", "conversations", "chat", "session"]):
-            collection = "conversations"
-        elif any(word in query_lower for word in ["leave", "attendance", "policy", "policies", "procedure", "procedures"]):
-            collection = "documents"  # Look for policy documents
-        else:
-            collection = "documents"  # Default
-        
-        # Execute appropriate MongoDB tool
         print(f"\n=== TASK EXECUTOR DEBUG - Data Query ===")
         print(f"Query: {query}")
-        print(f"Collection: {collection}")
+        print("Using file-based knowledge retrieval instead of database")
         
-        if any(word in query_lower for word in ["count", "sum", "average", "group by", "aggregate"]):
-            result = await mongodb_tools.aggregate_data_tool(query, collection)
-        else:
-            result = await mongodb_tools.search_database_tool(query, collection)
+        # Use the retrieval agent to search through file-based knowledge
+        if self.retrieval_agent is None:
+            await self._initialize_agents()
         
-        print(f"MongoDB Result: {result}")
+        retrieval_result = await self.retrieval_agent.process({
+            'query': query,
+            'max_results': 10,
+            'threshold': 0.5
+        })
         
         # Store result with proper key for context flow
         self.execution_context['data_query'] = {
-            'mongodb_result': result,
-            'search_results': self._convert_mongodb_to_search_results(result)
+            'search_results': retrieval_result.get('search_results', []),
+            'information_sufficiency': retrieval_result.get('information_sufficiency', {})
         }
         
-        print(f"Converted search results: {self.execution_context['data_query']['search_results']}")
+        print(f"File-based search results: {len(self.execution_context['data_query']['search_results'])} results")
+        
         return self.execution_context['data_query']
     
-    def _convert_mongodb_to_search_results(self, mongodb_result: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Convert MongoDB results to search results format"""
-        search_results = []
-        
-        if 'data' in mongodb_result and mongodb_result['data']:
-            for item in mongodb_result['data']:
-                search_results.append({
-                    'content': str(item),
-                    'metadata': {
-                        'source': 'mongodb',
-                        'type': 'database_record',
-                        'collection': 'documents'
-                    },
-                    'score': 1.0
-                })
-        
-        return search_results
+    # MongoDB conversion method removed - system now uses file-based data sources
 
     async def _execute_context_synthesis(self, params: Dict[str, Any]) -> Dict[str, Any]:
         """Execute context synthesis task"""
