@@ -4054,3 +4054,560 @@ I understand you're asking about academic management. Could you please provide m
 2025-09-05 08:58:13,005 - __main__ - INFO - Response Status: 200
 2025-09-05 08:58:13,005 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '2367'}
 2025-09-05 08:58:13,006 - werkzeug - INFO - 127.0.0.1 - - [05/Sep/2025 08:58:13] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:28:26,209 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:28:26,209 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:28:26,209 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:28:30,093 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:28:30,093 - __main__ - INFO - Debug mode: True
+2025-09-06 20:28:30,129 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.148:5001
+2025-09-06 20:28:30,129 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-09-06 20:28:30,130 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:28:30,210 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:28:30,210 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:28:30,211 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:28:32,272 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:28:32,272 - __main__ - INFO - Debug mode: True
+2025-09-06 20:28:32,284 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:28:32,289 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:28:38,907 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:28:38,907 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:28:38,907 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:28:38,907 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:28:38,907 - api.rag - INFO - RAG service not created
+2025-09-06 20:28:38,908 - __main__ - INFO - Response Status: 200
+2025-09-06 20:28:38,908 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:28:38,908 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:28:38] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:28:42,455 - __main__ - INFO - Request: OPTIONS http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:28:42,455 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Accept': '*/*', 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'content-type', 'Origin': 'http://localhost:3000', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9'}
+2025-09-06 20:28:42,455 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:28:42,456 - __main__ - INFO - Response Status: 200
+2025-09-06 20:28:42,456 - __main__ - INFO - Response Headers: {'Content-Type': 'text/html; charset=utf-8', 'Allow': 'OPTIONS, POST'}
+2025-09-06 20:28:42,456 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:28:42] "OPTIONS /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:28:42,459 - __main__ - INFO - Request: POST http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:28:42,459 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Content-Length': '114', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Content-Type': 'application/json', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:28:42,459 - __main__ - INFO - Body: {'message': 'hi', 'session_id': '4771599d-3914-4b71-8d90-95dc7394a309', 'user_id': 'default', 'conversation_history': []}
+2025-09-06 20:28:42,459 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:28:42,460 - api.task_workflow - INFO - Task-based streaming chat endpoint accessed
+2025-09-06 20:28:42,463 - api.task_workflow - INFO - Processing streaming task-based chat message for session 4771599d-3914-4b71-8d90-95dc7394a309, user default
+2025-09-06 20:28:42,464 - api.task_workflow - INFO - Processing query with streaming task-based workflow...
+2025-09-06 20:28:42,465 - agents.task_orchestrator - INFO - Starting task-based processing for query: hi...
+2025-09-06 20:28:42,465 - agents.task_orchestrator - INFO - Decomposing query into tasks...
+2025-09-06 20:28:42,465 - agents.task_decomposer - INFO - Decomposing query: hi...
+2025-09-06 20:28:42,465 - agents.task_decomposer - INFO - Generated 3 tasks for query
+2025-09-06 20:28:42,465 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: tasks_created
+2025-09-06 20:28:42,465 - agents.task_orchestrator - INFO - Executing 3 tasks sequentially...
+2025-09-06 20:28:42,466 - agents.task_executor - INFO - Starting execution of 3 tasks
+2025-09-06 20:28:42,466 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-06 20:28:47,507 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-09-06 20:28:47,716 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-06 20:28:47,810 - rag.vector_store - INFO - Loaded existing ChromaDB collection: documents
+2025-09-06 20:28:47,810 - rag.vector_store - INFO - ChromaDB initialized successfully at /Users/tanush/Documents/repos/AIDE/backend/data/vector_store
+2025-09-06 20:28:47,972 - agents.generation_agent - INFO - Groq LLM initialized successfully
+2025-09-06 20:28:47,972 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: started
+2025-09-06 20:28:47,972 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: in_progress
+2025-09-06 20:28:47,972 - agents.task_executor - INFO - Executing task task_1: Analyze and understand the user query
+2025-09-06 20:28:47,972 - agents.task_executor - INFO - Task task_1 completed successfully
+2025-09-06 20:28:47,972 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: in_progress
+2025-09-06 20:28:47,972 - agents.task_executor - INFO - Executing task task_2: Generate final response based on synthesized context
+2025-09-06 20:28:48,229 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-06 20:28:48,237 - agents.task_executor - INFO - Task task_2 completed successfully
+2025-09-06 20:28:48,237 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: in_progress
+2025-09-06 20:28:48,237 - agents.task_executor - INFO - Executing task task_3: Update conversation history
+2025-09-06 20:28:48,237 - agents.task_executor - INFO - Task task_3 completed successfully
+2025-09-06 20:28:48,237 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: completed
+2025-09-06 20:28:48,237 - agents.task_executor - INFO - Task execution completed. 3 successful, 0 failed
+2025-09-06 20:28:48,237 - agents.task_orchestrator - INFO - Task-based processing completed successfully
+2025-09-06 20:28:48,237 - api.task_workflow - INFO - Streaming task-based query processed successfully. Response length: 164
+2025-09-06 20:28:48,238 - __main__ - INFO - Response Status: 200
+2025-09-06 20:28:48,238 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '21288'}
+2025-09-06 20:28:48,238 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:28:48] "POST /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:28:58,441 - __main__ - INFO - Request: OPTIONS http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:28:58,441 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Accept': '*/*', 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'content-type', 'Origin': 'http://localhost:3000', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9'}
+2025-09-06 20:28:58,442 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:28:58,442 - __main__ - INFO - Response Status: 200
+2025-09-06 20:28:58,442 - __main__ - INFO - Response Headers: {'Content-Type': 'text/html; charset=utf-8', 'Allow': 'OPTIONS, POST'}
+2025-09-06 20:28:58,443 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:28:58] "OPTIONS /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:28:58,445 - __main__ - INFO - Request: POST http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:28:58,445 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Content-Length': '374', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Content-Type': 'application/json', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:28:58,446 - __main__ - INFO - Body: {'message': 'What is the grading system used ??', 'session_id': '4771599d-3914-4b71-8d90-95dc7394a309', 'user_id': 'default', 'conversation_history': [{'role': 'user', 'content': 'hi'}, {'role': 'assistant', 'content': 'Hello. How can I assist you with your academic management questions today? Are you looking for information on attendance, leave, events, grading, or something else?'}]}
+2025-09-06 20:28:58,446 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:28:58,446 - api.task_workflow - INFO - Task-based streaming chat endpoint accessed
+2025-09-06 20:28:58,446 - api.task_workflow - INFO - Processing streaming task-based chat message for session 4771599d-3914-4b71-8d90-95dc7394a309, user default
+2025-09-06 20:28:58,447 - api.task_workflow - INFO - Processing query with streaming task-based workflow...
+2025-09-06 20:28:58,447 - agents.task_orchestrator - INFO - Starting task-based processing for query: What is the grading system used ??...
+2025-09-06 20:28:58,447 - agents.task_orchestrator - INFO - Decomposing query into tasks...
+2025-09-06 20:28:58,457 - agents.task_decomposer - INFO - Decomposing query: What is the grading system used ??...
+2025-09-06 20:28:58,458 - agents.task_decomposer - INFO - Generated 4 tasks for query
+2025-09-06 20:28:58,458 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: tasks_created
+2025-09-06 20:28:58,458 - agents.task_orchestrator - INFO - Executing 4 tasks sequentially...
+2025-09-06 20:28:58,458 - agents.task_executor - INFO - Starting execution of 4 tasks
+2025-09-06 20:28:58,458 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: started
+2025-09-06 20:28:58,458 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: in_progress
+2025-09-06 20:28:58,459 - agents.task_executor - INFO - Executing task task_1: Analyze and understand the user query
+2025-09-06 20:28:58,459 - agents.task_executor - INFO - Task task_1 completed successfully
+2025-09-06 20:28:58,459 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: in_progress
+2025-09-06 20:28:58,459 - agents.task_executor - INFO - Executing task task_2: Retrieve relevant knowledge from vector store
+2025-09-06 20:28:58,652 - rag.vector_store - INFO - ChromaDB search returned 0 results above threshold 0.7
+2025-09-06 20:28:58,652 - agents.task_executor - INFO - Task task_2 completed successfully
+2025-09-06 20:28:58,652 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: in_progress
+2025-09-06 20:28:58,652 - agents.task_executor - INFO - Executing task task_3: Generate final response based on synthesized context
+2025-09-06 20:28:58,654 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.476411 seconds
+2025-09-06 20:29:00,150 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-06 20:29:00,153 - agents.task_executor - INFO - Task task_3 completed successfully
+2025-09-06 20:29:00,153 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: in_progress
+2025-09-06 20:29:00,153 - agents.task_executor - INFO - Executing task task_4: Update conversation history
+2025-09-06 20:29:00,153 - agents.task_executor - INFO - Task task_4 completed successfully
+2025-09-06 20:29:00,154 - api.task_workflow - INFO - Progress update for session 4771599d-3914-4b71-8d90-95dc7394a309: completed
+2025-09-06 20:29:00,154 - agents.task_executor - INFO - Task execution completed. 4 successful, 0 failed
+2025-09-06 20:29:00,154 - agents.task_orchestrator - INFO - Task-based processing completed successfully
+2025-09-06 20:29:00,154 - api.task_workflow - INFO - Streaming task-based query processed successfully. Response length: 1218
+2025-09-06 20:29:00,155 - __main__ - INFO - Response Status: 200
+2025-09-06 20:29:00,155 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '41011'}
+2025-09-06 20:29:00,156 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:29:00] "POST /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:29:08,912 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:29:08,913 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:29:08,913 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:29:08,913 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:29:08,913 - api.rag - INFO - RAG service not created
+2025-09-06 20:29:08,914 - __main__ - INFO - Response Status: 200
+2025-09-06 20:29:08,914 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:29:08,914 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:29:08] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:29:38,911 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:29:38,911 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:29:38,911 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:29:38,911 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:29:38,911 - api.rag - INFO - RAG service not created
+2025-09-06 20:29:38,912 - __main__ - INFO - Response Status: 200
+2025-09-06 20:29:38,912 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:29:38,912 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:29:38] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:30:08,914 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:30:08,914 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:30:08,915 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:30:08,915 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:30:08,915 - api.rag - INFO - RAG service not created
+2025-09-06 20:30:08,915 - __main__ - INFO - Response Status: 200
+2025-09-06 20:30:08,915 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:30:08,915 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:30:08] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:30:38,916 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:30:38,918 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:30:38,919 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:30:38,920 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:30:38,923 - api.rag - INFO - RAG service not created
+2025-09-06 20:30:38,924 - __main__ - INFO - Response Status: 200
+2025-09-06 20:30:38,924 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:30:38,925 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:30:38] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:31:08,914 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:31:08,915 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:31:08,915 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:31:08,915 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:31:08,915 - api.rag - INFO - RAG service not created
+2025-09-06 20:31:08,915 - __main__ - INFO - Response Status: 200
+2025-09-06 20:31:08,915 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:31:08,916 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:31:08] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:31:38,915 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:31:38,915 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:31:38,915 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:31:38,915 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:31:38,915 - api.rag - INFO - RAG service not created
+2025-09-06 20:31:38,916 - __main__ - INFO - Response Status: 200
+2025-09-06 20:31:38,916 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:31:38,916 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:31:38] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:32:08,916 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:32:08,919 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:32:08,920 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:32:08,921 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:32:08,925 - api.rag - INFO - RAG service not created
+2025-09-06 20:32:08,926 - __main__ - INFO - Response Status: 200
+2025-09-06 20:32:08,927 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:32:08,930 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:32:08] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:32:38,913 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:32:38,913 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:32:38,913 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:32:38,913 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:32:38,913 - api.rag - INFO - RAG service not created
+2025-09-06 20:32:38,914 - __main__ - INFO - Response Status: 200
+2025-09-06 20:32:38,914 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:32:38,914 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:32:38] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:33:08,916 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:33:08,917 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:33:08,918 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:33:08,918 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:33:08,921 - api.rag - INFO - RAG service not created
+2025-09-06 20:33:08,921 - __main__ - INFO - Response Status: 200
+2025-09-06 20:33:08,921 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:33:08,922 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:33:08] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:33:38,916 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:33:38,917 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:33:38,917 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:33:38,917 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:33:38,917 - api.rag - INFO - RAG service not created
+2025-09-06 20:33:38,917 - __main__ - INFO - Response Status: 200
+2025-09-06 20:33:38,917 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:33:38,918 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:33:38] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:34:08,915 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:34:08,915 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:34:08,915 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:34:08,916 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:34:08,916 - api.rag - INFO - RAG service not created
+2025-09-06 20:34:08,916 - __main__ - INFO - Response Status: 200
+2025-09-06 20:34:08,916 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:34:08,916 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:34:08] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:34:35,681 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:34:35,681 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:34:35,681 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:34:38,386 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:34:38,386 - __main__ - INFO - Debug mode: True
+2025-09-06 20:34:38,407 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.148:5001
+2025-09-06 20:34:38,408 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-09-06 20:34:38,408 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:34:38,486 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:34:38,486 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:34:38,486 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:34:40,569 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:34:40,569 - __main__ - INFO - Debug mode: True
+2025-09-06 20:34:40,581 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:34:40,589 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:34:40,623 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:34:40,623 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:34:40,623 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:34:40,623 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:34:40,624 - api.rag - INFO - RAG service not created
+2025-09-06 20:34:40,624 - __main__ - INFO - Response Status: 200
+2025-09-06 20:34:40,624 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:34:40,624 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:34:40] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:34:47,922 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:34:47,922 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:34:47,922 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:34:47,922 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:34:47,922 - api.rag - INFO - RAG service not created
+2025-09-06 20:34:47,922 - __main__ - INFO - Response Status: 200
+2025-09-06 20:34:47,922 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:34:47,922 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:34:47] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:35:17,926 - __main__ - INFO - Request: OPTIONS http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:35:17,927 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Accept': '*/*', 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'content-type', 'Origin': 'http://localhost:3000', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9'}
+2025-09-06 20:35:17,927 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:35:17,928 - __main__ - INFO - Response Status: 200
+2025-09-06 20:35:17,928 - __main__ - INFO - Response Headers: {'Content-Type': 'text/html; charset=utf-8', 'Allow': 'POST, OPTIONS'}
+2025-09-06 20:35:17,928 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:35:17] "OPTIONS /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:35:17,939 - __main__ - INFO - Request: POST http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:35:17,940 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Content-Length': '179', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Content-Type': 'application/json', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:35:17,943 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:35:17,943 - __main__ - INFO - Body: {'message': 'Hey, I wanna know the scores of david wilson is anll three subjects', 'session_id': '016d106e-10c4-47c0-a77b-054e320f4cfd', 'user_id': 'default', 'conversation_history': []}
+2025-09-06 20:35:17,943 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:35:17,943 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:35:17,943 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:35:17,944 - api.task_workflow - INFO - Task-based streaming chat endpoint accessed
+2025-09-06 20:35:17,944 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:35:17,944 - api.task_workflow - INFO - Processing streaming task-based chat message for session 016d106e-10c4-47c0-a77b-054e320f4cfd, user default
+2025-09-06 20:35:17,944 - api.rag - INFO - RAG service not created
+2025-09-06 20:35:17,945 - __main__ - INFO - Response Status: 200
+2025-09-06 20:35:17,945 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:35:17,946 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:35:17] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:35:17,947 - api.task_workflow - INFO - Processing query with streaming task-based workflow...
+2025-09-06 20:35:17,948 - agents.task_orchestrator - INFO - Starting task-based processing for query: Hey, I wanna know the scores of david wilson is anll three subjects...
+2025-09-06 20:35:17,948 - agents.task_orchestrator - INFO - Decomposing query into tasks...
+2025-09-06 20:35:17,948 - agents.task_decomposer - INFO - Decomposing query: Hey, I wanna know the scores of david wilson is anll three subjects...
+2025-09-06 20:35:17,948 - agents.task_decomposer - INFO - Generated 3 tasks for query
+2025-09-06 20:35:17,948 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: tasks_created
+2025-09-06 20:35:17,948 - agents.task_orchestrator - INFO - Executing 3 tasks sequentially...
+2025-09-06 20:35:17,949 - agents.task_executor - INFO - Starting execution of 3 tasks
+2025-09-06 20:35:17,949 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-06 20:35:29,820 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-09-06 20:35:30,005 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-06 20:35:30,074 - rag.vector_store - INFO - Loaded existing ChromaDB collection: documents
+2025-09-06 20:35:30,075 - rag.vector_store - INFO - ChromaDB initialized successfully at /Users/tanush/Documents/repos/AIDE/backend/data/vector_store
+2025-09-06 20:35:30,222 - agents.generation_agent - INFO - Groq LLM initialized successfully
+2025-09-06 20:35:30,222 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: started
+2025-09-06 20:35:30,222 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: in_progress
+2025-09-06 20:35:30,222 - agents.task_executor - INFO - Executing task task_1: Analyze and understand the user query
+2025-09-06 20:35:30,222 - agents.task_executor - INFO - Task task_1 completed successfully
+2025-09-06 20:35:30,222 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: in_progress
+2025-09-06 20:35:30,222 - agents.task_executor - INFO - Executing task task_2: Generate final response based on synthesized context
+2025-09-06 20:35:30,691 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-06 20:35:30,709 - agents.task_executor - INFO - Task task_2 completed successfully
+2025-09-06 20:35:30,709 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: in_progress
+2025-09-06 20:35:30,709 - agents.task_executor - INFO - Executing task task_3: Update conversation history
+2025-09-06 20:35:30,709 - agents.task_executor - INFO - Task task_3 completed successfully
+2025-09-06 20:35:30,709 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: completed
+2025-09-06 20:35:30,709 - agents.task_executor - INFO - Task execution completed. 3 successful, 0 failed
+2025-09-06 20:35:30,709 - agents.task_orchestrator - INFO - Task-based processing completed successfully
+2025-09-06 20:35:30,710 - api.task_workflow - INFO - Streaming task-based query processed successfully. Response length: 581
+2025-09-06 20:35:30,710 - __main__ - INFO - Response Status: 200
+2025-09-06 20:35:30,710 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '25400'}
+2025-09-06 20:35:30,711 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:35:30] "POST /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:35:47,927 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:35:47,927 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:35:47,927 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:35:47,927 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:35:47,928 - api.rag - INFO - RAG service not created
+2025-09-06 20:35:47,928 - __main__ - INFO - Response Status: 200
+2025-09-06 20:35:47,928 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:35:47,929 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:35:47] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:36:06,603 - __main__ - INFO - Request: OPTIONS http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:36:06,604 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Accept': '*/*', 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'content-type', 'Origin': 'http://localhost:3000', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9'}
+2025-09-06 20:36:06,604 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:36:06,605 - __main__ - INFO - Response Status: 200
+2025-09-06 20:36:06,605 - __main__ - INFO - Response Headers: {'Content-Type': 'text/html; charset=utf-8', 'Allow': 'POST, OPTIONS'}
+2025-09-06 20:36:06,605 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:36:06] "OPTIONS /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:36:06,616 - __main__ - INFO - Request: POST http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:36:06,617 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Content-Length': '916', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Content-Type': 'application/json', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:36:06,618 - __main__ - INFO - Body: {'message': 'You have access to mongodb ryt, you can retrieve it from there. It is in scores colelction', 'session_id': '016d106e-10c4-47c0-a77b-054e320f4cfd', 'user_id': 'default', 'conversation_history': [{'role': 'user', 'content': 'Hey, I wanna know the scores of david wilson is anll three subjects'}, {'role': 'assistant', 'content': "I can't assist you in accessing student grades as that would be an invasion of privacy, however, if you are looking for general information on how to view grades or access student records, I can help guide you through that process.\n\nIf you are a faculty member or instructor and are looking for information on how to post grades for a student such as David Wilson, I can help you with that.\n\nPlease provide me some additional context or information so I can better assist you. What is your role at the institution? Are you trying to access grades for a specific semester or course?"}]}
+2025-09-06 20:36:06,618 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:36:06,618 - api.task_workflow - INFO - Task-based streaming chat endpoint accessed
+2025-09-06 20:36:06,618 - api.task_workflow - INFO - Processing streaming task-based chat message for session 016d106e-10c4-47c0-a77b-054e320f4cfd, user default
+2025-09-06 20:36:06,618 - api.task_workflow - INFO - Processing query with streaming task-based workflow...
+2025-09-06 20:36:06,619 - agents.task_orchestrator - INFO - Starting task-based processing for query: You have access to mongodb ryt, you can retrieve it from there. It is in scores colelction...
+2025-09-06 20:36:06,619 - agents.task_orchestrator - INFO - Decomposing query into tasks...
+2025-09-06 20:36:06,619 - agents.task_decomposer - INFO - Decomposing query: You have access to mongodb ryt, you can retrieve it from there. It is in scores colelction...
+2025-09-06 20:36:06,619 - agents.task_decomposer - INFO - Generated 4 tasks for query
+2025-09-06 20:36:06,619 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: tasks_created
+2025-09-06 20:36:06,619 - agents.task_orchestrator - INFO - Executing 4 tasks sequentially...
+2025-09-06 20:36:06,619 - agents.task_executor - INFO - Starting execution of 4 tasks
+2025-09-06 20:36:06,619 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: started
+2025-09-06 20:36:06,620 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: in_progress
+2025-09-06 20:36:06,620 - agents.task_executor - INFO - Executing task task_1: Analyze and understand the user query
+2025-09-06 20:36:06,620 - agents.task_executor - INFO - Task task_1 completed successfully
+2025-09-06 20:36:06,620 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: in_progress
+2025-09-06 20:36:06,620 - agents.task_executor - INFO - Executing task task_2: Query structured data from database
+2025-09-06 20:36:06,620 - database.mongodb_service - ERROR - Error searching documents by text: MongoDB not connected
+2025-09-06 20:36:06,620 - agents.mongodb_tools - ERROR - Error in search_database_tool: MongoDB not connected
+2025-09-06 20:36:06,620 - agents.task_executor - INFO - Task task_2 completed successfully
+2025-09-06 20:36:06,620 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: in_progress
+2025-09-06 20:36:06,621 - agents.task_executor - INFO - Executing task task_3: Generate final response based on synthesized context
+2025-09-06 20:36:06,627 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.417497 seconds
+2025-09-06 20:36:07,751 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-06 20:36:07,753 - agents.task_executor - INFO - Task task_3 completed successfully
+2025-09-06 20:36:07,753 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: in_progress
+2025-09-06 20:36:07,753 - agents.task_executor - INFO - Executing task task_4: Update conversation history
+2025-09-06 20:36:07,753 - agents.task_executor - INFO - Task task_4 completed successfully
+2025-09-06 20:36:07,753 - api.task_workflow - INFO - Progress update for session 016d106e-10c4-47c0-a77b-054e320f4cfd: completed
+2025-09-06 20:36:07,753 - agents.task_executor - INFO - Task execution completed. 4 successful, 0 failed
+2025-09-06 20:36:07,753 - agents.task_orchestrator - INFO - Task-based processing completed successfully
+2025-09-06 20:36:07,753 - api.task_workflow - INFO - Streaming task-based query processed successfully. Response length: 1266
+2025-09-06 20:36:07,754 - __main__ - INFO - Response Status: 200
+2025-09-06 20:36:07,754 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '47322'}
+2025-09-06 20:36:07,754 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:36:07] "POST /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:36:17,928 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:36:17,928 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:36:17,928 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:36:17,929 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:36:17,929 - api.rag - INFO - RAG service not created
+2025-09-06 20:36:17,929 - __main__ - INFO - Response Status: 200
+2025-09-06 20:36:17,929 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:36:17,930 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:36:17] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:36:40,147 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:36:40,147 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:36:40,147 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:36:40,147 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:36:40,148 - api.rag - INFO - RAG service not created
+2025-09-06 20:36:40,148 - __main__ - INFO - Response Status: 200
+2025-09-06 20:36:40,148 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:36:40,148 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:36:40] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:37:01,848 - __main__ - INFO - Request: OPTIONS http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:37:01,848 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Accept': '*/*', 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'content-type', 'Origin': 'http://localhost:3000', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9'}
+2025-09-06 20:37:01,849 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:37:01,849 - __main__ - INFO - Response Status: 200
+2025-09-06 20:37:01,849 - __main__ - INFO - Response Headers: {'Content-Type': 'text/html; charset=utf-8', 'Allow': 'POST, OPTIONS'}
+2025-09-06 20:37:01,850 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:37:01] "OPTIONS /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:37:01,858 - __main__ - INFO - Request: POST http://localhost:5001/api/tasks/chat/stream
+2025-09-06 20:37:01,858 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Content-Length': '178', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Content-Type': 'application/json', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:37:01,859 - __main__ - INFO - Body: {'message': 'hey, i wanna know the scores of david wilson in all three subjects', 'session_id': '44a57425-1f39-4c41-af66-7909339b2a10', 'user_id': 'default', 'conversation_history': []}
+2025-09-06 20:37:01,859 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:37:01,859 - api.task_workflow - INFO - Task-based streaming chat endpoint accessed
+2025-09-06 20:37:01,860 - api.task_workflow - INFO - Processing streaming task-based chat message for session 44a57425-1f39-4c41-af66-7909339b2a10, user default
+2025-09-06 20:37:01,861 - api.task_workflow - INFO - Processing query with streaming task-based workflow...
+2025-09-06 20:37:01,861 - agents.task_orchestrator - INFO - Starting task-based processing for query: hey, i wanna know the scores of david wilson in all three subjects...
+2025-09-06 20:37:01,861 - agents.task_orchestrator - INFO - Decomposing query into tasks...
+2025-09-06 20:37:01,861 - agents.task_decomposer - INFO - Decomposing query: hey, i wanna know the scores of david wilson in all three subjects...
+2025-09-06 20:37:01,861 - agents.task_decomposer - INFO - Generated 3 tasks for query
+2025-09-06 20:37:01,862 - api.task_workflow - INFO - Progress update for session 44a57425-1f39-4c41-af66-7909339b2a10: tasks_created
+2025-09-06 20:37:01,862 - agents.task_orchestrator - INFO - Executing 3 tasks sequentially...
+2025-09-06 20:37:01,862 - agents.task_executor - INFO - Starting execution of 3 tasks
+2025-09-06 20:37:01,862 - api.task_workflow - INFO - Progress update for session 44a57425-1f39-4c41-af66-7909339b2a10: started
+2025-09-06 20:37:01,862 - api.task_workflow - INFO - Progress update for session 44a57425-1f39-4c41-af66-7909339b2a10: in_progress
+2025-09-06 20:37:01,862 - agents.task_executor - INFO - Executing task task_1: Analyze and understand the user query
+2025-09-06 20:37:01,862 - agents.task_executor - INFO - Task task_1 completed successfully
+2025-09-06 20:37:01,862 - api.task_workflow - INFO - Progress update for session 44a57425-1f39-4c41-af66-7909339b2a10: in_progress
+2025-09-06 20:37:01,862 - agents.task_executor - INFO - Executing task task_2: Generate final response based on synthesized context
+2025-09-06 20:37:01,867 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.379407 seconds
+2025-09-06 20:37:03,748 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-06 20:37:03,751 - agents.task_executor - INFO - Task task_2 completed successfully
+2025-09-06 20:37:03,751 - api.task_workflow - INFO - Progress update for session 44a57425-1f39-4c41-af66-7909339b2a10: in_progress
+2025-09-06 20:37:03,751 - agents.task_executor - INFO - Executing task task_3: Update conversation history
+2025-09-06 20:37:03,751 - agents.task_executor - INFO - Task task_3 completed successfully
+2025-09-06 20:37:03,751 - api.task_workflow - INFO - Progress update for session 44a57425-1f39-4c41-af66-7909339b2a10: completed
+2025-09-06 20:37:03,751 - agents.task_executor - INFO - Task execution completed. 3 successful, 0 failed
+2025-09-06 20:37:03,751 - agents.task_orchestrator - INFO - Task-based processing completed successfully
+2025-09-06 20:37:03,752 - api.task_workflow - INFO - Streaming task-based query processed successfully. Response length: 734
+2025-09-06 20:37:03,752 - __main__ - INFO - Response Status: 200
+2025-09-06 20:37:03,753 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '26000'}
+2025-09-06 20:37:03,753 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:37:03] "POST /api/tasks/chat/stream HTTP/1.1" 200 -
+2025-09-06 20:37:10,153 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:37:10,153 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:37:10,153 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:37:10,153 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:37:10,153 - api.rag - INFO - RAG service not created
+2025-09-06 20:37:10,154 - __main__ - INFO - Response Status: 200
+2025-09-06 20:37:10,154 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:37:10,154 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:37:10] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:37:40,154 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:37:40,154 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:37:40,154 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:37:40,154 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:37:40,154 - api.rag - INFO - RAG service not created
+2025-09-06 20:37:40,154 - __main__ - INFO - Response Status: 200
+2025-09-06 20:37:40,154 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:37:40,155 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:37:40] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:38:10,156 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:38:10,157 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:38:10,157 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:38:10,157 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:38:10,157 - api.rag - INFO - RAG service not created
+2025-09-06 20:38:10,157 - __main__ - INFO - Response Status: 200
+2025-09-06 20:38:10,157 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:38:10,158 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:38:10] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:38:40,157 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:38:40,158 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:38:40,158 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:38:40,158 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:38:40,158 - api.rag - INFO - RAG service not created
+2025-09-06 20:38:40,158 - __main__ - INFO - Response Status: 200
+2025-09-06 20:38:40,159 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:38:40,159 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:38:40] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:38:44,709 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/agents/task_executor.py', reloading
+2025-09-06 20:38:45,373 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:38:45,492 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:38:45,492 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:38:45,492 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:38:48,358 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:38:48,358 - __main__ - INFO - Debug mode: True
+2025-09-06 20:38:48,373 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:38:48,380 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:38:50,523 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/agents/query_router.py', reloading
+2025-09-06 20:38:50,999 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:38:51,081 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:38:51,081 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:38:51,081 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:38:53,301 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:38:53,302 - __main__ - INFO - Debug mode: True
+2025-09-06 20:38:53,313 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:38:53,320 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:39:03,911 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/database/models.py', reloading
+2025-09-06 20:39:04,402 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:39:04,485 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:39:04,485 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:39:04,485 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:39:06,782 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:39:06,782 - __main__ - INFO - Debug mode: True
+2025-09-06 20:39:06,802 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:39:06,809 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:39:08,970 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/database/mongodb_service.py', reloading
+2025-09-06 20:39:09,518 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:39:09,631 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:39:09,631 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:39:09,631 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:39:12,046 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:39:12,046 - __main__ - INFO - Debug mode: True
+2025-09-06 20:39:12,063 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:39:12,071 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:39:12,108 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:39:12,108 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:39:12,108 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:39:12,108 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:39:12,108 - api.rag - INFO - RAG service not created
+2025-09-06 20:39:12,108 - __main__ - INFO - Response Status: 200
+2025-09-06 20:39:12,108 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:39:12,108 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:39:12] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:39:40,158 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:39:40,159 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:39:40,159 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:39:40,159 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:39:40,159 - api.rag - INFO - RAG service not created
+2025-09-06 20:39:40,159 - __main__ - INFO - Response Status: 200
+2025-09-06 20:39:40,160 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:39:40,160 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:39:40] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:39:51,195 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/database/mongodb_service.py', reloading
+2025-09-06 20:39:51,711 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:39:51,795 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:39:51,795 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:39:51,795 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:39:53,983 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:39:53,983 - __main__ - INFO - Debug mode: True
+2025-09-06 20:39:53,998 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:39:54,005 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:39:56,156 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/database/mongodb_service.py', reloading
+2025-09-06 20:39:56,648 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:39:56,733 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:39:56,733 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:39:56,733 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:39:58,927 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:39:58,927 - __main__ - INFO - Debug mode: True
+2025-09-06 20:39:58,940 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:39:58,946 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:40:08,521 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/agents/mongodb_tools.py', reloading
+2025-09-06 20:40:09,005 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:40:09,086 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:40:09,086 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:40:09,086 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:40:11,274 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:40:11,274 - __main__ - INFO - Debug mode: True
+2025-09-06 20:40:11,288 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:40:11,294 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:40:11,330 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:40:11,330 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:40:11,330 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:40:11,330 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:40:11,330 - api.rag - INFO - RAG service not created
+2025-09-06 20:40:11,330 - __main__ - INFO - Response Status: 200
+2025-09-06 20:40:11,330 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:40:11,330 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:40:11] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:40:17,656 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/agents/mongodb_tools.py', reloading
+2025-09-06 20:40:18,154 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:40:18,237 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:40:18,237 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:40:18,237 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:40:20,434 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:40:20,434 - __main__ - INFO - Debug mode: True
+2025-09-06 20:40:20,448 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:40:20,454 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:40:25,800 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/agents/mongodb_tools.py', reloading
+2025-09-06 20:40:26,321 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:40:26,405 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:40:26,405 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:40:26,405 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:40:28,626 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:40:28,626 - __main__ - INFO - Debug mode: True
+2025-09-06 20:40:28,638 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:40:28,644 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:40:36,065 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/agents/mongodb_tools.py', reloading
+2025-09-06 20:40:36,493 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:40:36,576 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:40:36,577 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:40:36,577 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:40:38,800 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:40:38,800 - __main__ - INFO - Debug mode: True
+2025-09-06 20:40:38,811 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:40:38,816 - werkzeug - INFO -  * Debugger PIN: 445-693-343
+2025-09-06 20:40:40,159 - __main__ - INFO - Request: GET http://localhost:5001/api/rag/health
+2025-09-06 20:40:40,159 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-06 20:40:40,159 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-06 20:40:40,159 - api.rag - INFO - RAG health check endpoint accessed
+2025-09-06 20:40:40,159 - api.rag - INFO - RAG service not created
+2025-09-06 20:40:40,159 - __main__ - INFO - Response Status: 200
+2025-09-06 20:40:40,159 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '74'}
+2025-09-06 20:40:40,160 - werkzeug - INFO - 127.0.0.1 - - [06/Sep/2025 20:40:40] "GET /api/rag/health HTTP/1.1" 200 -
+2025-09-06 20:40:48,338 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/database/mongodb_service.py', reloading
+2025-09-06 20:40:48,836 - werkzeug - INFO -  * Restarting with stat
+2025-09-06 20:40:48,915 - utils.logging_config - INFO - Logging system initialized
+2025-09-06 20:40:48,915 - utils.logging_config - INFO - Log level: INFO
+2025-09-06 20:40:48,915 - utils.logging_config - INFO - Log files: logs
+2025-09-06 20:40:51,139 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-06 20:40:51,139 - __main__ - INFO - Debug mode: True
+2025-09-06 20:40:51,154 - werkzeug - WARNING -  * Debugger is active!
+2025-09-06 20:40:51,161 - werkzeug - INFO -  * Debugger PIN: 445-693-343

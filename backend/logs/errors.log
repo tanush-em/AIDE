@@ -320,3 +320,5 @@ Error in search_database_tool: MongoDB not connected
 Error generating response with Groq LLM: Error code: 404 - {'error': {'message': 'The model `llama3.1-8b-8192` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
 Error searching documents by text: MongoDB not connected
 Error in search_database_tool: MongoDB not connected
+Error searching documents by text: MongoDB not connected
+Error in search_database_tool: MongoDB not connected

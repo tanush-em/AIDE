@@ -1,0 +1,76 @@
+{
+  "class_members": [
+    {
+      "student_id": "STU001",
+      "name": "Alice Johnson",
+      "scores": {
+        "mathematics": 85,
+        "science": 92,
+        "english": 78
+      }
+    },
+    {
+      "student_id": "STU002",
+      "name": "Bob Smith",
+      "scores": {
+        "mathematics": 76,
+        "science": 88,
+        "english": 91
+      }
+    },
+    {
+      "student_id": "STU003",
+      "name": "Carol Davis",
+      "scores": {
+        "mathematics": 94,
+        "science": 87,
+        "english": 89
+      }
+    },
+    {
+      "student_id": "STU004",
+      "name": "David Wilson",
+      "scores": {
+        "mathematics": 82,
+        "science": 79,
+        "english": 85
+      }
+    },
+    {
+      "student_id": "STU005",
+      "name": "Emma Brown",
+      "scores": {
+        "mathematics": 90,
+        "science": 95,
+        "english": 93
+      }
+    },
+    {
+      "student_id": "STU006",
+      "name": "Frank Miller",
+      "scores": {
+        "mathematics": 73,
+        "science": 81,
+        "english": 77
+      }
+    },
+    {
+      "student_id": "STU007",
+      "name": "Grace Lee",
+      "scores": {
+        "mathematics": 88,
+        "science": 90,
+        "english": 86
+      }
+    },
+    {
+      "student_id": "STU008",
+      "name": "Henry Taylor",
+      "scores": {
+        "mathematics": 79,
+        "science": 84,
+        "english": 82
+      }
+    }
+  ]
+}
