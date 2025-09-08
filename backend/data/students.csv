@@ -1,0 +1,16 @@
+id,name,roll_number,email,course,department,phone,address,enrollment_date,status
+1,Alice Johnson,CS001,alice.johnson@university.edu,CS101,Computer Science,+1-555-0101,123 Main St,2023-09-01,active
+2,Bob Smith,CS002,bob.smith@university.edu,CS101,Computer Science,+1-555-0102,456 Oak Ave,2023-09-01,active
+3,Carol Davis,CS003,carol.davis@university.edu,CS201,Computer Science,+1-555-0103,789 Pine Rd,2023-09-01,active
+4,David Wilson,CS004,david.wilson@university.edu,CS201,Computer Science,+1-555-0104,321 Elm St,2023-09-01,active
+5,Emma Brown,CS005,emma.brown@university.edu,CS301,Computer Science,+1-555-0105,654 Maple Dr,2023-09-01,active
+6,Frank Miller,CS006,frank.miller@university.edu,CS301,Computer Science,+1-555-0106,987 Cedar Ln,2023-09-01,active
+7,Grace Lee,CS007,grace.lee@university.edu,CS101,Computer Science,+1-555-0107,147 Birch St,2023-09-01,active
+8,Henry Taylor,CS008,henry.taylor@university.edu,CS201,Computer Science,+1-555-0108,258 Spruce Ave,2023-09-01,active
+9,Ivy Chen,CS009,ivy.chen@university.edu,CS301,Computer Science,+1-555-0109,369 Willow Rd,2023-09-01,active
+10,Jack Anderson,CS010,jack.anderson@university.edu,CS101,Computer Science,+1-555-0110,741 Poplar St,2023-09-01,active
+11,Kate Martinez,CS011,kate.martinez@university.edu,CS201,Computer Science,+1-555-0111,852 Ash Ave,2023-09-01,active
+12,Luke Thompson,CS012,luke.thompson@university.edu,CS301,Computer Science,+1-555-0112,963 Hickory Dr,2023-09-01,active
+13,Maya Patel,CS013,maya.patel@university.edu,CS101,Computer Science,+1-555-0113,159 Walnut Ln,2023-09-01,active
+14,Nick Rodriguez,CS014,nick.rodriguez@university.edu,CS201,Computer Science,+1-555-0114,357 Cherry St,2023-09-01,active
+15,Olivia Kim,CS015,olivia.kim@university.edu,CS301,Computer Science,+1-555-0115,468 Peach Ave,2023-09-01,active

@@ -3,53 +3,109 @@ from datetime import datetime, timedelta
 import json
 import os
 from typing import List, Dict, Any
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.data_loader import data_loader
 
 dashboard_bp = Blueprint('dashboard', __name__)
+
+def load_all_data():
+    """Load all data from CSV and JSON files"""
+    try:
+        students_data = data_loader.load_csv('students.csv')
+        courses_data = data_loader.load_csv('courses.csv')
+        attendance_data = data_loader.load_csv('attendance.csv')
+        leave_data = data_loader.load_json('leave_requests.json')
+        notice_data = data_loader.load_json('notices.json')
+        
+        return {
+            'students': students_data.to_dict('records') if not students_data.empty else [],
+            'courses': courses_data.to_dict('records') if not courses_data.empty else [],
+            'attendance': attendance_data.to_dict('records') if not attendance_data.empty else [],
+            'leaves': leave_data if isinstance(leave_data, list) else [],
+            'notices': notice_data if isinstance(notice_data, list) else []
+        }
+    except Exception as e:
+        print(f"Error loading data: {e}")
+        return {
+            'students': [],
+            'courses': [],
+            'attendance': [],
+            'leaves': [],
+            'notices': []
+        }
 
 @dashboard_bp.route('/api/dashboard/stats', methods=['GET'])
 def get_dashboard_stats():
     """Get dashboard statistics"""
     try:
-        # Mock dashboard stats
+        # Load all data from files
+        data = load_all_data()
+        
+        # Calculate basic stats
+        total_students = len(data['students'])
+        total_courses = len(data['courses'])
+        pending_leaves = len([l for l in data['leaves'] if l.get('status') == 'pending'])
+        active_notices = len([n for n in data['notices'] if n.get('isActive', True)])
+        
+        # Calculate attendance rate
+        attendance_records = data['attendance']
+        if attendance_records:
+            present_count = len([a for a in attendance_records if a.get('status') == 'present'])
+            total_attendance = len(attendance_records)
+            attendance_rate = (present_count / total_attendance) * 100 if total_attendance > 0 else 0
+        else:
+            attendance_rate = 0
+        
+        # Generate recent activities from actual data
+        recent_activities = []
+        
+        # Add recent attendance activities
+        recent_attendance = sorted(attendance_records, key=lambda x: x.get('date', ''), reverse=True)[:3]
+        for i, att in enumerate(recent_attendance):
+            recent_activities.append({
+                "id": f"att_{i+1}",
+                "type": "attendance",
+                "title": f"{att.get('course_code', 'Unknown')} - {att.get('class_name', 'Class')}",
+                "description": f"Attendance marked for {att.get('student_name', 'Student')} - {att.get('status', 'Unknown')}",
+                "timestamp": f"{att.get('date', '')}T10:00:00Z",
+                "status": "completed"
+            })
+        
+        # Add recent leave activities
+        recent_leaves = sorted(data['leaves'], key=lambda x: x.get('submittedAt', ''), reverse=True)[:2]
+        for i, leave in enumerate(recent_leaves):
+            recent_activities.append({
+                "id": f"leave_{i+1}",
+                "type": "leave",
+                "title": f"Leave Request - {leave.get('studentName', 'Unknown')}",
+                "description": f"{leave.get('leaveType', 'Unknown')} leave for {leave.get('duration', 0)} days - {leave.get('status', 'pending')}",
+                "timestamp": leave.get('submittedAt', ''),
+                "status": leave.get('status', 'pending')
+            })
+        
+        # Add recent notice activities
+        recent_notices = sorted(data['notices'], key=lambda x: x.get('createdAt', ''), reverse=True)[:2]
+        for i, notice in enumerate(recent_notices):
+            recent_activities.append({
+                "id": f"notice_{i+1}",
+                "type": "notice",
+                "title": notice.get('title', 'Notice'),
+                "description": f"Notice posted by {notice.get('author', 'Unknown')}",
+                "timestamp": notice.get('createdAt', ''),
+                "status": "completed"
+            })
+        
+        # Sort activities by timestamp
+        recent_activities.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+        
         stats = {
-            "totalStudents": 156,
-            "attendanceRate": 87.5,
-            "pendingLeaves": 8,
-            "upcomingEvents": 3,
-            "recentActivities": [
-                {
-                    "id": "1",
-                    "type": "attendance",
-                    "title": "CS101 - Data Structures",
-                    "description": "Attendance marked for 45/50 students",
-                    "timestamp": (datetime.now() - timedelta(hours=2)).isoformat() + 'Z',
-                    "status": "completed"
-                },
-                {
-                    "id": "2",
-                    "type": "leave",
-                    "title": "Leave Request - John Smith",
-                    "description": "Sick leave for 3 days pending approval",
-                    "timestamp": (datetime.now() - timedelta(hours=4)).isoformat() + 'Z',
-                    "status": "pending"
-                },
-                {
-                    "id": "3",
-                    "type": "notice",
-                    "title": "Mid-term Exam Schedule",
-                    "description": "Exam schedule published for all courses",
-                    "timestamp": (datetime.now() - timedelta(hours=6)).isoformat() + 'Z',
-                    "status": "completed"
-                },
-                {
-                    "id": "4",
-                    "type": "grade",
-                    "title": "Assignment Grades Due",
-                    "description": "CS201 Assignment 2 grades due tomorrow",
-                    "timestamp": (datetime.now() - timedelta(hours=8)).isoformat() + 'Z',
-                    "status": "overdue"
-                }
-            ]
+            "totalStudents": total_students,
+            "totalCourses": total_courses,
+            "attendanceRate": round(attendance_rate, 1),
+            "pendingLeaves": pending_leaves,
+            "activeNotices": active_notices,
+            "recentActivities": recent_activities[:5]  # Limit to 5 most recent
         }
         
         return jsonify({
@@ -66,41 +122,68 @@ def get_dashboard_stats():
 def get_analytics():
     """Get analytics data for charts and graphs"""
     try:
-        # Mock analytics data
-        analytics = {
-            "attendanceTrend": [
-                {"date": "2024-01-15", "rate": 85.2},
-                {"date": "2024-01-16", "rate": 87.1},
-                {"date": "2024-01-17", "rate": 89.3},
-                {"date": "2024-01-18", "rate": 86.7},
-                {"date": "2024-01-19", "rate": 88.9}
-            ],
-            "leaveRequestsByType": [
-                {"type": "sick", "count": 12},
-                {"type": "personal", "count": 8},
-                {"type": "emergency", "count": 3},
-                {"type": "academic", "count": 5}
-            ],
-            "coursePerformance": [
-                {"course": "CS101", "attendance": 89.2, "assignments": 87.5},
-                {"course": "CS201", "attendance": 85.7, "assignments": 91.3},
-                {"course": "CS301", "attendance": 92.1, "assignments": 88.9},
-                {"course": "MATH101", "attendance": 84.6, "assignments": 85.2}
-            ],
-            "monthlyStats": {
-                "january": {
-                    "totalClasses": 45,
-                    "averageAttendance": 87.3,
-                    "leaveRequests": 28,
-                    "noticesPosted": 12
-                },
-                "february": {
-                    "totalClasses": 42,
-                    "averageAttendance": 89.1,
-                    "leaveRequests": 24,
-                    "noticesPosted": 8
-                }
+        # Load all data from files
+        data = load_all_data()
+        
+        # Calculate attendance trend by date
+        attendance_by_date = {}
+        for record in data['attendance']:
+            date = record.get('date')
+            if date:
+                if date not in attendance_by_date:
+                    attendance_by_date[date] = {'present': 0, 'total': 0}
+                attendance_by_date[date]['total'] += 1
+                if record.get('status') == 'present':
+                    attendance_by_date[date]['present'] += 1
+        
+        attendance_trend = []
+        for date in sorted(attendance_by_date.keys()):
+            rate = (attendance_by_date[date]['present'] / attendance_by_date[date]['total']) * 100
+            attendance_trend.append({"date": date, "rate": round(rate, 1)})
+        
+        # Calculate leave requests by type
+        leave_by_type = {}
+        for leave in data['leaves']:
+            leave_type = leave.get('leaveType', 'unknown')
+            leave_by_type[leave_type] = leave_by_type.get(leave_type, 0) + 1
+        
+        leave_requests_by_type = [{"type": k, "count": v} for k, v in leave_by_type.items()]
+        
+        # Calculate course performance
+        course_performance = []
+        for course in data['courses']:
+            course_code = course.get('course_code', '')
+            course_attendance = [a for a in data['attendance'] if a.get('course_code') == course_code]
+            
+            if course_attendance:
+                present_count = len([a for a in course_attendance if a.get('status') == 'present'])
+                attendance_rate = (present_count / len(course_attendance)) * 100
+            else:
+                attendance_rate = 0
+            
+            course_performance.append({
+                "course": course_code,
+                "attendance": round(attendance_rate, 1),
+                "enrollment": course.get('current_enrollment', 0),
+                "capacity": course.get('enrollment_limit', 0)
+            })
+        
+        # Calculate monthly stats (simplified)
+        current_month = datetime.now().strftime('%B').lower()
+        monthly_stats = {
+            current_month: {
+                "totalClasses": len(set([a.get('date') for a in data['attendance']])),
+                "averageAttendance": round(sum([(len([a for a in data['attendance'] if a.get('status') == 'present']) / len(data['attendance'])) * 100]) if data['attendance'] else 0, 1),
+                "leaveRequests": len(data['leaves']),
+                "noticesPosted": len(data['notices'])
             }
+        }
+        
+        analytics = {
+            "attendanceTrend": attendance_trend,
+            "leaveRequestsByType": leave_requests_by_type,
+            "coursePerformance": course_performance,
+            "monthlyStats": monthly_stats
         }
         
         return jsonify({

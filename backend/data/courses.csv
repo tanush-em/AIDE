@@ -1,0 +1,11 @@
+id,course_code,course_name,department,instructor,credits,schedule,room,enrollment_limit,current_enrollment
+1,CS101,Data Structures,Computer Science,Dr. Sarah Johnson,3,MWF 10:00-11:00,Room 101,50,45
+2,CS201,Algorithms,Computer Science,Dr. Michael Chen,3,TTH 2:00-3:30,Room 102,40,38
+3,CS301,Database Systems,Computer Science,Dr. Emily Davis,3,MWF 1:00-2:00,Room 103,35,32
+4,MATH101,Calculus I,Mathematics,Dr. Robert Wilson,4,MTWF 9:00-10:00,Room 201,60,55
+5,PHYS101,Physics I,Physics,Dr. Lisa Anderson,4,MTWF 11:00-12:00,Room 301,45,42
+6,ENG101,English Composition,English,Dr. James Brown,3,TTH 10:00-11:30,Room 401,30,28
+7,CS102,Object-Oriented Programming,Computer Science,Dr. Sarah Johnson,3,MWF 2:00-3:00,Room 101,50,47
+8,CS202,Software Engineering,Computer Science,Dr. Michael Chen,3,TTH 3:30-5:00,Room 102,40,35
+9,CS302,Computer Networks,Computer Science,Dr. Emily Davis,3,MWF 3:00-4:00,Room 103,35,30
+10,MATH201,Linear Algebra,Mathematics,Dr. Robert Wilson,3,MTWF 2:00-3:00,Room 201,50,45

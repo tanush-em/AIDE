@@ -8,15 +8,20 @@ import {
   Bell, 
   BarChart3, 
   Settings,
-  GraduationCap
+  GraduationCap,
+  FileText,
+  ExternalLink,
+  FolderOpen
 } from 'lucide-react'
 import ChatInterface from '../components/ChatInterface'
 import AttendanceViewer from '../components/AttendanceViewer'
 import LeaveManagement from '../components/LeaveManagement'
 import NoticeBoard from '../components/NoticeBoard'
 import Dashboard from '../components/Dashboard'
+import QuestionPaper from '../components/QuestionPaper'
+import Resources from '../components/Resources'
 
-type TabType = 'dashboard' | 'chat' | 'attendance' | 'leave' | 'notices' | 'analytics' | 'settings'
+type TabType = 'dashboard' | 'chat' | 'attendance' | 'leave' | 'notices' | 'question-paper' | 'resources' | 'settings'
 
 interface Tab {
   id: TabType
@@ -31,7 +36,8 @@ const tabs: Tab[] = [
   { id: 'attendance', name: 'Attendance', icon: Users, component: AttendanceViewer },
   { id: 'leave', name: 'Leave Management', icon: Calendar, component: LeaveManagement },
   { id: 'notices', name: 'Notice Board', icon: Bell, component: NoticeBoard },
-  { id: 'analytics', name: 'Analytics', icon: BarChart3, component: Dashboard },
+  { id: 'question-paper', name: 'Question Papers', icon: FileText, component: QuestionPaper },
+  { id: 'resources', name: 'Resources', icon: FolderOpen, component: Resources },
   { id: 'settings', name: 'Settings', icon: Settings, component: Dashboard },
 ]
 

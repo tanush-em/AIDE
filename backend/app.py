@@ -63,6 +63,10 @@ from api.attendance import attendance_bp
 from api.leave_management import leave_bp
 from api.notice_board import notice_bp
 from api.dashboard import dashboard_bp
+from api.student_management import student_bp
+from api.data_export import export_bp
+from api.question_paper import question_paper_bp
+from api.resources import resources_bp
 
 app.register_blueprint(rag_bp, url_prefix='/api/rag')
 app.register_blueprint(task_workflow_bp, url_prefix='/api/tasks')
@@ -70,6 +74,10 @@ app.register_blueprint(attendance_bp)
 app.register_blueprint(leave_bp)
 app.register_blueprint(notice_bp)
 app.register_blueprint(dashboard_bp)
+app.register_blueprint(student_bp)
+app.register_blueprint(export_bp)
+app.register_blueprint(question_paper_bp)
+app.register_blueprint(resources_bp)
 
 @app.route('/')
 def home():
@@ -93,7 +101,12 @@ def health_check():
             "attendance": "/api/attendance/students",
             "leave_management": "/api/leave/requests",
             "notice_board": "/api/notices",
-            "dashboard": "/api/dashboard/stats"
+            "dashboard": "/api/dashboard/stats",
+            "students": "/api/students",
+            "courses": "/api/courses",
+            "export": "/api/export",
+            "question_paper": "/api/question-paper",
+            "resources": "/api/resources"
         }
     })
 

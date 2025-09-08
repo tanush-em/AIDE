@@ -1,0 +1,42 @@
+{
+  "semester": "Fall 2024",
+  "courses": [
+    {
+      "code": "CS101",
+      "name": "Data Structures",
+      "instructor": "Dr. Sarah Johnson",
+      "schedule": {
+        "monday": "10:00-11:00",
+        "wednesday": "10:00-11:00",
+        "friday": "10:00-11:00"
+      },
+      "room": "Room 101",
+      "credits": 3
+    },
+    {
+      "code": "CS201",
+      "name": "Algorithms",
+      "instructor": "Dr. Michael Chen",
+      "schedule": {
+        "tuesday": "14:00-15:30",
+        "thursday": "14:00-15:30"
+      },
+      "room": "Room 102",
+      "credits": 3
+    },
+    {
+      "code": "MATH101",
+      "name": "Calculus I",
+      "instructor": "Dr. Robert Wilson",
+      "schedule": {
+        "monday": "09:00-10:00",
+        "tuesday": "09:00-10:00",
+        "wednesday": "09:00-10:00",
+        "friday": "09:00-10:00"
+      },
+      "room": "Room 201",
+      "credits": 4
+    }
+  ],
+  "last_updated": "2024-01-15T10:00:00Z"
+}

@@ -1,0 +1,51 @@
+id,student_id,student_name,roll_number,course_code,date,status,class_name,remarks,marked_by
+1,1,Alice Johnson,CS001,CS101,2024-01-15,present,Data Structures,On time,Dr. Sarah Johnson
+2,2,Bob Smith,CS002,CS101,2024-01-15,present,Data Structures,On time,Dr. Sarah Johnson
+3,3,Carol Davis,CS003,CS201,2024-01-15,present,Algorithms,On time,Dr. Michael Chen
+4,4,David Wilson,CS004,CS201,2024-01-15,present,Algorithms,On time,Dr. Michael Chen
+5,5,Emma Brown,CS005,CS301,2024-01-15,present,Database Systems,On time,Dr. Emily Davis
+6,6,Frank Miller,CS006,CS301,2024-01-15,present,Database Systems,On time,Dr. Emily Davis
+7,7,Grace Lee,CS007,CS101,2024-01-15,present,Data Structures,On time,Dr. Sarah Johnson
+8,8,Henry Taylor,CS008,CS201,2024-01-15,present,Algorithms,On time,Dr. Michael Chen
+9,9,Ivy Chen,CS009,CS301,2024-01-15,present,Database Systems,On time,Dr. Emily Davis
+10,10,Jack Anderson,CS010,CS101,2024-01-15,present,Data Structures,On time,Dr. Sarah Johnson
+11,1,Alice Johnson,CS001,CS101,2024-01-16,present,Data Structures,On time,Dr. Sarah Johnson
+12,2,Bob Smith,CS002,CS101,2024-01-16,present,Data Structures,On time,Dr. Sarah Johnson
+13,3,Carol Davis,CS003,CS201,2024-01-16,absent,Algorithms,No excuse provided,Dr. Michael Chen
+14,4,David Wilson,CS004,CS201,2024-01-16,present,Algorithms,On time,Dr. Michael Chen
+15,5,Emma Brown,CS005,CS301,2024-01-16,present,Database Systems,On time,Dr. Emily Davis
+16,6,Frank Miller,CS006,CS301,2024-01-16,late,Database Systems,15 minutes late,Dr. Emily Davis
+17,7,Grace Lee,CS007,CS101,2024-01-16,present,Data Structures,On time,Dr. Sarah Johnson
+18,8,Henry Taylor,CS008,CS201,2024-01-16,present,Algorithms,On time,Dr. Michael Chen
+19,9,Ivy Chen,CS009,CS301,2024-01-16,present,Database Systems,On time,Dr. Emily Davis
+20,10,Jack Anderson,CS010,CS101,2024-01-16,present,Data Structures,On time,Dr. Sarah Johnson
+21,1,Alice Johnson,CS001,CS101,2024-01-17,present,Data Structures,On time,Dr. Sarah Johnson
+22,2,Bob Smith,CS002,CS101,2024-01-17,present,Data Structures,On time,Dr. Sarah Johnson
+23,3,Carol Davis,CS003,CS201,2024-01-17,present,Algorithms,On time,Dr. Michael Chen
+24,4,David Wilson,CS004,CS201,2024-01-17,present,Algorithms,On time,Dr. Michael Chen
+25,5,Emma Brown,CS005,CS301,2024-01-17,present,Database Systems,On time,Dr. Emily Davis
+26,6,Frank Miller,CS006,CS301,2024-01-17,present,Database Systems,On time,Dr. Emily Davis
+27,7,Grace Lee,CS007,CS101,2024-01-17,late,Data Structures,10 minutes late,Dr. Sarah Johnson
+28,8,Henry Taylor,CS008,CS201,2024-01-17,present,Algorithms,On time,Dr. Michael Chen
+29,9,Ivy Chen,CS009,CS301,2024-01-17,present,Database Systems,On time,Dr. Emily Davis
+30,10,Jack Anderson,CS010,CS101,2024-01-17,present,Data Structures,On time,Dr. Sarah Johnson
+31,1,Alice Johnson,CS001,CS101,2024-01-18,present,Data Structures,On time,Dr. Sarah Johnson
+32,2,Bob Smith,CS002,CS101,2024-01-18,present,Data Structures,On time,Dr. Sarah Johnson
+33,3,Carol Davis,CS003,CS201,2024-01-18,present,Algorithms,On time,Dr. Michael Chen
+34,4,David Wilson,CS004,CS201,2024-01-18,present,Algorithms,On time,Dr. Michael Chen
+35,5,Emma Brown,CS005,CS301,2024-01-18,present,Database Systems,On time,Dr. Emily Davis
+36,6,Frank Miller,CS006,CS301,2024-01-18,present,Database Systems,On time,Dr. Emily Davis
+37,7,Grace Lee,CS007,CS101,2024-01-18,present,Data Structures,On time,Dr. Sarah Johnson
+38,8,Henry Taylor,CS008,CS201,2024-01-18,present,Algorithms,On time,Dr. Michael Chen
+39,9,Ivy Chen,CS009,CS301,2024-01-18,present,Database Systems,On time,Dr. Emily Davis
+40,10,Jack Anderson,CS010,CS101,2024-01-18,present,Data Structures,On time,Dr. Sarah Johnson
+41,1,Alice Johnson,CS001,CS101,2024-01-19,absent,Data Structures,Medical leave,Dr. Sarah Johnson
+42,2,Bob Smith,CS002,CS101,2024-01-19,present,Data Structures,On time,Dr. Sarah Johnson
+43,3,Carol Davis,CS003,CS201,2024-01-19,present,Algorithms,On time,Dr. Michael Chen
+44,4,David Wilson,CS004,CS201,2024-01-19,present,Algorithms,On time,Dr. Michael Chen
+45,5,Emma Brown,CS005,CS301,2024-01-19,present,Database Systems,On time,Dr. Emily Davis
+46,6,Frank Miller,CS006,CS301,2024-01-19,present,Database Systems,On time,Dr. Emily Davis
+47,7,Grace Lee,CS007,CS101,2024-01-19,present,Data Structures,On time,Dr. Sarah Johnson
+48,8,Henry Taylor,CS008,CS201,2024-01-19,present,Algorithms,On time,Dr. Michael Chen
+49,9,Ivy Chen,CS009,CS301,2024-01-19,present,Database Systems,On time,Dr. Emily Davis
+50,10,Jack Anderson,CS010,CS101,2024-01-19,present,Data Structures,On time,Dr. Sarah Johnson

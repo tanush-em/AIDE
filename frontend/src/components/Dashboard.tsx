@@ -9,7 +9,9 @@ import {
   Clock,
   CheckCircle,
   AlertCircle,
-  BookOpen
+  BookOpen,
+  FileText,
+  ExternalLink
 } from 'lucide-react'
 import { format } from 'date-fns'
 
@@ -225,7 +227,7 @@ export default function Dashboard() {
       {/* Quick Actions */}
       <div className="bg-white rounded-lg shadow-sm border p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <button className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
             <div className="bg-blue-100 p-2 rounded-full">
               <Users className="h-5 w-5 text-blue-600" />
@@ -254,6 +256,20 @@ export default function Dashboard() {
               <p className="font-medium text-gray-900">Post Notice</p>
               <p className="text-sm text-gray-600">Create new announcement</p>
             </div>
+          </button>
+
+          <button 
+            onClick={() => window.open('http://localhost:5890', '_blank')}
+            className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            <div className="bg-orange-100 p-2 rounded-full">
+              <FileText className="h-5 w-5 text-orange-600" />
+            </div>
+            <div className="text-left">
+              <p className="font-medium text-gray-900">Question Papers</p>
+              <p className="text-sm text-gray-600">Generate exam papers</p>
+            </div>
+            <ExternalLink className="h-4 w-4 text-gray-400" />
           </button>
         </div>
       </div>

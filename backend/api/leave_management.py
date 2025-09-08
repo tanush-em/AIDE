@@ -3,99 +3,35 @@ from datetime import datetime, timedelta
 import json
 import os
 from typing import List, Dict, Any
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.data_loader import data_loader
 
 leave_bp = Blueprint('leave_management', __name__)
 
-# Mock data storage (in production, this would be a database)
-LEAVE_DATA_FILE = 'data/leave_requests.json'
-
 def load_leave_data():
-    """Load leave request data from file"""
-    if os.path.exists(LEAVE_DATA_FILE):
-        try:
-            with open(LEAVE_DATA_FILE, 'r') as f:
-                return json.load(f)
-        except:
-            return []
-    return []
+    """Load leave request data from JSON file"""
+    try:
+        data = data_loader.load_json('leave_requests.json')
+        return data if isinstance(data, list) else []
+    except Exception as e:
+        print(f"Error loading leave data: {e}")
+        return []
 
 def save_leave_data(data):
-    """Save leave request data to file"""
-    os.makedirs(os.path.dirname(LEAVE_DATA_FILE), exist_ok=True)
-    with open(LEAVE_DATA_FILE, 'w') as f:
-        json.dump(data, f, indent=2)
+    """Save leave request data to JSON file"""
+    try:
+        return data_loader.save_json('leave_requests.json', data)
+    except Exception as e:
+        print(f"Error saving leave data: {e}")
+        return False
 
 @leave_bp.route('/api/leave/requests', methods=['GET'])
 def get_leave_requests():
     """Get all leave requests"""
     try:
-        # For now, return mock data
-        # In production, this would query the database
-        requests = [
-            {
-                "id": "1",
-                "studentId": "STU001",
-                "studentName": "Alice Johnson",
-                "studentRollNumber": "CS001",
-                "course": "CS101",
-                "leaveType": "sick",
-                "startDate": "2024-01-20",
-                "endDate": "2024-01-22",
-                "duration": 3,
-                "reason": "Fever and flu symptoms. Doctor recommended rest.",
-                "status": "pending",
-                "submittedAt": "2024-01-19T10:30:00Z",
-                "attachments": ["medical_certificate.pdf"]
-            },
-            {
-                "id": "2",
-                "studentId": "STU002",
-                "studentName": "Bob Smith",
-                "studentRollNumber": "CS002",
-                "course": "CS101",
-                "leaveType": "personal",
-                "startDate": "2024-01-25",
-                "endDate": "2024-01-25",
-                "duration": 1,
-                "reason": "Family emergency - need to attend to urgent matter.",
-                "status": "pending",
-                "submittedAt": "2024-01-24T14:20:00Z"
-            },
-            {
-                "id": "3",
-                "studentId": "STU003",
-                "studentName": "Carol Davis",
-                "studentRollNumber": "CS003",
-                "course": "CS201",
-                "leaveType": "academic",
-                "startDate": "2024-01-18",
-                "endDate": "2024-01-18",
-                "duration": 1,
-                "reason": "Attending academic conference for research presentation.",
-                "status": "approved",
-                "submittedAt": "2024-01-15T09:15:00Z",
-                "reviewedAt": "2024-01-16T11:30:00Z",
-                "reviewedBy": "Dr. Sarah Johnson",
-                "remarks": "Approved for academic development."
-            },
-            {
-                "id": "4",
-                "studentId": "STU004",
-                "studentName": "David Wilson",
-                "studentRollNumber": "CS004",
-                "course": "CS201",
-                "leaveType": "personal",
-                "startDate": "2024-01-12",
-                "endDate": "2024-01-15",
-                "duration": 4,
-                "reason": "Personal family event.",
-                "status": "rejected",
-                "submittedAt": "2024-01-10T16:45:00Z",
-                "reviewedAt": "2024-01-11T10:20:00Z",
-                "reviewedBy": "Dr. Sarah Johnson",
-                "remarks": "Duration too long for personal leave. Please provide more details."
-            }
-        ]
+        # Load leave requests from JSON file
+        requests = load_leave_data()
         
         return jsonify({
             "success": True,
@@ -127,9 +63,12 @@ def create_leave_request():
         end_date = datetime.strptime(data['endDate'], '%Y-%m-%d')
         duration = (end_date - start_date).days + 1
         
+        # Load existing leave data
+        leave_data = load_leave_data()
+        
         # Create new request
         new_request = {
-            "id": str(len(load_leave_data()) + 1),
+            "id": str(len(leave_data) + 1),
             "studentId": data['studentId'],
             "studentName": data.get('studentName', 'Unknown Student'),
             "studentRollNumber": data.get('studentRollNumber', ''),
@@ -141,16 +80,28 @@ def create_leave_request():
             "reason": data['reason'],
             "status": "pending",
             "submittedAt": datetime.now().isoformat() + 'Z',
-            "attachments": data.get('attachments', [])
+            "attachments": data.get('attachments', []),
+            "reviewedBy": None,
+            "reviewedAt": None,
+            "remarks": None
         }
         
-        # In production, this would save to database
-        # For now, we'll just return success
-        return jsonify({
-            "success": True,
-            "data": new_request,
-            "message": "Leave request submitted successfully"
-        })
+        # Add to leave data
+        leave_data.append(new_request)
+        
+        # Save back to JSON file
+        if save_leave_data(leave_data):
+            return jsonify({
+                "success": True,
+                "data": new_request,
+                "message": "Leave request submitted successfully"
+            })
+        else:
+            return jsonify({
+                "success": False,
+                "error": "Failed to save leave request"
+            }), 500
+            
     except Exception as e:
         return jsonify({
             "success": False,
@@ -163,13 +114,37 @@ def approve_leave_request(request_id):
     try:
         data = request.get_json()
         remarks = data.get('remarks', '')
+        reviewed_by = data.get('reviewedBy', 'Dr. Sarah Johnson')
         
-        # In production, this would update the database
-        # For now, we'll just return success
-        return jsonify({
-            "success": True,
-            "message": "Leave request approved successfully"
-        })
+        # Load existing leave data
+        leave_data = load_leave_data()
+        
+        # Find and update the request
+        for request in leave_data:
+            if str(request['id']) == str(request_id):
+                request['status'] = 'approved'
+                request['reviewedBy'] = reviewed_by
+                request['reviewedAt'] = datetime.now().isoformat() + 'Z'
+                request['remarks'] = remarks
+                break
+        else:
+            return jsonify({
+                "success": False,
+                "error": "Leave request not found"
+            }), 404
+        
+        # Save back to JSON file
+        if save_leave_data(leave_data):
+            return jsonify({
+                "success": True,
+                "message": "Leave request approved successfully"
+            })
+        else:
+            return jsonify({
+                "success": False,
+                "error": "Failed to save leave request"
+            }), 500
+            
     except Exception as e:
         return jsonify({
             "success": False,
@@ -182,13 +157,37 @@ def reject_leave_request(request_id):
     try:
         data = request.get_json()
         remarks = data.get('remarks', '')
+        reviewed_by = data.get('reviewedBy', 'Dr. Sarah Johnson')
         
-        # In production, this would update the database
-        # For now, we'll just return success
-        return jsonify({
-            "success": True,
-            "message": "Leave request rejected"
-        })
+        # Load existing leave data
+        leave_data = load_leave_data()
+        
+        # Find and update the request
+        for request in leave_data:
+            if str(request['id']) == str(request_id):
+                request['status'] = 'rejected'
+                request['reviewedBy'] = reviewed_by
+                request['reviewedAt'] = datetime.now().isoformat() + 'Z'
+                request['remarks'] = remarks
+                break
+        else:
+            return jsonify({
+                "success": False,
+                "error": "Leave request not found"
+            }), 404
+        
+        # Save back to JSON file
+        if save_leave_data(leave_data):
+            return jsonify({
+                "success": True,
+                "message": "Leave request rejected"
+            })
+        else:
+            return jsonify({
+                "success": False,
+                "error": "Failed to save leave request"
+            }), 500
+            
     except Exception as e:
         return jsonify({
             "success": False,
@@ -199,13 +198,34 @@ def reject_leave_request(request_id):
 def get_leave_stats():
     """Get leave management statistics"""
     try:
-        # Mock stats
+        # Load leave data from JSON file
+        leave_data = load_leave_data()
+        
+        # Calculate stats
+        total_requests = len(leave_data)
+        pending_requests = len([r for r in leave_data if r.get('status') == 'pending'])
+        approved_requests = len([r for r in leave_data if r.get('status') == 'approved'])
+        rejected_requests = len([r for r in leave_data if r.get('status') == 'rejected'])
+        
+        # Calculate average processing time (in days)
+        processed_requests = [r for r in leave_data if r.get('status') in ['approved', 'rejected'] and r.get('reviewedAt')]
+        if processed_requests:
+            total_processing_time = 0
+            for request in processed_requests:
+                submitted = datetime.fromisoformat(request['submittedAt'].replace('Z', '+00:00'))
+                reviewed = datetime.fromisoformat(request['reviewedAt'].replace('Z', '+00:00'))
+                processing_time = (reviewed - submitted).total_seconds() / (24 * 3600)  # Convert to days
+                total_processing_time += processing_time
+            average_processing_time = round(total_processing_time / len(processed_requests), 1)
+        else:
+            average_processing_time = 0
+        
         stats = {
-            "totalRequests": 24,
-            "pendingRequests": 8,
-            "approvedRequests": 14,
-            "rejectedRequests": 2,
-            "averageProcessingTime": 1.5
+            "totalRequests": total_requests,
+            "pendingRequests": pending_requests,
+            "approvedRequests": approved_requests,
+            "rejectedRequests": rejected_requests,
+            "averageProcessingTime": average_processing_time
         }
         
         return jsonify({
