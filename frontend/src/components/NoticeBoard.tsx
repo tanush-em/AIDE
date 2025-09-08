@@ -24,17 +24,17 @@ interface Notice {
   content: string
   type: 'announcement' | 'reminder' | 'urgent' | 'general'
   priority: 'low' | 'medium' | 'high'
-  targetAudience: 'all' | 'students' | 'faculty' | 'specific_course'
+  targetAudience?: 'all' | 'students' | 'faculty' | 'specific_course'
   course?: string
   author: string
   authorId: string
   createdAt: string
-  updatedAt: string
+  updatedAt?: string
   expiresAt?: string
   isActive: boolean
   attachments?: string[]
-  readBy: string[]
-  tags: string[]
+  readBy?: string[]
+  tags?: string[]
 }
 
 interface NoticeStats {
@@ -62,96 +62,23 @@ export default function NoticeBoard() {
   const audiences = ['all', 'all', 'students', 'faculty', 'specific_course']
 
   useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      const mockNotices: Notice[] = [
-        {
-          id: '1',
-          title: 'Mid-term Exam Schedule Released',
-          content: 'The mid-term examination schedule for all courses has been published. Please check the academic calendar for detailed timings and venues. Students are advised to arrive 15 minutes before the scheduled time.',
-          type: 'announcement',
-          priority: 'high',
-          targetAudience: 'students',
-          author: 'Dr. Sarah Johnson',
-          authorId: 'FAC001',
-          createdAt: '2024-01-15T09:00:00Z',
-          updatedAt: '2024-01-15T09:00:00Z',
-          expiresAt: '2024-02-15T23:59:59Z',
-          isActive: true,
-          readBy: ['STU001', 'STU002', 'STU003'],
-          tags: ['exams', 'schedule', 'academic']
-        },
-        {
-          id: '2',
-          title: 'Library Maintenance - Temporary Closure',
-          content: 'The main library will be closed for maintenance from January 20-22, 2024. Alternative study spaces are available in the computer labs and study halls. Online resources remain accessible.',
-          type: 'urgent',
-          priority: 'high',
-          targetAudience: 'all',
-          author: 'Library Administration',
-          authorId: 'LIB001',
-          createdAt: '2024-01-18T14:30:00Z',
-          updatedAt: '2024-01-18T14:30:00Z',
-          expiresAt: '2024-01-25T23:59:59Z',
-          isActive: true,
-          readBy: ['STU001', 'STU004'],
-          tags: ['library', 'maintenance', 'closure']
-        },
-        {
-          id: '3',
-          title: 'Assignment Submission Deadline Reminder',
-          content: 'This is a reminder that CS201 Assignment 2 is due tomorrow (January 20, 2024) by 11:59 PM. Late submissions will incur a penalty of 10% per day.',
-          type: 'reminder',
-          priority: 'medium',
-          targetAudience: 'specific_course',
-          course: 'CS201',
-          author: 'Dr. Michael Chen',
-          authorId: 'FAC002',
-          createdAt: '2024-01-19T10:15:00Z',
-          updatedAt: '2024-01-19T10:15:00Z',
-          expiresAt: '2024-01-21T23:59:59Z',
-          isActive: true,
-          readBy: ['STU002', 'STU003'],
-          tags: ['assignment', 'deadline', 'CS201']
-        },
-        {
-          id: '4',
-          title: 'Faculty Meeting - Next Week',
-          content: 'Monthly faculty meeting scheduled for January 25, 2024 at 2:00 PM in Conference Room A. Agenda includes curriculum updates and student performance review.',
-          type: 'announcement',
-          priority: 'medium',
-          targetAudience: 'faculty',
-          author: 'Dr. Sarah Johnson',
-          authorId: 'FAC001',
-          createdAt: '2024-01-16T11:00:00Z',
-          updatedAt: '2024-01-16T11:00:00Z',
-          expiresAt: '2024-01-26T23:59:59Z',
-          isActive: true,
-          readBy: ['FAC002', 'FAC003'],
-          tags: ['meeting', 'faculty', 'curriculum']
-        },
-        {
-          id: '5',
-          title: 'Student Feedback Survey',
-          content: 'We value your feedback! Please take a few minutes to complete the course evaluation survey. Your input helps us improve the learning experience.',
-          type: 'general',
-          priority: 'low',
-          targetAudience: 'students',
-          author: 'Academic Affairs',
-          authorId: 'ADM001',
-          createdAt: '2024-01-10T16:00:00Z',
-          updatedAt: '2024-01-10T16:00:00Z',
-          expiresAt: '2024-01-31T23:59:59Z',
-          isActive: true,
-          readBy: ['STU001', 'STU002', 'STU003', 'STU004'],
-          tags: ['feedback', 'survey', 'evaluation']
-        }
-      ]
-      setNotices(mockNotices)
-      setFilteredNotices(mockNotices)
-      setLoading(false)
-    }, 1000)
+    loadNotices()
   }, [])
+
+  const loadNotices = async () => {
+    try {
+      const response = await fetch('http://localhost:5001/api/notices')
+      const data = await response.json()
+      if (data.success) {
+        setNotices(data.data)
+        setFilteredNotices(data.data)
+      }
+    } catch (error) {
+      console.error('Error loading notices:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     let filtered = notices
@@ -161,7 +88,7 @@ export default function NoticeBoard() {
       filtered = filtered.filter(notice =>
         notice.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         notice.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        notice.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+        (notice.tags && notice.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
       )
     }
 
@@ -400,6 +327,11 @@ export default function NoticeBoard() {
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(notice.priority)}`}>
                       {notice.priority.charAt(0).toUpperCase() + notice.priority.slice(1)} Priority
                     </span>
+                    {notice.targetAudience && (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                        {notice.targetAudience === 'specific_course' ? 'Course Specific' : notice.targetAudience.charAt(0).toUpperCase() + notice.targetAudience.slice(1)}
+                      </span>
+                    )}
                     {notice.course && (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                         {notice.course}
@@ -417,7 +349,7 @@ export default function NoticeBoard() {
                     )}
                   </div>
                   
-                  {notice.tags.length > 0 && (
+                  {notice.tags && notice.tags.length > 0 && (
                     <div className="flex items-center space-x-2 mb-4">
                       <Tag className="h-4 w-4 text-gray-400" />
                       <div className="flex flex-wrap gap-1">
@@ -431,7 +363,7 @@ export default function NoticeBoard() {
                   )}
                   
                   <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span>Read by {notice.readBy.length} people</span>
+                    <span>Read by {notice.readBy ? notice.readBy.length : 0} people</span>
                     {notice.expiresAt && (
                       <span>
                         Expires: {format(new Date(notice.expiresAt), 'MMM d, yyyy')}
@@ -480,7 +412,13 @@ export default function NoticeBoard() {
                   <div className="flex items-center space-x-4 mt-2 text-sm text-gray-600">
                     <span>By {selectedNotice.author}</span>
                     <span>•</span>
-                    <span>{format(new Date(selectedNotice.createdAt), 'MMM d, yyyy • h:mm a')}</span>
+                    <span>Created: {format(new Date(selectedNotice.createdAt), 'MMM d, yyyy • h:mm a')}</span>
+                    {selectedNotice.updatedAt && selectedNotice.updatedAt !== selectedNotice.createdAt && (
+                      <>
+                        <span>•</span>
+                        <span>Updated: {format(new Date(selectedNotice.updatedAt), 'MMM d, yyyy • h:mm a')}</span>
+                      </>
+                    )}
                   </div>
                 </div>
                 <button
@@ -500,6 +438,16 @@ export default function NoticeBoard() {
                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getPriorityColor(selectedNotice.priority)}`}>
                   {selectedNotice.priority.charAt(0).toUpperCase() + selectedNotice.priority.slice(1)} Priority
                 </span>
+                {selectedNotice.targetAudience && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                    {selectedNotice.targetAudience === 'specific_course' ? 'Course Specific' : selectedNotice.targetAudience.charAt(0).toUpperCase() + selectedNotice.targetAudience.slice(1)}
+                  </span>
+                )}
+                {selectedNotice.course && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                    {selectedNotice.course}
+                  </span>
+                )}
               </div>
               
               <div className="prose max-w-none">
@@ -522,7 +470,7 @@ export default function NoticeBoard() {
                 </div>
               )}
               
-              {selectedNotice.tags.length > 0 && (
+              {selectedNotice.tags && selectedNotice.tags.length > 0 && (
                 <div className="mt-6">
                   <h4 className="font-medium text-gray-900 mb-2">Tags</h4>
                   <div className="flex flex-wrap gap-2">

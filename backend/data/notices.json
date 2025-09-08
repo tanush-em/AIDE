@@ -5,15 +5,11 @@
     "content": "The mid-term examination schedule for all courses has been published. Please check the academic calendar for detailed timings and venues. Students are advised to arrive 15 minutes before the scheduled time.",
     "type": "announcement",
     "priority": "high",
-    "targetAudience": "students",
     "author": "Dr. Sarah Johnson",
     "authorId": "FAC001",
     "createdAt": "2024-01-15T09:00:00Z",
-    "updatedAt": "2024-01-15T09:00:00Z",
     "expiresAt": "2024-02-15T23:59:59Z",
-    "isActive": true,
-    "readBy": ["STU001", "STU002", "STU003"],
-    "tags": ["exams", "schedule", "academic"]
+    "isActive": true
   },
   {
     "id": "2",
@@ -25,7 +21,6 @@
     "author": "Library Administration",
     "authorId": "LIB001",
     "createdAt": "2024-01-18T14:30:00Z",
-    "updatedAt": "2024-01-18T14:30:00Z",
     "expiresAt": "2024-01-25T23:59:59Z",
     "isActive": true,
     "readBy": ["STU001", "STU004"],

@@ -5745,3 +5745,127 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 2025-09-08 17:42:42,953 - __main__ - INFO - Debug mode: True
 2025-09-08 17:42:42,965 - werkzeug - WARNING -  * Debugger is active!
 2025-09-08 17:42:42,970 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-08 18:36:58,398 - __main__ - INFO - Request: GET http://localhost:5001/api/resources
+2025-09-08 18:36:58,399 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/stats
+2025-09-08 18:36:58,400 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:36:58,400 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:36:58,400 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:36:58,400 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:36:58,407 - __main__ - INFO - Response Status: 200
+2025-09-08 18:36:58,408 - __main__ - INFO - Response Status: 200
+2025-09-08 18:36:58,408 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '160'}
+2025-09-08 18:36:58,408 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '821'}
+2025-09-08 18:36:58,409 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:36:58] "GET /api/resources/stats HTTP/1.1" 200 -
+2025-09-08 18:36:58,409 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:36:58] "GET /api/resources HTTP/1.1" 200 -
+2025-09-08 18:36:58,411 - __main__ - INFO - Request: GET http://localhost:5001/api/resources
+2025-09-08 18:36:58,411 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:36:58,411 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/stats
+2025-09-08 18:36:58,411 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:36:58,412 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:36:58,412 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:36:58,412 - __main__ - INFO - Response Status: 200
+2025-09-08 18:36:58,412 - __main__ - INFO - Response Status: 200
+2025-09-08 18:36:58,412 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '821'}
+2025-09-08 18:36:58,412 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '160'}
+2025-09-08 18:36:58,412 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:36:58] "GET /api/resources HTTP/1.1" 200 -
+2025-09-08 18:36:58,413 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:36:58] "GET /api/resources/stats HTTP/1.1" 200 -
+2025-09-08 18:37:01,168 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/academic_calendar.txt/view
+2025-09-08 18:37:01,168 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:37:01,168 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:37:01,169 - __main__ - INFO - Response Status: 200
+2025-09-08 18:37:01,170 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '1428'}
+2025-09-08 18:37:01,170 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:37:01] "GET /api/resources/academic_calendar.txt/view HTTP/1.1" 200 -
+2025-09-08 18:37:10,300 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/sample_data.csv/view
+2025-09-08 18:37:10,300 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:37:10,300 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:37:10,316 - __main__ - INFO - Response Status: 200
+2025-09-08 18:37:10,316 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '1572'}
+2025-09-08 18:37:10,316 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:37:10] "GET /api/resources/sample_data.csv/view HTTP/1.1" 200 -
+2025-09-08 18:37:14,367 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/academic_calendar.txt/view
+2025-09-08 18:37:14,367 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:37:14,367 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:37:14,367 - __main__ - INFO - Response Status: 200
+2025-09-08 18:37:14,367 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '1428'}
+2025-09-08 18:37:14,368 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:37:14] "GET /api/resources/academic_calendar.txt/view HTTP/1.1" 200 -
+2025-09-08 18:38:41,643 - __main__ - INFO - Request: GET http://localhost:5001/api/resources
+2025-09-08 18:38:41,644 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/stats
+2025-09-08 18:38:41,644 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:38:41,644 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:38:41,644 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:38:41,644 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:38:41,645 - __main__ - INFO - Response Status: 200
+2025-09-08 18:38:41,645 - __main__ - INFO - Response Status: 200
+2025-09-08 18:38:41,645 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '1459'}
+2025-09-08 18:38:41,645 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '196'}
+2025-09-08 18:38:41,646 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:38:41] "GET /api/resources HTTP/1.1" 200 -
+2025-09-08 18:38:41,646 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:38:41] "GET /api/resources/stats HTTP/1.1" 200 -
+2025-09-08 18:38:41,648 - __main__ - INFO - Request: GET http://localhost:5001/api/resources
+2025-09-08 18:38:41,648 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:38:41,648 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:38:41,649 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/stats
+2025-09-08 18:38:41,649 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:38:41,649 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:38:41,650 - __main__ - INFO - Response Status: 200
+2025-09-08 18:38:41,650 - __main__ - INFO - Response Status: 200
+2025-09-08 18:38:41,651 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '1459'}
+2025-09-08 18:38:41,651 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '196'}
+2025-09-08 18:38:41,651 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:38:41] "GET /api/resources HTTP/1.1" 200 -
+2025-09-08 18:38:41,652 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:38:41] "GET /api/resources/stats HTTP/1.1" 200 -
+2025-09-08 18:38:43,916 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/Assignment%20Front%20page.docx/view
+2025-09-08 18:38:43,916 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:38:43,916 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:38:43,917 - __main__ - INFO - Response Status: 200
+2025-09-08 18:38:43,917 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '292'}
+2025-09-08 18:38:43,917 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:38:43] "GET /api/resources/Assignment%20Front%20page.docx/view HTTP/1.1" 200 -
+2025-09-08 18:38:51,150 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/CSE-R19-CURRICULAM-AND-SYLLABUS.pdf/view
+2025-09-08 18:38:51,151 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 18:38:51,151 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 18:38:51,151 - __main__ - INFO - Response Status: 200
+2025-09-08 18:38:51,151 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '297'}
+2025-09-08 18:38:51,152 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 18:38:51] "GET /api/resources/CSE-R19-CURRICULAM-AND-SYLLABUS.pdf/view HTTP/1.1" 200 -
+2025-09-08 19:14:02,017 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/test_notice_board_updated.py', reloading
+2025-09-08 19:14:02,501 - werkzeug - INFO -  * Restarting with stat
+2025-09-08 19:14:02,605 - utils.logging_config - INFO - Logging system initialized
+2025-09-08 19:14:02,605 - utils.logging_config - INFO - Log level: INFO
+2025-09-08 19:14:02,606 - utils.logging_config - INFO - Log files: logs
+2025-09-08 19:14:05,600 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-08 19:14:05,600 - __main__ - INFO - Debug mode: True
+2025-09-08 19:14:05,611 - werkzeug - WARNING -  * Debugger is active!
+2025-09-08 19:14:05,617 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-08 19:14:16,132 - __main__ - INFO - Request: GET http://localhost:5001/api/notices
+2025-09-08 19:14:16,132 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 19:14:16,132 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 19:14:16,132 - utils.data_loader - INFO - Loaded JSON file: notices.json
+2025-09-08 19:14:16,133 - __main__ - INFO - Response Status: 200
+2025-09-08 19:14:16,133 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '5669'}
+2025-09-08 19:14:16,134 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 19:14:16] "GET /api/notices HTTP/1.1" 200 -
+2025-09-08 19:14:16,136 - __main__ - INFO - Request: GET http://localhost:5001/api/notices
+2025-09-08 19:14:16,136 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 19:14:16,136 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 19:14:16,136 - __main__ - INFO - Response Status: 200
+2025-09-08 19:14:16,136 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '5669'}
+2025-09-08 19:14:16,137 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 19:14:16] "GET /api/notices HTTP/1.1" 200 -
+2025-09-08 19:17:00,221 - __main__ - INFO - Request: GET http://localhost:5001/api/resources
+2025-09-08 19:17:00,222 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 19:17:00,222 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 19:17:00,222 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/stats
+2025-09-08 19:17:00,223 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 19:17:00,223 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 19:17:00,229 - __main__ - INFO - Response Status: 200
+2025-09-08 19:17:00,229 - __main__ - INFO - Response Status: 200
+2025-09-08 19:17:00,230 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '1459'}
+2025-09-08 19:17:00,230 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '196'}
+2025-09-08 19:17:00,230 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 19:17:00] "GET /api/resources HTTP/1.1" 200 -
+2025-09-08 19:17:00,230 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 19:17:00] "GET /api/resources/stats HTTP/1.1" 200 -
+2025-09-08 19:17:00,232 - __main__ - INFO - Request: GET http://localhost:5001/api/resources
+2025-09-08 19:17:00,233 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 19:17:00,233 - __main__ - INFO - Request: GET http://localhost:5001/api/resources/stats
+2025-09-08 19:17:00,233 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 19:17:00,233 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-08 19:17:00,234 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-08 19:17:00,234 - __main__ - INFO - Response Status: 200
+2025-09-08 19:17:00,235 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '1459'}
+2025-09-08 19:17:00,235 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 19:17:00] "GET /api/resources HTTP/1.1" 200 -
+2025-09-08 19:17:00,235 - __main__ - INFO - Response Status: 200
+2025-09-08 19:17:00,236 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '196'}
+2025-09-08 19:17:00,236 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 19:17:00] "GET /api/resources/stats HTTP/1.1" 200 -
