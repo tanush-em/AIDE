@@ -11,7 +11,7 @@ class RAGConfig:
     
     # Model Settings
     EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-    LLM_MODEL = "llama3.1-8b-8192"  # Groq model (updated from deprecated llama3-8b-8192)
+    LLM_MODEL = "llama-3.1-8b-instant"  # Groq model
     
     # Vector Store Settings
     VECTOR_STORE_PATH = "data/vector_store"

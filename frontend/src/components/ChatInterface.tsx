@@ -21,7 +21,7 @@ interface Task {
   description: string
   agent_type: string
   status: 'pending' | 'in_progress' | 'completed' | 'failed' | 'skipped'
-  result?: any
+  result?: unknown
   error?: string
   started_at?: string
   completed_at?: string

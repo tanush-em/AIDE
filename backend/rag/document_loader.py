@@ -306,26 +306,49 @@ class DocumentLoader:
             raise
 
     def _flatten_json(self, obj: Any, prefix: str = '') -> str:
-        """Flatten JSON object into readable text"""
+        """Flatten JSON object into readable text optimized for LLM understanding"""
         if isinstance(obj, dict):
             lines = []
             for key, value in obj.items():
-                current_key = f"{prefix}.{key}" if prefix else key
-                if isinstance(value, (dict, list)):
-                    lines.append(f"{current_key}:")
-                    lines.append(self._flatten_json(value, current_key))
+                if isinstance(value, list):
+                    # Handle lists specially for better readability
+                    lines.append(f"{key}:")
+                    for i, item in enumerate(value):
+                        if isinstance(item, dict):
+                            lines.append(f"  {i+1}. {self._format_dict_as_text(item)}")
+                        else:
+                            lines.append(f"  {i+1}. {item}")
+                elif isinstance(value, dict):
+                    lines.append(f"{key}:")
+                    lines.append(self._format_dict_as_text(value, indent="  "))
                 else:
-                    lines.append(f"{current_key}: {value}")
+                    lines.append(f"{key}: {value}")
             return "\n".join(lines)
         elif isinstance(obj, list):
             lines = []
             for i, item in enumerate(obj):
-                current_key = f"{prefix}[{i}]"
-                if isinstance(item, (dict, list)):
-                    lines.append(f"{current_key}:")
-                    lines.append(self._flatten_json(item, current_key))
+                if isinstance(item, dict):
+                    lines.append(f"Item {i+1}: {self._format_dict_as_text(item)}")
                 else:
-                    lines.append(f"{current_key}: {item}")
+                    lines.append(f"Item {i+1}: {item}")
             return "\n".join(lines)
         else:
             return str(obj)
+    
+    def _format_dict_as_text(self, obj: dict, indent: str = "") -> str:
+        """Format a dictionary as readable text"""
+        lines = []
+        for key, value in obj.items():
+            if isinstance(value, dict):
+                lines.append(f"{indent}{key}:")
+                lines.append(self._format_dict_as_text(value, indent + "  "))
+            elif isinstance(value, list):
+                lines.append(f"{indent}{key}:")
+                for i, item in enumerate(value):
+                    if isinstance(item, dict):
+                        lines.append(f"{indent}  {i+1}. {self._format_dict_as_text(item, indent + '    ')}")
+                    else:
+                        lines.append(f"{indent}  {i+1}. {item}")
+            else:
+                lines.append(f"{indent}{key}: {value}")
+        return "\n".join(lines)

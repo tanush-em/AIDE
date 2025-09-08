@@ -59,9 +59,17 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from api.rag import rag_bp
 from api.task_workflow import task_workflow_bp
+from api.attendance import attendance_bp
+from api.leave_management import leave_bp
+from api.notice_board import notice_bp
+from api.dashboard import dashboard_bp
 
 app.register_blueprint(rag_bp, url_prefix='/api/rag')
 app.register_blueprint(task_workflow_bp, url_prefix='/api/tasks')
+app.register_blueprint(attendance_bp)
+app.register_blueprint(leave_bp)
+app.register_blueprint(notice_bp)
+app.register_blueprint(dashboard_bp)
 
 @app.route('/')
 def home():
@@ -81,7 +89,11 @@ def health_check():
             "task_chat": "/api/tasks/chat",
             "task_chat_stream": "/api/tasks/chat/stream",
             "health": "/api/rag/health",
-            "task_health": "/api/tasks/health"
+            "task_health": "/api/tasks/health",
+            "attendance": "/api/attendance/students",
+            "leave_management": "/api/leave/requests",
+            "notice_board": "/api/notices",
+            "dashboard": "/api/dashboard/stats"
         }
     })
 
