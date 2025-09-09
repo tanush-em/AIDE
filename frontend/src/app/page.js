@@ -19,7 +19,7 @@ import AttendanceViewer from '../components/AttendanceViewer'
 import LeaveManagement from '../components/LeaveManagement'
 import NoticeBoard from '../components/NoticeBoard'
 import Dashboard from '../components/Dashboard'
-import QuestionPaper from '../components/QuestionPaper'
+import QuestionPaperRedirect from '../components/QuestionPaperRedirect'
 import Resources from '../components/Resources'
 import Placements from '../components/Placements'
 
@@ -29,7 +29,7 @@ const tabs = [
   { id: 'attendance', name: 'Attendance', icon: Users, component: AttendanceViewer },
   { id: 'leave', name: 'Leave Management', icon: Calendar, component: LeaveManagement },
   { id: 'notices', name: 'Notice Board', icon: Bell, component: NoticeBoard },
-  { id: 'question-paper', name: 'Question Papers', icon: FileText, component: QuestionPaper },
+  { id: 'question-paper', name: 'Question Papers', icon: FileText, component: QuestionPaperRedirect },
   { id: 'resources', name: 'Resources', icon: FolderOpen, component: Resources },
   { id: 'placements', name: 'Placements', icon: Briefcase, component: Placements },
   { id: 'settings', name: 'Settings', icon: Settings, component: Dashboard },

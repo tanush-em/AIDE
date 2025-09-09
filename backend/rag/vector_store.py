@@ -53,17 +53,7 @@ class ChromaDBVectorStore:
             
         except Exception as e:
             logger.error(f"Error initializing ChromaDB: {e}")
-            # Try to delete the corrupted database and recreate
-            try:
-                import shutil
-                if self.store_path.exists():
-                    shutil.rmtree(self.store_path)
-                    self.store_path.mkdir(parents=True, exist_ok=True)
-                logger.info("Cleared corrupted ChromaDB database, retrying initialization...")
-                self._initialize_chromadb()
-            except Exception as retry_error:
-                logger.error(f"Failed to recover from ChromaDB error: {retry_error}")
-                raise
+            raise
     
     def add_documents(self, documents: List[Dict[str, Any]], chunk_size: int = 1000, chunk_overlap: int = 200):
         """Add documents to the vector store with chunking"""
@@ -234,10 +224,7 @@ class ChromaDBVectorStore:
             logger.info("Rebuilding ChromaDB vector store index...")
             
             # Clear existing collection
-            try:
-                self.client.delete_collection(name=self.collection_name)
-            except Exception as e:
-                logger.warning(f"Could not delete collection (may not exist): {e}")
+            self.client.delete_collection(name=self.collection_name)
             
             # Recreate collection
             self.collection = self.client.create_collection(
