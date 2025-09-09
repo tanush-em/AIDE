@@ -10,7 +10,11 @@ export default function ChatInterface() {
   const [systemStatus, setSystemStatus] = useState({})
   const [isConnected, setIsConnected] = useState(false)
   const [isReindexing, setIsReindexing] = useState(false)
+  const [uploadedDocuments, setUploadedDocuments] = useState([])
+  const [isUploading, setIsUploading] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
   const messagesEndRef = useRef(null)
+  const fileInputRef = useRef(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -122,7 +126,8 @@ export default function ChatInterface() {
         },
         body: JSON.stringify({
           message: inputMessage,
-          conversation_history: messages
+          conversation_history: messages,
+          uploaded_documents: uploadedDocuments.map(doc => doc.id)
         }),
       })
 
@@ -138,6 +143,7 @@ export default function ChatInterface() {
         agentStatus: data.agent_status || {},
         tasks: data.tasks || [],
         taskExecutionSummary: data.task_execution_summary || null,
+        documentSources: data.document_sources || [],
         workflowType: useTaskWorkflow ? 'task_workflow' : 'rag'
       }
 
@@ -177,6 +183,101 @@ export default function ChatInterface() {
       case 'medium': return 'text-yellow-600 bg-yellow-100'
       case 'low': return 'text-red-600 bg-red-100'
       default: return 'text-gray-600 bg-gray-100'
+    }
+  }
+
+  const handleFileUpload = async (event) => {
+    const files = Array.from(event.target.files)
+    if (files.length === 0) return
+
+    setIsUploading(true)
+    setUploadProgress(0)
+
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i]
+        setUploadProgress((i / files.length) * 100)
+
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('session_id', 'current_session') // You might want to generate a proper session ID
+
+        const response = await fetch('http://localhost:5001/api/rag/upload', {
+          method: 'POST',
+          body: formData,
+        })
+
+        if (response.ok) {
+          const result = await response.json()
+          setUploadedDocuments(prev => [...prev, {
+            id: result.document_id,
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            uploadedAt: new Date(),
+            status: 'uploaded'
+          }])
+
+          // Add success message to chat
+          const successMessage = {
+            id: Date.now().toString(),
+            role: 'assistant',
+            content: `📄 Document "${file.name}" uploaded successfully and is now available for queries!`,
+            timestamp: new Date(),
+            confidence: 'high'
+          }
+          setMessages(prev => [...prev, successMessage])
+        } else {
+          const error = await response.json()
+          const errorMessage = {
+            id: Date.now().toString(),
+            role: 'assistant',
+            content: `❌ Failed to upload "${file.name}": ${error.error || 'Unknown error'}`,
+            timestamp: new Date(),
+            confidence: 'low'
+          }
+          setMessages(prev => [...prev, errorMessage])
+        }
+      }
+    } catch (error) {
+      console.error('Error uploading files:', error)
+      const errorMessage = {
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: `❌ Error uploading files: ${error.message}`,
+        timestamp: new Date(),
+        confidence: 'low'
+      }
+      setMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsUploading(false)
+      setUploadProgress(0)
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    }
+  }
+
+  const removeUploadedDocument = async (documentId) => {
+    try {
+      const response = await fetch(`http://localhost:5001/api/rag/upload/${documentId}`, {
+        method: 'DELETE',
+      })
+
+      if (response.ok) {
+        setUploadedDocuments(prev => prev.filter(doc => doc.id !== documentId))
+        const successMessage = {
+          id: Date.now().toString(),
+          role: 'assistant',
+          content: `🗑️ Document removed successfully!`,
+          timestamp: new Date(),
+          confidence: 'high'
+        }
+        setMessages(prev => [...prev, successMessage])
+      }
+    } catch (error) {
+      console.error('Error removing document:', error)
     }
   }
 
@@ -238,6 +339,36 @@ export default function ChatInterface() {
               <span className="text-sm text-gray-600">Tasks</span>
             </div>
 
+            {/* Document Upload Button */}
+            <div className="relative">
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                accept=".pdf,.doc,.docx,.txt,.md,.json,.csv,.xlsx,.xls,.pptx,.ppt"
+                onChange={handleFileUpload}
+                className="hidden"
+                disabled={isUploading}
+              />
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isUploading}
+                className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded hover:bg-green-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-1"
+              >
+                {isUploading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-green-600"></div>
+                    <span>Uploading...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>📄</span>
+                    <span>Upload Docs</span>
+                  </>
+                )}
+              </button>
+            </div>
+
             {/* Reindex Button */}
             <button
               onClick={reindexVectorStore}
@@ -267,6 +398,54 @@ export default function ChatInterface() {
           </div>
         </div>
       </div>
+
+      {/* Uploaded Documents Panel */}
+      {uploadedDocuments.length > 0 && (
+        <div className="bg-blue-50 border-b border-blue-200 p-3">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-medium text-blue-900">Uploaded Documents ({uploadedDocuments.length})</h3>
+            <span className="text-xs text-blue-600">These documents have priority in search results</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {uploadedDocuments.map((doc) => (
+              <div key={doc.id} className="flex items-center space-x-2 bg-white rounded-lg px-3 py-2 border border-blue-200 hover:shadow-sm transition-shadow">
+                <span className="text-blue-600">📄</span>
+                <div className="flex flex-col min-w-0 flex-1">
+                  <span className="text-sm text-gray-700 truncate max-w-32" title={doc.name}>
+                    {doc.name}
+                  </span>
+                  <span className="text-xs text-gray-500">
+                    {(doc.size / 1024).toFixed(1)} KB
+                  </span>
+                </div>
+                <button
+                  onClick={() => removeUploadedDocument(doc.id)}
+                  className="text-red-500 hover:text-red-700 text-xs p-1 rounded hover:bg-red-50 transition-colors"
+                  title="Remove document"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Upload Progress */}
+      {isUploading && (
+        <div className="bg-green-50 border-b border-green-200 p-3">
+          <div className="flex items-center space-x-2">
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600"></div>
+            <span className="text-sm text-green-700">Uploading documents...</span>
+          </div>
+          <div className="mt-2 w-full bg-green-200 rounded-full h-2">
+            <div 
+              className="bg-green-600 h-2 rounded-full transition-all duration-300" 
+              style={{ width: `${uploadProgress}%` }}
+            ></div>
+          </div>
+        </div>
+      )}
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -332,6 +511,28 @@ export default function ChatInterface() {
                             {task.status}
                           </div>
                         </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Document Sources */}
+                {message.documentSources && message.documentSources.length > 0 && (
+                  <div className="mt-2">
+                    <p className="text-xs font-medium mb-1">Sources:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {message.documentSources.map((source, index) => (
+                        <span 
+                          key={index}
+                          className={`text-xs px-2 py-1 rounded ${
+                            source.is_priority 
+                              ? 'bg-green-100 text-green-800' 
+                              : 'bg-gray-100 text-gray-600'
+                          }`}
+                          title={source.is_priority ? 'From uploaded document' : 'From knowledge base'}
+                        >
+                          {source.is_priority ? '📄' : '📚'} {source.source}
+                        </span>
                       ))}
                     </div>
                   </div>

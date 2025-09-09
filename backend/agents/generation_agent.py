@@ -77,6 +77,7 @@ Current context and relevant information will be provided to help you answer the
         comprehensive_context = input_data.get('comprehensive_context', '')
         query_analysis = input_data.get('query_analysis', {})
         information_sufficiency = input_data.get('information_sufficiency', {})
+        synthesis_result = input_data.get('synthesis_result', {})
         
         # DEBUG: Print input data
         print(f"\n=== LLM DEBUG - Input Data ===")
@@ -111,11 +112,23 @@ Current context and relevant information will be provided to help you answer the
             # Process and enhance the response
             enhanced_response = self._enhance_response(response, query_analysis, information_sufficiency)
             
+            # Extract document sources from synthesis result
+            document_sources = []
+            if synthesis_result and 'synthesized_context' in synthesis_result:
+                sources = synthesis_result['synthesized_context'].get('sources', [])
+                for source in sources:
+                    document_sources.append({
+                        'source': source.get('source', 'Unknown'),
+                        'is_priority': source.get('is_priority', False),
+                        'relevance_score': source.get('relevance_score', 0.0)
+                    })
+            
             return {
                 'query': query,
                 'response': enhanced_response['response'],
                 'confidence': enhanced_response['confidence'],
                 'suggestions': enhanced_response['suggestions'],
+                'document_sources': document_sources,
                 'response_metadata': {
                     'model_used': self.model_name if self.llm else 'fallback',
                     'response_length': len(enhanced_response['response']),

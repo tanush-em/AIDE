@@ -73,11 +73,14 @@ class ContextSynthesisAgent(BaseAgent):
             # Add key points
             key_points.extend(result.get('key_information', []))
             
-            # Add source
+            # Add source with priority information
             sources.append({
                 'source': result['source'],
                 'category': result['category'],
-                'relevance_score': result['relevance_score']
+                'relevance_score': result['relevance_score'],
+                'is_priority': result.get('is_priority', False),
+                'document_id': result['metadata'].get('document_id', ''),
+                'source_type': result['metadata'].get('source_type', 'knowledge_base')
             })
         
         # Remove duplicate key points

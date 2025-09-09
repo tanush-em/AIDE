@@ -147,7 +147,7 @@ class ChromaDBVectorStore:
             logger.error(f"Error adding documents to ChromaDB: {e}")
             raise
     
-    def similarity_search(self, query: str, k: int = 5, threshold: float = 0.7) -> List[Dict[str, Any]]:
+    def similarity_search(self, query: str, k: int = 5, threshold: float = 0.7, priority_documents: List[str] = None) -> List[Dict[str, Any]]:
         """Search for similar documents using ChromaDB"""
         try:
             # Generate query embedding
@@ -196,12 +196,27 @@ class ChromaDBVectorStore:
                     similarity_score = 1 - distance
                     
                     if similarity_score >= threshold:
+                        # Check if this is a priority document
+                        is_priority = False
+                        if priority_documents:
+                            doc_id = metadata.get('document_id', '')
+                            is_priority = any(priority_doc in doc_id for priority_doc in priority_documents)
+                        
                         processed_results.append({
                             'content': doc,
                             'metadata': metadata,
                             'similarity_score': float(similarity_score),
-                            'rank': i + 1
+                            'rank': i + 1,
+                            'is_priority': is_priority,
+                            'priority_boost': 1.2 if is_priority else 1.0  # Boost priority documents
                         })
+            
+            # Sort results to prioritize uploaded documents
+            if priority_documents:
+                processed_results.sort(key=lambda x: (
+                    -x['is_priority'],  # Priority documents first
+                    -x['similarity_score'] * x['priority_boost']  # Then by boosted similarity
+                ))
             
             logger.info(f"ChromaDB search returned {len(processed_results)} results above threshold {threshold}")
             return processed_results
@@ -307,6 +322,53 @@ class ChromaDBVectorStore:
         except Exception as e:
             logger.error(f"Error getting collection info: {e}")
             return {'error': str(e)}
+    
+    def delete_documents_by_metadata(self, metadata_key: str, metadata_value: str) -> bool:
+        """Delete documents that match specific metadata criteria"""
+        try:
+            # Get all documents with the specified metadata
+            results = self.collection.get(
+                where={metadata_key: metadata_value},
+                include=['metadatas']
+            )
+            
+            if results['ids']:
+                # Delete the documents
+                self.collection.delete(ids=results['ids'])
+                logger.info(f"Deleted {len(results['ids'])} documents with {metadata_key}={metadata_value}")
+                return True
+            else:
+                logger.info(f"No documents found with {metadata_key}={metadata_value}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Error deleting documents by metadata: {e}")
+            return False
+    
+    def get_documents_by_metadata(self, metadata_key: str, metadata_value: str) -> List[Dict[str, Any]]:
+        """Get documents that match specific metadata criteria"""
+        try:
+            # Get all documents with the specified metadata
+            results = self.collection.get(
+                where={metadata_key: metadata_value},
+                include=['documents', 'metadatas']
+            )
+            
+            documents = []
+            if results['documents']:
+                for i, (doc, metadata) in enumerate(zip(results['documents'], results['metadatas'])):
+                    documents.append({
+                        'content': doc,
+                        'metadata': metadata,
+                        'id': results['ids'][i]
+                    })
+            
+            logger.info(f"Retrieved {len(documents)} documents with {metadata_key}={metadata_value}")
+            return documents
+            
+        except Exception as e:
+            logger.error(f"Error getting documents by metadata: {e}")
+            return []
 
 # For backward compatibility, create an alias
 FAISSVectorStore = ChromaDBVectorStore

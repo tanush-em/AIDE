@@ -918,3 +918,13 @@ Traceback (most recent call last):
   File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
     raise NotFound() from None
 werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Error loading data/knowledge/a.csv: No columns to parse from file
+Error loading data/knowledge/a.json: Expecting value: line 1 column 1 (char 0)
+Failed to send telemetry event CollectionAddEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Error loading data/knowledge/a.csv: No columns to parse from file
+Error loading data/knowledge/a.json: Expecting value: line 1 column 1 (char 0)
+Failed to send telemetry event CollectionAddEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given

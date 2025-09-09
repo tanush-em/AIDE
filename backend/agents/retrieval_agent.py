@@ -24,12 +24,14 @@ class KnowledgeRetrievalAgent(BaseAgent):
         query_analysis = input_data.get('query_analysis', {})
         max_results = input_data.get('max_results', 5)
         threshold = input_data.get('threshold', 0.3)  # Very low threshold for better retrieval
+        priority_documents = input_data.get('priority_documents', [])
         
-        # Perform similarity search
+        # Perform similarity search with priority documents
         search_results = self.vector_store.similarity_search(
             query=query,
             k=max_results,
-            threshold=threshold
+            threshold=threshold,
+            priority_documents=priority_documents
         )
         
         # Process and rank results
@@ -84,6 +86,11 @@ class KnowledgeRetrievalAgent(BaseAgent):
         """Calculate a comprehensive relevance score"""
         base_score = result['similarity_score']
         
+        # Boost score for priority documents (uploaded documents)
+        priority_boost = 0.0
+        if result.get('is_priority', False):
+            priority_boost = 0.3  # Significant boost for uploaded documents
+        
         # Boost score based on domain match
         query_domains = query_analysis.get('domains', [])
         result_category = result['metadata']['category']
@@ -102,7 +109,7 @@ class KnowledgeRetrievalAgent(BaseAgent):
             # Simple recency boost - could be more sophisticated
             recency_boost = 0.05
         
-        final_score = base_score + domain_boost + length_boost + recency_boost
+        final_score = base_score + priority_boost + domain_boost + length_boost + recency_boost
         return min(final_score, 1.0)
     
     def _extract_key_information(self, content: str, query_analysis: Dict[str, Any]) -> List[str]:

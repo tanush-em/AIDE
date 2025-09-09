@@ -8234,3 +8234,123 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 2025-09-09 07:24:38,014 - __main__ - INFO - Debug mode: True
 2025-09-09 07:24:38,025 - werkzeug - WARNING -  * Debugger is active!
 2025-09-09 07:24:38,031 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 07:36:14,351 - __main__ - INFO - Request: GET http://localhost:5001/api/health
+2025-09-09 07:36:14,353 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-09 07:36:14,354 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-09 07:36:14,354 - __main__ - INFO - Health check endpoint accessed
+2025-09-09 07:36:14,359 - __main__ - INFO - Response Status: 200
+2025-09-09 07:36:14,359 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '663'}
+2025-09-09 07:36:14,367 - werkzeug - INFO - 127.0.0.1 - - [09/Sep/2025 07:36:14] "GET /api/health HTTP/1.1" 200 -
+2025-09-09 07:36:14,378 - __main__ - INFO - Request: GET http://localhost:5001/api/health
+2025-09-09 07:36:14,378 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-09 07:36:14,378 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-09 07:36:14,378 - __main__ - INFO - Health check endpoint accessed
+2025-09-09 07:36:14,378 - __main__ - INFO - Response Status: 200
+2025-09-09 07:36:14,378 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '663'}
+2025-09-09 07:36:14,378 - werkzeug - INFO - 127.0.0.1 - - [09/Sep/2025 07:36:14] "GET /api/health HTTP/1.1" 200 -
+2025-09-09 07:36:39,494 - __main__ - INFO - Request: OPTIONS http://localhost:5001/api/rag/rebuild
+2025-09-09 07:36:39,494 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Accept': '*/*', 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'content-type', 'Origin': 'http://localhost:3000', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9'}
+2025-09-09 07:36:39,494 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-09 07:36:39,495 - __main__ - INFO - Response Status: 200
+2025-09-09 07:36:39,495 - __main__ - INFO - Response Headers: {'Content-Type': 'text/html; charset=utf-8', 'Allow': 'POST, OPTIONS'}
+2025-09-09 07:36:39,497 - werkzeug - INFO - 127.0.0.1 - - [09/Sep/2025 07:36:39] "OPTIONS /api/rag/rebuild HTTP/1.1" 200 -
+2025-09-09 07:36:39,502 - __main__ - INFO - Request: POST http://localhost:5001/api/rag/rebuild
+2025-09-09 07:36:39,503 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Content-Length': '0', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Content-Type': 'application/json', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-09 07:36:39,503 - __main__ - WARNING - Could not parse JSON body: 400 Bad Request: Failed to decode JSON object: Expecting value: line 1 column 1 (char 0)
+2025-09-09 07:36:39,503 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-09 07:36:39,504 - api.rag - INFO - Rebuild endpoint accessed
+2025-09-09 07:36:39,504 - api.rag - INFO - Ensuring RAG service is initialized for rebuild...
+2025-09-09 07:36:39,505 - api.rag - INFO - Creating new RAG service instance...
+2025-09-09 07:36:39,505 - api.rag - INFO - Initializing RAG service...
+2025-09-09 07:36:39,505 - rag.rag_service - INFO - Initializing RAG system...
+2025-09-09 07:36:39,505 - rag.rag_service - INFO - Loading embedding model...
+2025-09-09 07:36:39,505 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-09 07:36:42,680 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-09-09 07:36:42,907 - rag.rag_service - INFO - Initializing vector store...
+2025-09-09 07:36:42,921 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-09 07:36:43,007 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:36:43,008 - rag.vector_store - INFO - Loaded existing ChromaDB collection: documents
+2025-09-09 07:36:43,008 - rag.vector_store - INFO - ChromaDB initialized successfully at data/vector_store
+2025-09-09 07:36:43,008 - rag.rag_service - INFO - Initializing memory manager...
+2025-09-09 07:36:43,008 - rag.rag_service - INFO - Initializing agents...
+2025-09-09 07:36:43,299 - agents.generation_agent - INFO - Groq LLM initialized successfully
+2025-09-09 07:36:43,299 - rag.rag_service - INFO - Initializing orchestrator...
+2025-09-09 07:36:43,299 - rag.rag_service - INFO - Rebuilding vector store from knowledge base on startup...
+2025-09-09 07:36:43,299 - rag.vector_store - INFO - Rebuilding ChromaDB vector store index...
+2025-09-09 07:36:43,323 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:36:43,324 - rag.document_loader - ERROR - Error loading data/knowledge/a.csv: No columns to parse from file
+2025-09-09 07:36:43,324 - rag.document_loader - ERROR - Error loading data/knowledge/a.json: Expecting value: line 1 column 1 (char 0)
+2025-09-09 07:37:01,229 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event CollectionAddEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:37:01,230 - rag.vector_store - INFO - Added 379 document chunks to ChromaDB collection
+2025-09-09 07:37:01,230 - rag.vector_store - INFO - Rebuilt ChromaDB index with 11 documents
+2025-09-09 07:37:01,230 - rag.rag_service - INFO - Vector store rebuilt with 379 document chunks
+2025-09-09 07:37:01,230 - rag.rag_service - INFO - RAG system initialized successfully!
+2025-09-09 07:37:01,230 - api.rag - INFO - RAG service initialized successfully
+2025-09-09 07:37:01,231 - api.rag - INFO - Starting knowledge base rebuild...
+2025-09-09 07:37:01,231 - rag.rag_service - INFO - Rebuilding knowledge base...
+2025-09-09 07:37:01,231 - rag.vector_store - INFO - Rebuilding ChromaDB vector store index...
+2025-09-09 07:37:01,238 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:37:01,238 - rag.document_loader - ERROR - Error loading data/knowledge/a.csv: No columns to parse from file
+2025-09-09 07:37:01,238 - rag.document_loader - ERROR - Error loading data/knowledge/a.json: Expecting value: line 1 column 1 (char 0)
+2025-09-09 07:37:18,231 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event CollectionAddEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:37:18,232 - rag.vector_store - INFO - Added 379 document chunks to ChromaDB collection
+2025-09-09 07:37:18,232 - rag.vector_store - INFO - Rebuilt ChromaDB index with 11 documents
+2025-09-09 07:37:18,232 - api.rag - INFO - Knowledge base rebuild completed successfully
+2025-09-09 07:37:18,233 - __main__ - INFO - Response Status: 200
+2025-09-09 07:37:18,233 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '103'}
+2025-09-09 07:37:18,233 - werkzeug - INFO - 127.0.0.1 - - [09/Sep/2025 07:37:18] "POST /api/rag/rebuild HTTP/1.1" 200 -
+2025-09-09 07:58:15,017 - __main__ - INFO - Request: OPTIONS http://localhost:5001/api/rag/chat
+2025-09-09 07:58:15,017 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Accept': '*/*', 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'content-type', 'Origin': 'http://localhost:3000', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9'}
+2025-09-09 07:58:15,017 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-09 07:58:15,017 - __main__ - INFO - Response Status: 200
+2025-09-09 07:58:15,018 - __main__ - INFO - Response Headers: {'Content-Type': 'text/html; charset=utf-8', 'Allow': 'POST, OPTIONS'}
+2025-09-09 07:58:15,018 - werkzeug - INFO - 127.0.0.1 - - [09/Sep/2025 07:58:15] "OPTIONS /api/rag/chat HTTP/1.1" 200 -
+2025-09-09 07:58:15,019 - __main__ - INFO - Request: POST http://localhost:5001/api/rag/chat
+2025-09-09 07:58:15,019 - __main__ - INFO - Headers: {'Host': 'localhost:5001', 'Connection': 'keep-alive', 'Content-Length': '577', 'Sec-Ch-Ua-Platform': '"macOS"', 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'Accept': '*/*', 'Sec-Ch-Ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Brave";v="140"', 'Content-Type': 'application/json', 'Sec-Ch-Ua-Mobile': '?0', 'Sec-Gpc': '1', 'Accept-Language': 'en-US,en;q=0.6', 'Origin': 'http://localhost:3000', 'Sec-Fetch-Site': 'same-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://localhost:3000/', 'Accept-Encoding': 'gzip, deflate, br, zstd'}
+2025-09-09 07:58:15,019 - __main__ - INFO - Body: {'message': 'I have stored a list of students to be added to cognizant drive in a file named "Easwari Engineering College.xlsx". What courses do these list of students a=belong to ??', 'conversation_history': [{'id': '1', 'role': 'assistant', 'content': "Hello! I'm your AI assistant. How can I help you today?", 'timestamp': '2025-09-09T02:06:14.330Z', 'confidence': 'high'}, {'id': '1757383638236', 'role': 'assistant', 'content': '✅ Vector store reindexed successfully! Knowledge base rebuilt successfully Document count: 379', 'timestamp': '2025-09-09T02:07:18.236Z', 'confidence': 'high'}]}
+2025-09-09 07:58:15,019 - __main__ - INFO - Remote IP: 127.0.0.1
+2025-09-09 07:58:15,019 - api.rag - INFO - Chat endpoint accessed
+2025-09-09 07:58:15,019 - api.rag - INFO - Processing chat message for session None, user default
+2025-09-09 07:58:15,020 - api.rag - INFO - Message: I have stored a list of students to be added to cognizant drive in a file named "Easwari Engineering...
+2025-09-09 07:58:15,020 - api.rag - INFO - Generated new session ID: de9c4952-4ab5-469b-94c4-835a59b3012b
+2025-09-09 07:58:15,020 - api.rag - INFO - Ensuring RAG service is initialized...
+2025-09-09 07:58:15,020 - api.rag - INFO - Processing query with RAG service...
+2025-09-09 07:58:15,188 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:58:15,188 - rag.vector_store - INFO - ChromaDB search returned 5 results above threshold 0.3
+2025-09-09 07:58:16,699 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-09-09 07:58:16,717 - api.rag - INFO - Query processed successfully. Response length: 790
+2025-09-09 07:58:16,718 - __main__ - INFO - Response Status: 200
+2025-09-09 07:58:16,718 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '1318'}
+2025-09-09 07:58:16,718 - werkzeug - INFO - 127.0.0.1 - - [09/Sep/2025 07:58:16] "POST /api/rag/chat HTTP/1.1" 200 -
+2025-09-09 08:10:36,168 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/api/rag.py', reloading
+2025-09-09 08:10:37,472 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 08:10:37,606 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 08:10:37,606 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 08:10:37,607 - utils.logging_config - INFO - Log files: logs
+2025-09-09 08:10:40,698 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 08:10:40,698 - __main__ - INFO - Debug mode: True
+2025-09-09 08:10:40,715 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 08:10:40,721 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 08:10:59,731 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/api/rag.py', reloading
+2025-09-09 08:11:00,251 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 08:11:00,329 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 08:11:00,329 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 08:11:00,329 - utils.logging_config - INFO - Log files: logs
+2025-09-09 08:11:02,541 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 08:11:02,541 - __main__ - INFO - Debug mode: True
+2025-09-09 08:11:02,552 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 08:11:02,559 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 08:11:05,776 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/api/rag.py', reloading
+2025-09-09 08:11:06,310 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 08:11:06,390 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 08:11:06,390 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 08:11:06,390 - utils.logging_config - INFO - Log files: logs
+2025-09-09 08:11:08,593 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 08:11:08,593 - __main__ - INFO - Debug mode: True
+2025-09-09 08:11:08,605 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 08:11:08,613 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 08:11:10,783 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/rag/rag_service.py', reloading
+2025-09-09 08:11:11,294 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 08:11:11,376 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 08:11:11,376 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 08:11:11,376 - utils.logging_config - INFO - Log files: logs

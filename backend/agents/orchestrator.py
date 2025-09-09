@@ -40,6 +40,7 @@ class RAGOrchestrator:
         """Process a query through the complete RAG workflow"""
         query = workflow_data.get('query', '')
         conversation_history = workflow_data.get('conversation_history', [])
+        uploaded_documents = workflow_data.get('uploaded_documents', [])
         
         # Track agent status for UI updates
         agent_status = {}
@@ -58,7 +59,8 @@ class RAGOrchestrator:
                 'query': query,
                 'query_analysis': query_analysis,
                 'max_results': 5,
-                'threshold': 0.7
+                'threshold': 0.7,
+                'priority_documents': uploaded_documents
             })
             agent_status['retrieval'] = 'completed'
             
@@ -78,7 +80,8 @@ class RAGOrchestrator:
                 'query': query,
                 'comprehensive_context': synthesis_result.get('comprehensive_context', ''),
                 'query_analysis': query_analysis,
-                'information_sufficiency': retrieval_result.get('information_sufficiency', {})
+                'information_sufficiency': retrieval_result.get('information_sufficiency', {}),
+                'synthesis_result': synthesis_result
             })
             agent_status['generation'] = 'completed'
             
@@ -87,6 +90,7 @@ class RAGOrchestrator:
                 'response': generation_result.get('response', ''),
                 'confidence': generation_result.get('confidence', 'medium'),
                 'suggestions': generation_result.get('suggestions', []),
+                'document_sources': generation_result.get('document_sources', []),
                 'agent_status': agent_status,
                 'workflow_metadata': {
                     'query_analysis': query_analysis,
@@ -114,6 +118,7 @@ class RAGOrchestrator:
         """Process query with some agents running in parallel for better performance"""
         query = workflow_data.get('query', '')
         conversation_history = workflow_data.get('conversation_history', [])
+        uploaded_documents = workflow_data.get('uploaded_documents', [])
         
         agent_status = {}
         
@@ -131,7 +136,8 @@ class RAGOrchestrator:
                 'query': query,
                 'query_analysis': query_analysis,
                 'max_results': 5,
-                'threshold': 0.3  # Very low threshold for better retrieval
+                'threshold': 0.3,  # Very low threshold for better retrieval
+                'priority_documents': uploaded_documents
             })
             agent_status['retrieval'] = 'completed'
             
@@ -151,7 +157,8 @@ class RAGOrchestrator:
                 'query': query,
                 'comprehensive_context': synthesis_result.get('comprehensive_context', ''),
                 'query_analysis': query_analysis,
-                'information_sufficiency': retrieval_result.get('information_sufficiency', {})
+                'information_sufficiency': retrieval_result.get('information_sufficiency', {}),
+                'synthesis_result': synthesis_result
             })
             agent_status['generation'] = 'completed'
             
@@ -159,6 +166,7 @@ class RAGOrchestrator:
                 'response': generation_result.get('response', ''),
                 'confidence': generation_result.get('confidence', 'medium'),
                 'suggestions': generation_result.get('suggestions', []),
+                'document_sources': generation_result.get('document_sources', []),
                 'agent_status': agent_status,
                 'workflow_metadata': {
                     'query_analysis': query_analysis,

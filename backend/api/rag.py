@@ -2,6 +2,9 @@ from flask import Blueprint, request, jsonify
 import sys
 import os
 import logging
+from werkzeug.utils import secure_filename
+import tempfile
+import shutil
 
 # Configure logging for this module
 logger = logging.getLogger(__name__)
@@ -10,6 +13,7 @@ logger = logging.getLogger(__name__)
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from rag.rag_service import RAGService
+from rag.document_loader import DocumentLoader
 import asyncio
 import uuid
 import datetime
@@ -54,6 +58,7 @@ def chat():
         message = data['message']
         session_id = data.get('session_id')
         user_id = data.get('user_id', 'default')
+        uploaded_documents = data.get('uploaded_documents', [])
         
         logger.info(f"Processing chat message for session {session_id}, user {user_id}")
         logger.info(f"Message: {message[:100]}{'...' if len(message) > 100 else ''}")
@@ -75,7 +80,7 @@ def chat():
             # Process the query
             logger.info("Processing query with RAG service...")
             result = loop.run_until_complete(
-                rag_service.process_query(session_id, message, user_id)
+                rag_service.process_query(session_id, message, user_id, uploaded_documents)
             )
             
             logger.info(f"Query processed successfully. Response length: {len(result.get('response', ''))}")
@@ -270,3 +275,157 @@ def simple_health_check():
         'message': 'RAG API endpoint is accessible',
         'timestamp': str(datetime.datetime.now())
     })
+
+@rag_bp.route('/upload', methods=['POST'])
+def upload_document():
+    """Upload and process a document for RAG"""
+    try:
+        logger.info("Document upload endpoint accessed")
+        
+        # Check if file is present
+        if 'file' not in request.files:
+            logger.warning("No file provided in upload request")
+            return jsonify({'error': 'No file provided'}), 400
+        
+        file = request.files['file']
+        if file.filename == '':
+            logger.warning("No file selected")
+            return jsonify({'error': 'No file selected'}), 400
+        
+        # Get session ID
+        session_id = request.form.get('session_id', str(uuid.uuid4()))
+        
+        # Validate file type
+        allowed_extensions = {'.pdf', '.doc', '.docx', '.txt', '.md', '.json', '.csv', '.xlsx', '.xls', '.pptx', '.ppt'}
+        file_ext = os.path.splitext(file.filename)[1].lower()
+        if file_ext not in allowed_extensions:
+            logger.warning(f"Unsupported file type: {file_ext}")
+            return jsonify({'error': f'Unsupported file type: {file_ext}'}), 400
+        
+        # Secure filename
+        filename = secure_filename(file.filename)
+        
+        # Create temporary file
+        temp_dir = tempfile.mkdtemp()
+        temp_file_path = os.path.join(temp_dir, filename)
+        
+        try:
+            # Save uploaded file
+            file.save(temp_file_path)
+            logger.info(f"File saved to temporary location: {temp_file_path}")
+            
+            # Run async processing
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            
+            try:
+                # Ensure RAG is initialized
+                logger.info("Ensuring RAG service is initialized for document upload...")
+                loop.run_until_complete(ensure_rag_initialized())
+                
+                # Process the document
+                logger.info(f"Processing uploaded document: {filename}")
+                result = loop.run_until_complete(
+                    rag_service.upload_document(temp_file_path, session_id, filename)
+                )
+                
+                logger.info(f"Document {filename} processed successfully")
+                return jsonify({
+                    'status': 'success',
+                    'message': f'Document "{filename}" uploaded and processed successfully',
+                    'document_id': result['document_id'],
+                    'filename': filename,
+                    'session_id': session_id,
+                    'chunks_created': result.get('chunks_created', 0)
+                })
+                
+            finally:
+                loop.close()
+                
+        finally:
+            # Clean up temporary file
+            try:
+                shutil.rmtree(temp_dir)
+                logger.info(f"Cleaned up temporary directory: {temp_dir}")
+            except Exception as e:
+                logger.warning(f"Failed to clean up temporary directory {temp_dir}: {e}")
+            
+    except Exception as e:
+        logger.error(f"Error uploading document: {str(e)}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+@rag_bp.route('/upload/<document_id>', methods=['DELETE'])
+def remove_uploaded_document(document_id):
+    """Remove an uploaded document from the vector store"""
+    try:
+        logger.info(f"Document removal endpoint accessed for document: {document_id}")
+        
+        # Run async processing
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            # Ensure RAG is initialized
+            logger.info("Ensuring RAG service is initialized for document removal...")
+            loop.run_until_complete(ensure_rag_initialized())
+            
+            # Remove the document
+            logger.info(f"Removing document: {document_id}")
+            result = loop.run_until_complete(
+                rag_service.remove_uploaded_document(document_id)
+            )
+            
+            if result['success']:
+                logger.info(f"Document {document_id} removed successfully")
+                return jsonify({
+                    'status': 'success',
+                    'message': 'Document removed successfully',
+                    'document_id': document_id,
+                    'chunks_removed': result.get('chunks_removed', 0)
+                })
+            else:
+                logger.warning(f"Failed to remove document {document_id}: {result.get('error', 'Unknown error')}")
+                return jsonify({'error': result.get('error', 'Failed to remove document')}), 400
+                
+        finally:
+            loop.close()
+            
+    except Exception as e:
+        logger.error(f"Error removing document {document_id}: {str(e)}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+@rag_bp.route('/uploaded-documents', methods=['GET'])
+def get_uploaded_documents():
+    """Get list of uploaded documents for a session"""
+    try:
+        logger.info("Get uploaded documents endpoint accessed")
+        session_id = request.args.get('session_id')
+        
+        if not session_id:
+            logger.warning("No session_id provided")
+            return jsonify({'error': 'session_id is required'}), 400
+        
+        # Run async processing
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        try:
+            # Ensure RAG is initialized
+            logger.info("Ensuring RAG service is initialized for getting uploaded documents...")
+            loop.run_until_complete(ensure_rag_initialized())
+            
+            # Get uploaded documents
+            logger.info(f"Getting uploaded documents for session: {session_id}")
+            result = loop.run_until_complete(
+                rag_service.get_uploaded_documents(session_id)
+            )
+            
+            logger.info(f"Retrieved {len(result.get('documents', []))} uploaded documents")
+            return jsonify(result)
+            
+        finally:
+            loop.close()
+            
+    except Exception as e:
+        logger.error(f"Error getting uploaded documents: {str(e)}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
