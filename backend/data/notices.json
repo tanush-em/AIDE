@@ -17,14 +17,11 @@
     "content": "The main library will be closed for maintenance from January 20-22, 2024. Alternative study spaces are available in the computer labs and study halls. Online resources remain accessible.",
     "type": "urgent",
     "priority": "high",
-    "targetAudience": "all",
     "author": "Library Administration",
     "authorId": "LIB001",
     "createdAt": "2024-01-18T14:30:00Z",
     "expiresAt": "2024-01-25T23:59:59Z",
-    "isActive": true,
-    "readBy": ["STU001", "STU004"],
-    "tags": ["library", "maintenance", "closure"]
+    "isActive": true
   },
   {
     "id": "3",

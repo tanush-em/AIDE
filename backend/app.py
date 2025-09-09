@@ -53,11 +53,13 @@ def handle_exception(error):
 # Import and register blueprints
 import sys
 import os
+import asyncio
+import threading
 
 # Add the current directory to Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from api.rag import rag_bp
+from api.rag import rag_bp, init_rag_service, ensure_rag_initialized
 from api.task_workflow import task_workflow_bp
 from api.attendance import attendance_bp
 from api.leave_management import leave_bp
@@ -81,6 +83,54 @@ app.register_blueprint(question_paper_bp)
 app.register_blueprint(resources_bp)
 app.register_blueprint(placements_bp)
 
+def auto_reindex_vector_store():
+    """Automatically reindex the vector store on startup"""
+    def run_reindex():
+        try:
+            logger.info("Starting automatic vector store reindexing...")
+            print("🔄 Starting automatic vector store reindexing...")
+            
+            # Create a new event loop for this thread
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            
+            try:
+                # Initialize RAG service
+                init_rag_service()
+                
+                # Ensure RAG is initialized
+                loop.run_until_complete(ensure_rag_initialized())
+                
+                # Import the rag module to access the global rag_service
+                import api.rag as rag_module
+                
+                if rag_module.rag_service and rag_module.rag_service.is_initialized:
+                    # Rebuild the knowledge base
+                    result = loop.run_until_complete(rag_module.rag_service.rebuild_knowledge_base())
+                    
+                    if result.get('status') == 'success':
+                        logger.info(f"✅ Vector store reindexed successfully with {result.get('document_count', 0)} documents")
+                        print(f"✅ Vector store reindexed successfully with {result.get('document_count', 0)} documents")
+                    else:
+                        logger.warning(f"⚠️ Vector store reindexing completed with warnings: {result.get('message', 'Unknown error')}")
+                        print(f"⚠️ Vector store reindexing completed with warnings: {result.get('message', 'Unknown error')}")
+                else:
+                    logger.warning("⚠️ RAG service not initialized, skipping auto-reindex")
+                    print("⚠️ RAG service not initialized, skipping auto-reindex")
+                    
+            finally:
+                loop.close()
+                
+        except Exception as e:
+            logger.error(f"❌ Error during automatic vector store reindexing: {e}")
+            print(f"❌ Error during automatic vector store reindexing: {e}")
+    
+    # Run reindexing in a separate thread to avoid blocking Flask startup
+    reindex_thread = threading.Thread(target=run_reindex, daemon=True)
+    reindex_thread.start()
+    logger.info("🚀 Auto-reindex thread started")
+    print("🚀 Auto-reindex thread started")
+
 @app.route('/')
 def home():
     logger.info("Home endpoint accessed")
@@ -94,12 +144,17 @@ def health_check():
     return jsonify({
         "status": "healthy",
         "message": "Backend is running successfully",
+        "features": {
+            "auto_reindex": "Vector store automatically reindexes on startup",
+            "manual_reindex": "Reindex button available in chat interface"
+        },
         "endpoints": {
             "chat": "/api/rag/chat",
             "task_chat": "/api/tasks/chat",
             "task_chat_stream": "/api/tasks/chat/stream",
             "health": "/api/rag/health",
             "task_health": "/api/tasks/health",
+            "reindex": "/api/rag/rebuild",
             "attendance": "/api/attendance/students",
             "leave_management": "/api/leave/requests",
             "notice_board": "/api/notices",
@@ -135,5 +190,8 @@ if __name__ == '__main__':
     print(f"Debug mode: {debug}")
     print("ChromaDB integration is active!")
     print("Vector store will be initialized at: data/vector_store")
+    
+    # Start automatic vector store reindexing
+    auto_reindex_vector_store()
     
     app.run(host='0.0.0.0', port=port, debug=debug)

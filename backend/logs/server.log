@@ -5923,3 +5923,113 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 2025-09-09 06:44:27,334 - __main__ - INFO - Debug mode: True
 2025-09-09 06:44:27,344 - werkzeug - WARNING -  * Debugger is active!
 2025-09-09 06:44:27,351 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 07:09:26,329 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/app.py', reloading
+2025-09-09 07:09:26,826 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 07:09:26,954 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 07:09:26,954 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 07:09:26,954 - utils.logging_config - INFO - Log files: logs
+2025-09-09 07:09:30,135 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 07:09:30,136 - __main__ - INFO - Debug mode: True
+2025-09-09 07:09:30,156 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 07:09:30,166 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 07:09:35,476 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/app.py', reloading
+2025-09-09 07:09:35,973 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 07:09:36,147 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 07:09:36,147 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 07:09:36,147 - utils.logging_config - INFO - Log files: logs
+2025-09-09 07:09:38,700 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 07:09:38,700 - __main__ - INFO - Debug mode: True
+2025-09-09 07:09:38,713 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 07:09:38,721 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 07:09:40,891 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/app.py', reloading
+2025-09-09 07:09:41,331 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 07:09:41,416 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 07:09:41,416 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 07:09:41,416 - utils.logging_config - INFO - Log files: logs
+2025-09-09 07:09:43,625 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 07:09:43,625 - __main__ - INFO - Debug mode: True
+2025-09-09 07:09:43,625 - __main__ - INFO - Starting automatic vector store reindexing...
+2025-09-09 07:09:43,625 - __main__ - INFO - 🚀 Auto-reindex thread started
+2025-09-09 07:09:43,625 - api.rag - INFO - Initializing RAG service...
+2025-09-09 07:09:43,625 - api.rag - INFO - Initializing RAG service...
+2025-09-09 07:09:43,625 - rag.rag_service - INFO - Initializing RAG system...
+2025-09-09 07:09:43,625 - rag.rag_service - INFO - Loading embedding model...
+2025-09-09 07:09:43,625 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-09 07:09:43,642 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 07:09:43,650 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 07:09:46,800 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-09-09 07:09:47,050 - rag.rag_service - INFO - Initializing vector store...
+2025-09-09 07:09:47,066 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-09 07:09:47,630 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:09:47,630 - rag.vector_store - ERROR - Error initializing ChromaDB: no such column: collections.topic
+2025-09-09 07:09:47,630 - rag.rag_service - ERROR - Error initializing RAG system: no such column: collections.topic
+2025-09-09 07:09:47,631 - __main__ - ERROR - ❌ Error during automatic vector store reindexing: no such column: collections.topic
+2025-09-09 07:10:14,303 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/app.py', reloading
+2025-09-09 07:10:14,804 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 07:10:14,925 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 07:10:14,925 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 07:10:14,925 - utils.logging_config - INFO - Log files: logs
+2025-09-09 07:10:17,795 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 07:10:17,795 - __main__ - INFO - Debug mode: True
+2025-09-09 07:10:17,795 - __main__ - INFO - Starting automatic vector store reindexing...
+2025-09-09 07:10:17,795 - __main__ - INFO - 🚀 Auto-reindex thread started
+2025-09-09 07:10:17,795 - api.rag - INFO - Initializing RAG service...
+2025-09-09 07:10:17,795 - api.rag - INFO - Initializing RAG service...
+2025-09-09 07:10:17,796 - rag.rag_service - INFO - Initializing RAG system...
+2025-09-09 07:10:17,796 - rag.rag_service - INFO - Loading embedding model...
+2025-09-09 07:10:17,796 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-09 07:10:17,810 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 07:10:17,817 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 07:10:20,762 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-09-09 07:10:20,923 - rag.rag_service - INFO - Initializing vector store...
+2025-09-09 07:10:20,935 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-09 07:10:21,017 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:10:21,018 - rag.vector_store - ERROR - Error initializing ChromaDB: no such column: collections.topic
+2025-09-09 07:10:21,018 - rag.rag_service - ERROR - Error initializing RAG system: no such column: collections.topic
+2025-09-09 07:10:21,019 - __main__ - ERROR - ❌ Error during automatic vector store reindexing: no such column: collections.topic
+2025-09-09 07:10:26,274 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/app.py', reloading
+2025-09-09 07:10:26,781 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 07:10:26,865 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 07:10:26,865 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 07:10:26,865 - utils.logging_config - INFO - Log files: logs
+2025-09-09 07:10:29,038 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 07:10:29,038 - __main__ - INFO - Debug mode: True
+2025-09-09 07:10:29,038 - __main__ - INFO - Starting automatic vector store reindexing...
+2025-09-09 07:10:29,038 - __main__ - INFO - 🚀 Auto-reindex thread started
+2025-09-09 07:10:29,038 - api.rag - INFO - Initializing RAG service...
+2025-09-09 07:10:29,038 - api.rag - INFO - Initializing RAG service...
+2025-09-09 07:10:29,039 - rag.rag_service - INFO - Initializing RAG system...
+2025-09-09 07:10:29,039 - rag.rag_service - INFO - Loading embedding model...
+2025-09-09 07:10:29,039 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-09 07:10:29,049 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 07:10:29,057 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 07:10:31,856 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-09-09 07:10:31,957 - rag.rag_service - INFO - Initializing vector store...
+2025-09-09 07:10:31,964 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-09 07:10:32,039 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:10:32,040 - rag.vector_store - ERROR - Error initializing ChromaDB: no such column: collections.topic
+2025-09-09 07:10:32,040 - rag.rag_service - ERROR - Error initializing RAG system: no such column: collections.topic
+2025-09-09 07:10:32,040 - __main__ - ERROR - ❌ Error during automatic vector store reindexing: no such column: collections.topic
+2025-09-09 07:10:38,566 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/app.py', reloading
+2025-09-09 07:10:39,083 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 07:10:39,164 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 07:10:39,164 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 07:10:39,164 - utils.logging_config - INFO - Log files: logs
+2025-09-09 07:10:41,373 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 07:10:41,373 - __main__ - INFO - Debug mode: True
+2025-09-09 07:10:41,373 - __main__ - INFO - Starting automatic vector store reindexing...
+2025-09-09 07:10:41,373 - __main__ - INFO - 🚀 Auto-reindex thread started
+2025-09-09 07:10:41,374 - api.rag - INFO - Initializing RAG service...
+2025-09-09 07:10:41,374 - api.rag - INFO - Initializing RAG service...
+2025-09-09 07:10:41,374 - rag.rag_service - INFO - Initializing RAG system...
+2025-09-09 07:10:41,374 - rag.rag_service - INFO - Loading embedding model...
+2025-09-09 07:10:41,374 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-09 07:10:41,387 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 07:10:41,393 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 07:10:44,244 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+2025-09-09 07:10:44,343 - rag.rag_service - INFO - Initializing vector store...
+2025-09-09 07:10:44,350 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-09 07:10:44,427 - chromadb.telemetry.product.posthog - ERROR - Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+2025-09-09 07:10:44,428 - rag.vector_store - ERROR - Error initializing ChromaDB: no such column: collections.topic
+2025-09-09 07:10:44,428 - rag.rag_service - ERROR - Error initializing RAG system: no such column: collections.topic
+2025-09-09 07:10:44,428 - __main__ - ERROR - ❌ Error during automatic vector store reindexing: no such column: collections.topic

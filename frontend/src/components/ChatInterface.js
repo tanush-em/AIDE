@@ -9,6 +9,7 @@ export default function ChatInterface() {
   const [useTaskWorkflow, setUseTaskWorkflow] = useState(false)
   const [systemStatus, setSystemStatus] = useState({})
   const [isConnected, setIsConnected] = useState(false)
+  const [isReindexing, setIsReindexing] = useState(false)
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
@@ -42,6 +43,56 @@ export default function ChatInterface() {
     } catch (error) {
       console.error('Error checking system status:', error)
       setIsConnected(false)
+    }
+  }
+
+  const reindexVectorStore = async () => {
+    if (isReindexing) return
+    
+    setIsReindexing(true)
+    try {
+      const response = await fetch('http://localhost:5001/api/rag/rebuild', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      const data = await response.json()
+      
+      if (data.status === 'success') {
+        // Add success message to chat
+        const successMessage = {
+          id: Date.now().toString(),
+          role: 'assistant',
+          content: `✅ Vector store reindexed successfully! Found ${data.document_count} documents in the knowledge base.`,
+          timestamp: new Date(),
+          confidence: 'high'
+        }
+        setMessages(prev => [...prev, successMessage])
+      } else {
+        // Add error message to chat
+        const errorMessage = {
+          id: Date.now().toString(),
+          role: 'assistant',
+          content: `❌ Error reindexing vector store: ${data.message || 'Unknown error'}`,
+          timestamp: new Date(),
+          confidence: 'low'
+        }
+        setMessages(prev => [...prev, errorMessage])
+      }
+    } catch (error) {
+      console.error('Error reindexing vector store:', error)
+      const errorMessage = {
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: '❌ Failed to reindex vector store. Please try again.',
+        timestamp: new Date(),
+        confidence: 'low'
+      }
+      setMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsReindexing(false)
     }
   }
 
@@ -193,6 +244,26 @@ export default function ChatInterface() {
               className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
             >
               Check Status
+            </button>
+
+            {/* Reindex Button */}
+            <button
+              onClick={reindexVectorStore}
+              disabled={isReindexing}
+              className={`px-3 py-1 text-sm rounded transition-colors ${
+                isReindexing 
+                  ? 'bg-yellow-100 text-yellow-700 cursor-not-allowed' 
+                  : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+              }`}
+            >
+              {isReindexing ? (
+                <div className="flex items-center space-x-1">
+                  <div className="animate-spin rounded-full h-3 w-3 border-b border-blue-600"></div>
+                  <span>Reindexing...</span>
+                </div>
+              ) : (
+                'Reindex'
+              )}
             </button>
           </div>
         </div>
