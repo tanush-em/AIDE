@@ -15,25 +15,8 @@ import {
 } from 'lucide-react'
 import { format } from 'date-fns'
 
-interface DashboardStats {
-  totalStudents: number
-  attendanceRate: number
-  pendingLeaves: number
-  upcomingEvents: number
-  recentActivities: Activity[]
-}
-
-interface Activity {
-  id: string
-  type: 'attendance' | 'leave' | 'notice' | 'grade'
-  title: string
-  description: string
-  timestamp: Date
-  status: 'completed' | 'pending' | 'overdue'
-}
-
 export default function Dashboard() {
-  const [stats, setStats] = useState<DashboardStats>({
+  const [stats, setStats] = useState({
     totalStudents: 0,
     attendanceRate: 0,
     pendingLeaves: 0,
@@ -42,7 +25,7 @@ export default function Dashboard() {
   })
   const [loading, setLoading] = useState(true)
 
-  const handleQuickAction = (action: string) => {
+  const handleQuickAction = (action) => {
     switch (action) {
       case 'attendance':
         // Navigate to attendance tab
@@ -108,7 +91,7 @@ export default function Dashboard() {
     }, 1000)
   }, [])
 
-  const getActivityIcon = (type: string) => {
+  const getActivityIcon = (type) => {
     switch (type) {
       case 'attendance': return <Users className="h-4 w-4" />
       case 'leave': return <Calendar className="h-4 w-4" />
@@ -118,7 +101,7 @@ export default function Dashboard() {
     }
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'completed': return 'text-green-600 bg-green-100'
       case 'pending': return 'text-yellow-600 bg-yellow-100'

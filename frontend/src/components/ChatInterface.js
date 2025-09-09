@@ -1,0 +1,341 @@
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
+
+export default function ChatInterface() {
+  const [messages, setMessages] = useState([])
+  const [inputMessage, setInputMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [useTaskWorkflow, setUseTaskWorkflow] = useState(false)
+  const [systemStatus, setSystemStatus] = useState({})
+  const [isConnected, setIsConnected] = useState(false)
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  useEffect(() => {
+    // Add welcome message
+    setMessages([
+      {
+        id: '1',
+        role: 'assistant',
+        content: 'Hello! I\'m your AI assistant. How can I help you today?',
+        timestamp: new Date(),
+        confidence: 'high'
+      }
+    ])
+    checkSystemStatus()
+  }, [])
+
+  const checkSystemStatus = async () => {
+    try {
+      const response = await fetch('http://localhost:5001/api/health')
+      const data = await response.json()
+      setSystemStatus(data)
+      setIsConnected(true)
+    } catch (error) {
+      console.error('Error checking system status:', error)
+      setIsConnected(false)
+    }
+  }
+
+  const sendMessage = async () => {
+    if (!inputMessage.trim() || isLoading) return
+
+    const userMessage = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: inputMessage,
+      timestamp: new Date()
+    }
+
+    setMessages(prev => [...prev, userMessage])
+    setInputMessage('')
+    setIsLoading(true)
+
+    try {
+      const endpoint = useTaskWorkflow 
+        ? 'http://localhost:5001/api/tasks/chat'
+        : 'http://localhost:5001/api/rag/chat'
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: inputMessage,
+          conversation_history: messages
+        }),
+      })
+
+      const data = await response.json()
+      
+      const assistantMessage = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: data.response || data.message || 'Sorry, I couldn\'t process your request.',
+        timestamp: new Date(),
+        confidence: data.confidence || 'medium',
+        suggestions: data.suggestions || [],
+        agentStatus: data.agent_status || {},
+        tasks: data.tasks || [],
+        taskExecutionSummary: data.task_execution_summary || null,
+        workflowType: useTaskWorkflow ? 'task_workflow' : 'rag'
+      }
+
+      setMessages(prev => [...prev, assistantMessage])
+    } catch (error) {
+      console.error('Error sending message:', error)
+      const errorMessage = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: 'Sorry, I encountered an error. Please try again.',
+        timestamp: new Date(),
+        confidence: 'low'
+      }
+      setMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      sendMessage()
+    }
+  }
+
+  const formatTimestamp = (timestamp) => {
+    return new Date(timestamp).toLocaleTimeString([], { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    })
+  }
+
+  const getConfidenceColor = (confidence) => {
+    switch (confidence) {
+      case 'high': return 'text-green-600 bg-green-100'
+      case 'medium': return 'text-yellow-600 bg-yellow-100'
+      case 'low': return 'text-red-600 bg-red-100'
+      default: return 'text-gray-600 bg-gray-100'
+    }
+  }
+
+  const exportConversation = (format) => {
+    const data = {
+      messages: messages,
+      timestamp: new Date().toISOString(),
+      format: format
+    }
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { 
+      type: 'application/json' 
+    })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `conversation_${new Date().toISOString().split('T')[0]}.${format}`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  return (
+    <div className="flex flex-col h-full max-h-[calc(100vh-200px)]">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 p-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">AI Assistant</h2>
+            <p className="text-sm text-gray-600">
+              {useTaskWorkflow ? 'Task Workflow Mode' : 'RAG Mode'}
+            </p>
+          </div>
+          <div className="flex items-center space-x-4">
+            {/* System Status */}
+            <div className="flex items-center space-x-2">
+              <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
+              <span className="text-sm text-gray-600">
+                {isConnected ? 'Connected' : 'Disconnected'}
+              </span>
+            </div>
+            
+            {/* Mode Toggle */}
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-600">RAG</span>
+              <button
+                onClick={() => setUseTaskWorkflow(!useTaskWorkflow)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  useTaskWorkflow ? 'bg-blue-600' : 'bg-gray-200'
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    useTaskWorkflow ? 'translate-x-6' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+              <span className="text-sm text-gray-600">Tasks</span>
+            </div>
+
+            {/* System Status Button */}
+            <button
+              onClick={() => checkSystemStatus()}
+              className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+            >
+              Check Status
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {messages.map((message) => (
+          <div
+            key={message.id}
+            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+          >
+            <div
+              className={`max-w-3xl px-4 py-2 rounded-lg ${
+                message.role === 'user'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-900'
+              }`}
+            >
+              <div className="whitespace-pre-wrap">{message.content}</div>
+              
+              {/* Message Metadata */}
+              <div className={`mt-2 text-xs ${
+                message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span>{formatTimestamp(message.timestamp)}</span>
+                  {message.confidence && (
+                    <span className={`px-2 py-1 rounded-full text-xs ${getConfidenceColor(message.confidence)}`}>
+                      {message.confidence} confidence
+                    </span>
+                  )}
+                </div>
+                
+                {/* Suggestions */}
+                {message.suggestions && message.suggestions.length > 0 && (
+                  <div className="mt-2">
+                    <p className="text-xs font-medium mb-1">Suggestions:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {message.suggestions.map((suggestion, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setInputMessage(suggestion)}
+                          className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded hover:bg-blue-200 transition-colors"
+                        >
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Task Information */}
+                {message.tasks && message.tasks.length > 0 && (
+                  <div className="mt-2">
+                    <p className="text-xs font-medium mb-1">Tasks Executed:</p>
+                    <div className="space-y-1">
+                      {message.tasks.map((task, index) => (
+                        <div key={index} className="text-xs bg-white bg-opacity-50 p-2 rounded">
+                          <div className="font-medium">{task.task_type}</div>
+                          <div className="text-gray-600">{task.description}</div>
+                          <div className={`inline-block px-2 py-1 rounded text-xs ${
+                            task.status === 'completed' ? 'bg-green-100 text-green-800' :
+                            task.status === 'failed' ? 'bg-red-100 text-red-800' :
+                            'bg-yellow-100 text-yellow-800'
+                          }`}>
+                            {task.status}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Agent Status */}
+                {message.agentStatus && Object.keys(message.agentStatus).length > 0 && (
+                  <div className="mt-2">
+                    <p className="text-xs font-medium mb-1">Agent Status:</p>
+                    <div className="space-y-1">
+                      {Object.entries(message.agentStatus).map(([agent, status]) => (
+                        <div key={agent} className="text-xs">
+                          <span className="font-medium">{agent}:</span> {status}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+        
+        {isLoading && (
+          <div className="flex justify-start">
+            <div className="bg-gray-100 text-gray-900 px-4 py-2 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600"></div>
+                <span>Thinking...</span>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Input */}
+      <div className="bg-white border-t border-gray-200 p-4">
+        <div className="flex space-x-2">
+          <textarea
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Type your message here..."
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            rows={2}
+            disabled={isLoading}
+          />
+          <button
+            onClick={sendMessage}
+            disabled={!inputMessage.trim() || isLoading}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            Send
+          </button>
+        </div>
+        
+        {/* Export Options */}
+        <div className="mt-2 flex justify-end space-x-2">
+          <button
+            onClick={() => exportConversation('json')}
+            className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            Export JSON
+          </button>
+          <button
+            onClick={() => exportConversation('txt')}
+            className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            Export TXT
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}

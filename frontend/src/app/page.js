@@ -23,16 +23,7 @@ import QuestionPaper from '../components/QuestionPaper'
 import Resources from '../components/Resources'
 import Placements from '../components/Placements'
 
-type TabType = 'dashboard' | 'chat' | 'attendance' | 'leave' | 'notices' | 'question-paper' | 'resources' | 'placements' | 'settings'
-
-interface Tab {
-  id: TabType
-  name: string
-  icon: React.ComponentType<{ className?: string }>
-  component: React.ComponentType
-}
-
-const tabs: Tab[] = [
+const tabs = [
   { id: 'dashboard', name: 'Dashboard', icon: BarChart3, component: Dashboard },
   { id: 'chat', name: 'AI Assistant', icon: MessageSquare, component: ChatInterface },
   { id: 'attendance', name: 'Attendance', icon: Users, component: AttendanceViewer },
@@ -45,7 +36,7 @@ const tabs: Tab[] = [
 ]
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<TabType>('dashboard')
+  const [activeTab, setActiveTab] = useState('dashboard')
 
   const ActiveComponent = tabs.find(tab => tab.id === activeTab)?.component || Dashboard
 

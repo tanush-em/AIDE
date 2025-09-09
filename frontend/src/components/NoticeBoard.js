@@ -18,44 +18,18 @@ import {
 } from 'lucide-react'
 import { format, isAfter, isBefore } from 'date-fns'
 
-interface Notice {
-  id: string
-  title: string
-  content: string
-  type: 'announcement' | 'reminder' | 'urgent' | 'general'
-  priority: 'low' | 'medium' | 'high'
-  targetAudience?: 'all' | 'students' | 'faculty' | 'specific_course'
-  course?: string
-  author: string
-  authorId: string
-  createdAt: string
-  updatedAt?: string
-  expiresAt?: string
-  isActive: boolean
-  attachments?: string[]
-  readBy?: string[]
-  tags?: string[]
-}
-
-interface NoticeStats {
-  totalNotices: number
-  activeNotices: number
-  urgentNotices: number
-  expiredNotices: number
-}
-
 export default function NoticeBoard() {
-  const [notices, setNotices] = useState<Notice[]>([])
-  const [filteredNotices, setFilteredNotices] = useState<Notice[]>([])
+  const [notices, setNotices] = useState([])
+  const [filteredNotices, setFilteredNotices] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [typeFilter, setTypeFilter] = useState('all')
   const [priorityFilter, setPriorityFilter] = useState('all')
   const [audienceFilter, setAudienceFilter] = useState('all')
   const [loading, setLoading] = useState(true)
-  const [selectedNotice, setSelectedNotice] = useState<Notice | null>(null)
+  const [selectedNotice, setSelectedNotice] = useState(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
-  const [editingNotice, setEditingNotice] = useState<Notice | null>(null)
+  const [editingNotice, setEditingNotice] = useState(null)
 
   const noticeTypes = ['all', 'announcement', 'reminder', 'urgent', 'general']
   const priorities = ['all', 'low', 'medium', 'high']
@@ -80,7 +54,7 @@ export default function NoticeBoard() {
     }
   }
 
-  const updateNotice = async (noticeId: string, updatedData: Partial<Notice>) => {
+  const updateNotice = async (noticeId, updatedData) => {
     try {
       const response = await fetch(`http://localhost:5001/api/notices/${noticeId}`, {
         method: 'PUT',
@@ -102,7 +76,7 @@ export default function NoticeBoard() {
     }
   }
 
-  const deleteNotice = async (noticeId: string) => {
+  const deleteNotice = async (noticeId) => {
     try {
       const response = await fetch(`http://localhost:5001/api/notices/${noticeId}`, {
         method: 'DELETE',
@@ -150,7 +124,7 @@ export default function NoticeBoard() {
     setFilteredNotices(filtered)
   }, [notices, searchTerm, typeFilter, priorityFilter, audienceFilter])
 
-  const getNoticeStats = (): NoticeStats => {
+  const getNoticeStats = () => {
     const totalNotices = notices.length
     const activeNotices = notices.filter(n => n.isActive).length
     const urgentNotices = notices.filter(n => n.priority === 'high' && n.isActive).length
@@ -164,7 +138,7 @@ export default function NoticeBoard() {
     }
   }
 
-  const getTypeIcon = (type: string) => {
+  const getTypeIcon = (type) => {
     switch (type) {
       case 'announcement': return <Bell className="h-4 w-4" />
       case 'reminder': return <Clock className="h-4 w-4" />
@@ -174,7 +148,7 @@ export default function NoticeBoard() {
     }
   }
 
-  const getTypeColor = (type: string) => {
+  const getTypeColor = (type) => {
     switch (type) {
       case 'announcement': return 'bg-blue-100 text-blue-800'
       case 'reminder': return 'bg-yellow-100 text-yellow-800'
@@ -184,7 +158,7 @@ export default function NoticeBoard() {
     }
   }
 
-  const getPriorityColor = (priority: string) => {
+  const getPriorityColor = (priority) => {
     switch (priority) {
       case 'high': return 'bg-red-100 text-red-800'
       case 'medium': return 'bg-yellow-100 text-yellow-800'
@@ -193,11 +167,11 @@ export default function NoticeBoard() {
     }
   }
 
-  const isExpired = (notice: Notice) => {
+  const isExpired = (notice) => {
     return notice.expiresAt && isAfter(new Date(), new Date(notice.expiresAt))
   }
 
-  const isExpiringSoon = (notice: Notice) => {
+  const isExpiringSoon = (notice) => {
     if (!notice.expiresAt) return false
     const threeDaysFromNow = new Date()
     threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3)
@@ -584,15 +558,7 @@ export default function NoticeBoard() {
 }
 
 // Edit Notice Form Component
-function EditNoticeForm({ 
-  notice, 
-  onSave, 
-  onCancel 
-}: { 
-  notice: Notice
-  onSave: (data: Partial<Notice>) => void
-  onCancel: () => void 
-}) {
+function EditNoticeForm({ notice, onSave, onCancel }) {
   const [formData, setFormData] = useState({
     title: notice.title,
     content: notice.content,
@@ -605,15 +571,15 @@ function EditNoticeForm({
     attachments: notice.attachments ? notice.attachments.join(', ') : ''
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     
-    const updatedData: Partial<Notice> = {
+    const updatedData = {
       title: formData.title,
       content: formData.content,
-      type: formData.type as any,
-      priority: formData.priority as any,
-      targetAudience: formData.targetAudience as any,
+      type: formData.type,
+      priority: formData.priority,
+      targetAudience: formData.targetAudience,
       course: formData.course || undefined,
       expiresAt: formData.expiresAt || undefined,
       tags: formData.tags ? formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : [],
@@ -652,7 +618,7 @@ function EditNoticeForm({
           <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
           <select
             value={formData.type}
-            onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
+            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="announcement">Announcement</option>
@@ -666,7 +632,7 @@ function EditNoticeForm({
           <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
           <select
             value={formData.priority}
-            onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
+            onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="low">Low</option>

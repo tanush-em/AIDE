@@ -25,66 +25,17 @@ import {
 } from 'lucide-react'
 import { format, isAfter, isBefore } from 'date-fns'
 
-interface PlacementDrive {
-  id: string
-  companyName: string
-  jobTitle: string
-  jobDescription: string
-  requirements: string[]
-  location: string
-  salaryRange: {
-    min: number
-    max: number
-    currency: string
-  }
-  driveDate: string
-  registrationDeadline: string
-  eligibilityCriteria: {
-    minCGPA: number
-    branches: string[]
-    yearOfPassing: number[]
-    backlogs: number
-  }
-  process: {
-    rounds: string[]
-    duration: string
-  }
-  contactPerson: {
-    name: string
-    email: string
-    phone: string
-  }
-  status: 'upcoming' | 'ongoing' | 'completed' | 'cancelled'
-  totalApplications: number
-  shortlisted: number
-  selected: number
-  createdAt: string
-  updatedAt?: string
-  tags?: string[]
-  attachments?: string[]
-}
-
-interface PlacementStats {
-  totalDrives: number
-  upcomingDrives: number
-  ongoingDrives: number
-  completedDrives: number
-  totalApplications: number
-  totalSelected: number
-  averageSalary: number
-}
-
 export default function Placements() {
-  const [drives, setDrives] = useState<PlacementDrive[]>([])
-  const [filteredDrives, setFilteredDrives] = useState<PlacementDrive[]>([])
+  const [drives, setDrives] = useState([])
+  const [filteredDrives, setFilteredDrives] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
   const [branchFilter, setBranchFilter] = useState('all')
   const [loading, setLoading] = useState(true)
-  const [selectedDrive, setSelectedDrive] = useState<PlacementDrive | null>(null)
+  const [selectedDrive, setSelectedDrive] = useState(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
-  const [editingDrive, setEditingDrive] = useState<PlacementDrive | null>(null)
+  const [editingDrive, setEditingDrive] = useState(null)
 
   const statusOptions = ['all', 'upcoming', 'ongoing', 'completed', 'cancelled']
   const branchOptions = ['all', 'CSE', 'IT', 'ECE', 'EEE', 'MECH', 'CIVIL', 'CHEM']
@@ -108,7 +59,7 @@ export default function Placements() {
     }
   }
 
-  const updatePlacementDrive = async (driveId: string, updatedData: Partial<PlacementDrive>) => {
+  const updatePlacementDrive = async (driveId, updatedData) => {
     try {
       const response = await fetch(`http://localhost:5001/api/placements/${driveId}`, {
         method: 'PUT',
@@ -130,7 +81,7 @@ export default function Placements() {
     }
   }
 
-  const deletePlacementDrive = async (driveId: string) => {
+  const deletePlacementDrive = async (driveId) => {
     try {
       const response = await fetch(`http://localhost:5001/api/placements/${driveId}`, {
         method: 'DELETE',
@@ -176,7 +127,7 @@ export default function Placements() {
     setFilteredDrives(filtered)
   }, [drives, searchTerm, statusFilter, branchFilter])
 
-  const getPlacementStats = (): PlacementStats => {
+  const getPlacementStats = () => {
     const totalDrives = drives.length
     const upcomingDrives = drives.filter(d => d.status === 'upcoming').length
     const ongoingDrives = drives.filter(d => d.status === 'ongoing').length
@@ -198,7 +149,7 @@ export default function Placements() {
     }
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'upcoming': return 'bg-blue-100 text-blue-800'
       case 'ongoing': return 'bg-green-100 text-green-800'
@@ -208,7 +159,7 @@ export default function Placements() {
     }
   }
 
-  const getStatusIcon = (status: string) => {
+  const getStatusIcon = (status) => {
     switch (status) {
       case 'upcoming': return <Clock className="h-4 w-4" />
       case 'ongoing': return <CheckCircle className="h-4 w-4" />
@@ -218,11 +169,11 @@ export default function Placements() {
     }
   }
 
-  const formatSalary = (salaryRange: { min: number; max: number; currency: string }) => {
+  const formatSalary = (salaryRange) => {
     return `${salaryRange.currency} ${(salaryRange.min / 100000).toFixed(1)}L - ${(salaryRange.max / 100000).toFixed(1)}L`
   }
 
-  const isRegistrationOpen = (drive: PlacementDrive) => {
+  const isRegistrationOpen = (drive) => {
     return isBefore(new Date(), new Date(drive.registrationDeadline))
   }
 
