@@ -368,3 +368,523 @@ Failed to send telemetry event ClientStartEvent: capture() takes 1 positional ar
 Error initializing ChromaDB: no such column: collections.topic
 Error initializing RAG system: no such column: collections.topic
 ❌ Error during automatic vector store reindexing: no such column: collections.topic
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Error initializing ChromaDB: no such column: collections.topic
+Error initializing RAG system: no such column: collections.topic
+❌ Error during automatic vector store reindexing: no such column: collections.topic
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Error initializing ChromaDB: no such column: collections.topic
+Error initializing RAG system: no such column: collections.topic
+❌ Error during automatic vector store reindexing: no such column: collections.topic
+Error in 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Error in 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Error in 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Error in 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Error initializing ChromaDB: no such column: collections.topic
+Error initializing RAG system: no such column: collections.topic
+Error in chat endpoint: no such column: collections.topic
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 42, in _initialize_chromadb
+    self.collection = self.client.get_collection(name=self.collection_name)
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 218, in get_collection
+    return self._server.get_collection(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        id=id,
+        ^^^^^^
+    ...<4 lines>...
+        database=self.database,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/segment.py", line 244, in get_collection
+    existing = self._sysdb.get_collections(
+        id=id, name=name, tenant=tenant, database=database
+    )
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 435, in get_collections
+    rows = cur.execute(sql, params).fetchall()
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: collections.topic
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 73, in chat
+    loop.run_until_complete(ensure_rag_initialized())
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 41, in ensure_rag_initialized
+    await rag_service.initialize()
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/rag_service.py", line 56, in initialize
+    self.vector_store = ChromaDBVectorStore(
+                        ~~~~~~~~~~~~~~~~~~~^
+        self.config.VECTOR_STORE_PATH,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.embedding_manager,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        self.config.CHROMADB_COLLECTION_NAME
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 32, in __init__
+    self._initialize_chromadb()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 46, in _initialize_chromadb
+    self.collection = self.client.create_collection(
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name=self.collection_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata={"hnsw:space": "cosine"}  # Use cosine similarity
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 198, in create_collection
+    return self._server.create_collection(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name=name,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        get_or_create=get_or_create,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/segment.py", line 166, in create_collection
+    coll, created = self._sysdb.create_collection(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        id=id,
+        ^^^^^^
+    ...<5 lines>...
+        database=database,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 209, in create_collection
+    existing = self.get_collections(name=name, tenant=tenant, database=database)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 435, in get_collections
+    rows = cur.execute(sql, params).fetchall()
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: collections.topic
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Error initializing ChromaDB: no such column: collections.topic
+Error initializing RAG system: no such column: collections.topic
+Error in chat endpoint: no such column: collections.topic
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 42, in _initialize_chromadb
+    self.collection = self.client.get_collection(name=self.collection_name)
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 218, in get_collection
+    return self._server.get_collection(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        id=id,
+        ^^^^^^
+    ...<4 lines>...
+        database=self.database,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/segment.py", line 244, in get_collection
+    existing = self._sysdb.get_collections(
+        id=id, name=name, tenant=tenant, database=database
+    )
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 435, in get_collections
+    rows = cur.execute(sql, params).fetchall()
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: collections.topic
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 73, in chat
+    loop.run_until_complete(ensure_rag_initialized())
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 41, in ensure_rag_initialized
+    await rag_service.initialize()
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/rag_service.py", line 56, in initialize
+    self.vector_store = ChromaDBVectorStore(
+                        ~~~~~~~~~~~~~~~~~~~^
+        self.config.VECTOR_STORE_PATH,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.embedding_manager,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        self.config.CHROMADB_COLLECTION_NAME
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 32, in __init__
+    self._initialize_chromadb()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 46, in _initialize_chromadb
+    self.collection = self.client.create_collection(
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name=self.collection_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata={"hnsw:space": "cosine"}  # Use cosine similarity
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 198, in create_collection
+    return self._server.create_collection(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name=name,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        get_or_create=get_or_create,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/segment.py", line 166, in create_collection
+    coll, created = self._sysdb.create_collection(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        id=id,
+        ^^^^^^
+    ...<5 lines>...
+        database=database,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 209, in create_collection
+    existing = self.get_collections(name=name, tenant=tenant, database=database)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 435, in get_collections
+    rows = cur.execute(sql, params).fetchall()
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: collections.topic
+Error in 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Error in 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 891, in dispatch_request
+    self.raise_routing_exception(req)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/app.py", line 500, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/flask/ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/werkzeug/routing/map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Error initializing ChromaDB: no such column: collections.topic
+Error initializing RAG system: no such column: collections.topic
+Error in chat endpoint: no such column: collections.topic
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 42, in _initialize_chromadb
+    self.collection = self.client.get_collection(name=self.collection_name)
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 218, in get_collection
+    return self._server.get_collection(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        id=id,
+        ^^^^^^
+    ...<4 lines>...
+        database=self.database,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/segment.py", line 244, in get_collection
+    existing = self._sysdb.get_collections(
+        id=id, name=name, tenant=tenant, database=database
+    )
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 435, in get_collections
+    rows = cur.execute(sql, params).fetchall()
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: collections.topic
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 73, in chat
+    loop.run_until_complete(ensure_rag_initialized())
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 41, in ensure_rag_initialized
+    await rag_service.initialize()
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/rag_service.py", line 56, in initialize
+    self.vector_store = ChromaDBVectorStore(
+                        ~~~~~~~~~~~~~~~~~~~^
+        self.config.VECTOR_STORE_PATH,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.embedding_manager,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        self.config.CHROMADB_COLLECTION_NAME
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 32, in __init__
+    self._initialize_chromadb()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 46, in _initialize_chromadb
+    self.collection = self.client.create_collection(
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name=self.collection_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        metadata={"hnsw:space": "cosine"}  # Use cosine similarity
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 198, in create_collection
+    return self._server.create_collection(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name=name,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        get_or_create=get_or_create,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/segment.py", line 166, in create_collection
+    coll, created = self._sysdb.create_collection(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        id=id,
+        ^^^^^^
+    ...<5 lines>...
+        database=database,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 209, in create_collection
+    existing = self.get_collections(name=name, tenant=tenant, database=database)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/telemetry/opentelemetry/__init__.py", line 127, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 435, in get_collections
+    rows = cur.execute(sql, params).fetchall()
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: collections.topic
+Error initializing ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+Error initializing RAG system: Could not connect to tenant default_tenant. Are you sure it exists?
+Error in chat endpoint: Could not connect to tenant default_tenant. Are you sure it exists?
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 438, in _validate_tenant_database
+    self._admin_client.get_tenant(name=tenant)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 486, in get_tenant
+    return self._server.get_tenant(name=name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/segment.py", line 139, in get_tenant
+    return self._sysdb.get_tenant(name=name)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 134, in get_tenant
+    row = cur.execute(sql, params).fetchone()
+          ~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: tenants
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 73, in chat
+    loop.run_until_complete(ensure_rag_initialized())
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 41, in ensure_rag_initialized
+    await rag_service.initialize()
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/rag_service.py", line 56, in initialize
+    self.vector_store = ChromaDBVectorStore(
+                        ~~~~~~~~~~~~~~~~~~~^
+        self.config.VECTOR_STORE_PATH,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.embedding_manager,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        self.config.CHROMADB_COLLECTION_NAME
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 32, in __init__
+    self._initialize_chromadb()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 38, in _initialize_chromadb
+    self.client = chromadb.PersistentClient(path=str(self.store_path))
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/__init__.py", line 138, in PersistentClient
+    return ClientCreator(tenant=tenant, database=database, settings=settings)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 144, in __init__
+    self._validate_tenant_database(tenant=tenant, database=database)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 447, in _validate_tenant_database
+    raise ValueError(
+        f"Could not connect to tenant {tenant}. Are you sure it exists?"
+    )
+ValueError: Could not connect to tenant default_tenant. Are you sure it exists?
+Error initializing ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+Error initializing RAG system: Could not connect to tenant default_tenant. Are you sure it exists?
+Error in chat endpoint: Could not connect to tenant default_tenant. Are you sure it exists?
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 438, in _validate_tenant_database
+    self._admin_client.get_tenant(name=tenant)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 486, in get_tenant
+    return self._server.get_tenant(name=name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/segment.py", line 139, in get_tenant
+    return self._sysdb.get_tenant(name=name)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/db/mixins/sysdb.py", line 134, in get_tenant
+    row = cur.execute(sql, params).fetchone()
+          ~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: tenants
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 73, in chat
+    loop.run_until_complete(ensure_rag_initialized())
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/api/rag.py", line 41, in ensure_rag_initialized
+    await rag_service.initialize()
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/rag_service.py", line 56, in initialize
+    self.vector_store = ChromaDBVectorStore(
+                        ~~~~~~~~~~~~~~~~~~~^
+        self.config.VECTOR_STORE_PATH,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.embedding_manager,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        self.config.CHROMADB_COLLECTION_NAME
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 32, in __init__
+    self._initialize_chromadb()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/rag/vector_store.py", line 38, in _initialize_chromadb
+    self.client = chromadb.PersistentClient(path=str(self.store_path))
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/__init__.py", line 138, in PersistentClient
+    return ClientCreator(tenant=tenant, database=database, settings=settings)
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 144, in __init__
+    self._validate_tenant_database(tenant=tenant, database=database)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tanush/Documents/repos/AIDE/backend/env/lib/python3.13/site-packages/chromadb/api/client.py", line 447, in _validate_tenant_database
+    raise ValueError(
+        f"Could not connect to tenant {tenant}. Are you sure it exists?"
+    )
+ValueError: Could not connect to tenant default_tenant. Are you sure it exists?
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Error loading data/knowledge/a.csv: No columns to parse from file
+Error loading data/knowledge/a.json: Expecting value: line 1 column 1 (char 0)
+Failed to send telemetry event CollectionAddEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Error loading data/knowledge/a.csv: No columns to parse from file
+Error loading data/knowledge/a.json: Expecting value: line 1 column 1 (char 0)
+Failed to send telemetry event CollectionAddEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Error loading data/knowledge/a.csv: No columns to parse from file
+Error loading data/knowledge/a.json: Expecting value: line 1 column 1 (char 0)
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Error loading data/knowledge/a.csv: No columns to parse from file
+Error loading data/knowledge/a.json: Expecting value: line 1 column 1 (char 0)
+Failed to send telemetry event CollectionAddEvent: capture() takes 1 positional argument but 3 were given

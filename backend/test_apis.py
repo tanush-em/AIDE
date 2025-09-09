@@ -102,6 +102,7 @@ def main():
     print("\n🤖 Testing AI Assistant APIs")
     test_endpoint("/api/rag/health", description="RAG system health")
     test_endpoint("/api/rag/status", description="RAG system status")
+    test_endpoint("/api/rag/rebuild", "POST", {}, "Rebuild vector store")
     
     # Test creating new data
     print("\n➕ Testing Data Creation APIs")

@@ -14,3 +14,4 @@ id,name,roll_number,email,course,department,phone,address,enrollment_date,status
 13,Maya Patel,CS013,maya.patel@university.edu,CS101,Computer Science,+1-555-0113,159 Walnut Ln,2023-09-01,active
 14,Nick Rodriguez,CS014,nick.rodriguez@university.edu,CS201,Computer Science,+1-555-0114,357 Cherry St,2023-09-01,active
 15,Olivia Kim,CS015,olivia.kim@university.edu,CS301,Computer Science,+1-555-0115,468 Peach Ave,2023-09-01,active
+16,Test Student,TEST001,test.student@university.edu,CS101,Computer Science,+1-555-9999,Test Address,2025-09-09,active

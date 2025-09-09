@@ -83,11 +83,10 @@ class RAGService:
             # Set orchestrator in conversation agent
             self.conversation_agent.orchestrator = self.orchestrator
             
-            # Build vector store if needed
-            if self.vector_store.get_document_count() == 0:
-                logger.info("Building vector store from knowledge base...")
-                print("Building vector store from knowledge base...")
-                await self._build_vector_store()
+            # Always rebuild vector store on startup to ensure latest knowledge base files are indexed
+            logger.info("Rebuilding vector store from knowledge base on startup...")
+            print("Rebuilding vector store from knowledge base on startup...")
+            await self._rebuild_vector_store()
             
             self.is_initialized = True
             logger.info("RAG system initialized successfully!")
@@ -133,6 +132,20 @@ class RAGService:
         except Exception as e:
             logger.error(f"Error building vector store: {e}")
             print(f"Error building vector store: {e}")
+            raise
+    
+    async def _rebuild_vector_store(self):
+        """Rebuild the vector store from knowledge base (clears existing data)"""
+        try:
+            # Rebuild the entire vector store
+            self.vector_store.rebuild_index(self.config.KNOWLEDGE_BASE_PATH)
+            document_count = self.vector_store.get_document_count()
+            logger.info(f"Vector store rebuilt with {document_count} document chunks")
+            print(f"Vector store rebuilt with {document_count} document chunks")
+                
+        except Exception as e:
+            logger.error(f"Error rebuilding vector store: {e}")
+            print(f"Error rebuilding vector store: {e}")
             raise
     
     async def process_query(self, session_id: str, message: str, user_id: str = "default") -> Dict[str, Any]:

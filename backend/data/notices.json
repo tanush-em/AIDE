@@ -37,8 +37,15 @@
     "updatedAt": "2024-01-19T10:15:00Z",
     "expiresAt": "2024-01-21T23:59:59Z",
     "isActive": true,
-    "readBy": ["STU002", "STU003"],
-    "tags": ["assignment", "deadline", "CS201"]
+    "readBy": [
+      "STU002",
+      "STU003"
+    ],
+    "tags": [
+      "assignment",
+      "deadline",
+      "CS201"
+    ]
   },
   {
     "id": "4",
@@ -53,8 +60,15 @@
     "updatedAt": "2024-01-16T11:00:00Z",
     "expiresAt": "2024-01-26T23:59:59Z",
     "isActive": true,
-    "readBy": ["FAC002", "FAC003"],
-    "tags": ["meeting", "faculty", "curriculum"]
+    "readBy": [
+      "FAC002",
+      "FAC003"
+    ],
+    "tags": [
+      "meeting",
+      "faculty",
+      "curriculum"
+    ]
   },
   {
     "id": "5",
@@ -69,8 +83,17 @@
     "updatedAt": "2024-01-10T16:00:00Z",
     "expiresAt": "2024-01-31T23:59:59Z",
     "isActive": true,
-    "readBy": ["STU001", "STU002", "STU003", "STU004"],
-    "tags": ["feedback", "survey", "evaluation"]
+    "readBy": [
+      "STU001",
+      "STU002",
+      "STU003",
+      "STU004"
+    ],
+    "tags": [
+      "feedback",
+      "survey",
+      "evaluation"
+    ]
   },
   {
     "id": "6",
@@ -85,8 +108,15 @@
     "updatedAt": "2024-01-20T08:00:00Z",
     "expiresAt": "2024-01-23T23:59:59Z",
     "isActive": true,
-    "readBy": ["STU001", "STU005"],
-    "tags": ["lab", "maintenance", "schedule"]
+    "readBy": [
+      "STU001",
+      "STU005"
+    ],
+    "tags": [
+      "lab",
+      "maintenance",
+      "schedule"
+    ]
   },
   {
     "id": "7",
@@ -101,8 +131,15 @@
     "updatedAt": "2024-01-17T13:30:00Z",
     "expiresAt": "2024-02-17T23:59:59Z",
     "isActive": true,
-    "readBy": ["STU003", "STU006"],
-    "tags": ["research", "guidelines", "submission"]
+    "readBy": [
+      "STU003",
+      "STU006"
+    ],
+    "tags": [
+      "research",
+      "guidelines",
+      "submission"
+    ]
   },
   {
     "id": "8",
@@ -117,7 +154,33 @@
     "updatedAt": "2024-01-14T10:00:00Z",
     "expiresAt": "2024-01-31T23:59:59Z",
     "isActive": true,
-    "readBy": ["STU002", "STU004", "STU007"],
-    "tags": ["career", "fair", "registration"]
+    "readBy": [
+      "STU002",
+      "STU004",
+      "STU007"
+    ],
+    "tags": [
+      "career",
+      "fair",
+      "registration"
+    ]
+  },
+  {
+    "id": "9",
+    "title": "Test Notice",
+    "content": "This is a test notice created by the API test script.",
+    "type": "general",
+    "priority": "low",
+    "targetAudience": "students",
+    "course": null,
+    "author": "Test Script",
+    "authorId": "TEST001",
+    "createdAt": "2025-09-09T07:21:24.426163Z",
+    "updatedAt": "2025-09-09T07:21:24.426166Z",
+    "expiresAt": null,
+    "isActive": true,
+    "readBy": [],
+    "tags": [],
+    "attachments": []
   }
 ]

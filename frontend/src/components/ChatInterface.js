@@ -60,12 +60,12 @@ export default function ChatInterface() {
       
       const data = await response.json()
       
-      if (data.status === 'success') {
+      if (response.ok) {
         // Add success message to chat
         const successMessage = {
           id: Date.now().toString(),
           role: 'assistant',
-          content: `✅ Vector store reindexed successfully! Found ${data.document_count} documents in the knowledge base.`,
+          content: `✅ Vector store reindexed successfully! ${data.message || ''} Document count: ${data.document_count || 'Unknown'}`,
           timestamp: new Date(),
           confidence: 'high'
         }
@@ -75,7 +75,7 @@ export default function ChatInterface() {
         const errorMessage = {
           id: Date.now().toString(),
           role: 'assistant',
-          content: `❌ Error reindexing vector store: ${data.message || 'Unknown error'}`,
+          content: `❌ Failed to reindex vector store: ${data.error || data.message || 'Unknown error'}`,
           timestamp: new Date(),
           confidence: 'low'
         }
@@ -86,7 +86,7 @@ export default function ChatInterface() {
       const errorMessage = {
         id: Date.now().toString(),
         role: 'assistant',
-        content: '❌ Failed to reindex vector store. Please try again.',
+        content: `❌ Failed to reindex vector store: ${error.message}`,
         timestamp: new Date(),
         confidence: 'low'
       }
@@ -238,32 +238,31 @@ export default function ChatInterface() {
               <span className="text-sm text-gray-600">Tasks</span>
             </div>
 
+            {/* Reindex Button */}
+            <button
+              onClick={reindexVectorStore}
+              disabled={isReindexing}
+              className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-1"
+            >
+              {isReindexing ? (
+                <>
+                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600"></div>
+                  <span>Reindexing...</span>
+                </>
+              ) : (
+                <>
+                  <span>🔄</span>
+                  <span>Reindex</span>
+                </>
+              )}
+            </button>
+
             {/* System Status Button */}
             <button
               onClick={() => checkSystemStatus()}
               className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
             >
               Check Status
-            </button>
-
-            {/* Reindex Button */}
-            <button
-              onClick={reindexVectorStore}
-              disabled={isReindexing}
-              className={`px-3 py-1 text-sm rounded transition-colors ${
-                isReindexing 
-                  ? 'bg-yellow-100 text-yellow-700 cursor-not-allowed' 
-                  : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-              }`}
-            >
-              {isReindexing ? (
-                <div className="flex items-center space-x-1">
-                  <div className="animate-spin rounded-full h-3 w-3 border-b border-blue-600"></div>
-                  <span>Reindexing...</span>
-                </div>
-              ) : (
-                'Reindex'
-              )}
             </button>
           </div>
         </div>
