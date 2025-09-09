@@ -80,6 +80,46 @@ export default function NoticeBoard() {
     }
   }
 
+  const updateNotice = async (noticeId: string, updatedData: Partial<Notice>) => {
+    try {
+      const response = await fetch(`http://localhost:5001/api/notices/${noticeId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      })
+      const data = await response.json()
+      if (data.success) {
+        // Reload notices to get updated data
+        await loadNotices()
+        return true
+      }
+      return false
+    } catch (error) {
+      console.error('Error updating notice:', error)
+      return false
+    }
+  }
+
+  const deleteNotice = async (noticeId: string) => {
+    try {
+      const response = await fetch(`http://localhost:5001/api/notices/${noticeId}`, {
+        method: 'DELETE',
+      })
+      const data = await response.json()
+      if (data.success) {
+        // Reload notices to get updated data
+        await loadNotices()
+        return true
+      }
+      return false
+    } catch (error) {
+      console.error('Error deleting notice:', error)
+      return false
+    }
+  }
+
   useEffect(() => {
     let filtered = notices
 
@@ -390,7 +430,19 @@ export default function NoticeBoard() {
                     <Edit className="h-4 w-4" />
                     <span>Edit</span>
                   </button>
-                  <button className="flex items-center space-x-1 px-3 py-1 text-red-600 hover:text-red-800 text-sm">
+                  <button 
+                    onClick={async () => {
+                      if (window.confirm('Are you sure you want to delete this notice?')) {
+                        const success = await deleteNotice(notice.id)
+                        if (success) {
+                          alert('Notice deleted successfully')
+                        } else {
+                          alert('Failed to delete notice')
+                        }
+                      }
+                    }}
+                    className="flex items-center space-x-1 px-3 py-1 text-red-600 hover:text-red-800 text-sm"
+                  >
                     <Trash2 className="h-4 w-4" />
                     <span>Delete</span>
                   </button>
@@ -486,6 +538,207 @@ export default function NoticeBoard() {
           </div>
         </div>
       )}
+
+      {/* Edit Notice Modal */}
+      {showEditModal && editingNotice && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-6 border-b">
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-semibold text-gray-900">Edit Notice</h3>
+                <button
+                  onClick={() => {
+                    setShowEditModal(false)
+                    setEditingNotice(null)
+                  }}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <XCircle className="h-6 w-6" />
+                </button>
+              </div>
+            </div>
+            <div className="p-6">
+              <EditNoticeForm 
+                notice={editingNotice}
+                onSave={async (updatedData) => {
+                  const success = await updateNotice(editingNotice.id, updatedData)
+                  if (success) {
+                    setShowEditModal(false)
+                    setEditingNotice(null)
+                    alert('Notice updated successfully')
+                  } else {
+                    alert('Failed to update notice')
+                  }
+                }}
+                onCancel={() => {
+                  setShowEditModal(false)
+                  setEditingNotice(null)
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+  )
+}
+
+// Edit Notice Form Component
+function EditNoticeForm({ 
+  notice, 
+  onSave, 
+  onCancel 
+}: { 
+  notice: Notice
+  onSave: (data: Partial<Notice>) => void
+  onCancel: () => void 
+}) {
+  const [formData, setFormData] = useState({
+    title: notice.title,
+    content: notice.content,
+    type: notice.type,
+    priority: notice.priority,
+    targetAudience: notice.targetAudience || 'all',
+    course: notice.course || '',
+    expiresAt: notice.expiresAt || '',
+    tags: notice.tags ? notice.tags.join(', ') : '',
+    attachments: notice.attachments ? notice.attachments.join(', ') : ''
+  })
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    const updatedData: Partial<Notice> = {
+      title: formData.title,
+      content: formData.content,
+      type: formData.type as any,
+      priority: formData.priority as any,
+      targetAudience: formData.targetAudience as any,
+      course: formData.course || undefined,
+      expiresAt: formData.expiresAt || undefined,
+      tags: formData.tags ? formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : [],
+      attachments: formData.attachments ? formData.attachments.split(',').map(att => att.trim()).filter(att => att) : []
+    }
+    
+    onSave(updatedData)
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+        <input
+          type="text"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+        <textarea
+          value={formData.content}
+          onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+          rows={4}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          required
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+          <select
+            value={formData.type}
+            onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="announcement">Announcement</option>
+            <option value="reminder">Reminder</option>
+            <option value="urgent">Urgent</option>
+            <option value="general">General</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+          <select
+            value={formData.priority}
+            onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Target Audience</label>
+          <select
+            value={formData.targetAudience}
+            onChange={(e) => setFormData({ ...formData, targetAudience: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="all">All</option>
+            <option value="students">Students</option>
+            <option value="faculty">Faculty</option>
+            <option value="specific_course">Specific Course</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Course (if applicable)</label>
+          <input
+            type="text"
+            value={formData.course}
+            onChange={(e) => setFormData({ ...formData, course: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="e.g., CS201"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+        <input
+          type="datetime-local"
+          value={formData.expiresAt ? formData.expiresAt.slice(0, 16) : ''}
+          onChange={(e) => setFormData({ ...formData, expiresAt: e.target.value ? new Date(e.target.value).toISOString() : '' })}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Tags (comma-separated)</label>
+        <input
+          type="text"
+          value={formData.tags}
+          onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="e.g., exam, deadline, important"
+        />
+      </div>
+
+      <div className="flex justify-end space-x-3 pt-4">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Update Notice
+        </button>
+      </div>
+    </form>
   )
 }

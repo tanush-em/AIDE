@@ -109,12 +109,64 @@ def update_notice(notice_id):
     try:
         data = request.get_json()
         
-        # In production, this would update the database
-        # For now, we'll just return success
-        return jsonify({
-            "success": True,
-            "message": "Notice updated successfully"
-        })
+        # Load existing notice data
+        notice_data = load_notice_data()
+        
+        # Find the notice to update
+        notice_index = None
+        for i, notice in enumerate(notice_data):
+            if notice['id'] == notice_id:
+                notice_index = i
+                break
+        
+        if notice_index is None:
+            return jsonify({
+                "success": False,
+                "error": "Notice not found"
+            }), 404
+        
+        # Update the notice with new data
+        updated_notice = notice_data[notice_index].copy()
+        
+        # Update fields if provided
+        if 'title' in data:
+            updated_notice['title'] = data['title']
+        if 'content' in data:
+            updated_notice['content'] = data['content']
+        if 'type' in data:
+            updated_notice['type'] = data['type']
+        if 'priority' in data:
+            updated_notice['priority'] = data['priority']
+        if 'targetAudience' in data:
+            updated_notice['targetAudience'] = data['targetAudience']
+        if 'course' in data:
+            updated_notice['course'] = data['course']
+        if 'expiresAt' in data:
+            updated_notice['expiresAt'] = data['expiresAt']
+        if 'tags' in data:
+            updated_notice['tags'] = data['tags']
+        if 'attachments' in data:
+            updated_notice['attachments'] = data['attachments']
+        
+        # Update timestamp
+        updated_notice['updatedAt'] = datetime.now().isoformat() + 'Z'
+        
+        # Replace the notice in the list
+        notice_data[notice_index] = updated_notice
+        
+        # Save back to JSON file
+        if save_notice_data(notice_data):
+            return jsonify({
+                "success": True,
+                "data": updated_notice,
+                "message": "Notice updated successfully"
+            })
+        else:
+            return jsonify({
+                "success": False,
+                "error": "Failed to save notice"
+            }), 500
+            
     except Exception as e:
         return jsonify({
             "success": False,
@@ -125,12 +177,38 @@ def update_notice(notice_id):
 def delete_notice(notice_id):
     """Delete a notice"""
     try:
-        # In production, this would delete from database
-        # For now, we'll just return success
-        return jsonify({
-            "success": True,
-            "message": "Notice deleted successfully"
-        })
+        # Load existing notice data
+        notice_data = load_notice_data()
+        
+        # Find the notice to delete
+        notice_index = None
+        for i, notice in enumerate(notice_data):
+            if notice['id'] == notice_id:
+                notice_index = i
+                break
+        
+        if notice_index is None:
+            return jsonify({
+                "success": False,
+                "error": "Notice not found"
+            }), 404
+        
+        # Remove the notice from the list
+        deleted_notice = notice_data.pop(notice_index)
+        
+        # Save back to JSON file
+        if save_notice_data(notice_data):
+            return jsonify({
+                "success": True,
+                "data": deleted_notice,
+                "message": "Notice deleted successfully"
+            })
+        else:
+            return jsonify({
+                "success": False,
+                "error": "Failed to save notice data"
+            }), 500
+            
     except Exception as e:
         return jsonify({
             "success": False,

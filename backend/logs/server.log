@@ -5869,3 +5869,57 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 2025-09-08 19:17:00,235 - __main__ - INFO - Response Status: 200
 2025-09-08 19:17:00,236 - __main__ - INFO - Response Headers: {'Content-Type': 'application/json', 'Content-Length': '196'}
 2025-09-08 19:17:00,236 - werkzeug - INFO - 127.0.0.1 - - [08/Sep/2025 19:17:00] "GET /api/resources/stats HTTP/1.1" 200 -
+2025-09-09 06:40:23,270 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/api/notice_board.py', reloading
+2025-09-09 06:40:23,756 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 06:40:23,888 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 06:40:23,888 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 06:40:23,888 - utils.logging_config - INFO - Log files: logs
+2025-09-09 06:40:27,021 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 06:40:27,021 - __main__ - INFO - Debug mode: True
+2025-09-09 06:40:27,036 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 06:40:27,044 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 06:40:28,160 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/api/notice_board.py', reloading
+2025-09-09 06:40:28,682 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 06:40:28,763 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 06:40:28,763 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 06:40:28,763 - utils.logging_config - INFO - Log files: logs
+2025-09-09 06:40:30,932 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 06:40:30,932 - __main__ - INFO - Debug mode: True
+2025-09-09 06:40:30,947 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 06:40:30,988 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 06:42:52,252 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/app.py', reloading
+2025-09-09 06:42:52,780 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 06:42:52,957 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 06:42:52,957 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 06:42:52,957 - utils.logging_config - INFO - Log files: logs
+2025-09-09 06:42:55,832 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 06:42:55,832 - __main__ - INFO - Debug mode: True
+2025-09-09 06:42:55,845 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 06:42:55,852 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 06:42:56,960 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/app.py', reloading
+2025-09-09 06:42:57,483 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 06:42:57,564 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 06:42:57,564 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 06:42:57,564 - utils.logging_config - INFO - Log files: logs
+2025-09-09 06:42:59,783 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 06:42:59,784 - __main__ - INFO - Debug mode: True
+2025-09-09 06:42:59,795 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 06:42:59,803 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 06:43:57,705 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/api/notice_board.py', reloading
+2025-09-09 06:43:58,200 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 06:43:58,290 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 06:43:58,290 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 06:43:58,290 - utils.logging_config - INFO - Log files: logs
+2025-09-09 06:44:00,440 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 06:44:00,440 - __main__ - INFO - Debug mode: True
+2025-09-09 06:44:00,462 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 06:44:00,501 - werkzeug - INFO -  * Debugger PIN: 408-130-007
+2025-09-09 06:44:24,760 - werkzeug - INFO -  * Detected change in '/Users/tanush/Documents/repos/AIDE/backend/app.py', reloading
+2025-09-09 06:44:25,166 - werkzeug - INFO -  * Restarting with stat
+2025-09-09 06:44:25,244 - utils.logging_config - INFO - Logging system initialized
+2025-09-09 06:44:25,244 - utils.logging_config - INFO - Log level: INFO
+2025-09-09 06:44:25,245 - utils.logging_config - INFO - Log files: logs
+2025-09-09 06:44:27,333 - __main__ - INFO - Starting Flask backend on port 5001
+2025-09-09 06:44:27,334 - __main__ - INFO - Debug mode: True
+2025-09-09 06:44:27,344 - werkzeug - WARNING -  * Debugger is active!
+2025-09-09 06:44:27,351 - werkzeug - INFO -  * Debugger PIN: 408-130-007

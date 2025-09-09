@@ -67,6 +67,7 @@ from api.student_management import student_bp
 from api.data_export import export_bp
 from api.question_paper import question_paper_bp
 from api.resources import resources_bp
+from api.placements import placements_bp
 
 app.register_blueprint(rag_bp, url_prefix='/api/rag')
 app.register_blueprint(task_workflow_bp, url_prefix='/api/tasks')
@@ -78,6 +79,7 @@ app.register_blueprint(student_bp)
 app.register_blueprint(export_bp)
 app.register_blueprint(question_paper_bp)
 app.register_blueprint(resources_bp)
+app.register_blueprint(placements_bp)
 
 @app.route('/')
 def home():
@@ -106,7 +108,8 @@ def health_check():
             "courses": "/api/courses",
             "export": "/api/export",
             "question_paper": "/api/question-paper",
-            "resources": "/api/resources"
+            "resources": "/api/resources",
+            "placements": "/api/placements"
         }
     })
 

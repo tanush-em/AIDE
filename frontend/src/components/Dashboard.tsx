@@ -42,6 +42,25 @@ export default function Dashboard() {
   })
   const [loading, setLoading] = useState(true)
 
+  const handleQuickAction = (action: string) => {
+    switch (action) {
+      case 'attendance':
+        // Navigate to attendance tab
+        window.location.hash = '#attendance'
+        break
+      case 'leaves':
+        // Navigate to leave management tab
+        window.location.hash = '#leave'
+        break
+      case 'notice':
+        // Navigate to notice board tab
+        window.location.hash = '#notices'
+        break
+      default:
+        break
+    }
+  }
+
   useEffect(() => {
     // Simulate API call
     setTimeout(() => {
@@ -228,7 +247,10 @@ export default function Dashboard() {
       <div className="bg-white rounded-lg shadow-sm border p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => handleQuickAction('attendance')}
+            className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
             <div className="bg-blue-100 p-2 rounded-full">
               <Users className="h-5 w-5 text-blue-600" />
             </div>
@@ -238,7 +260,10 @@ export default function Dashboard() {
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => handleQuickAction('leaves')}
+            className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
             <div className="bg-green-100 p-2 rounded-full">
               <Calendar className="h-5 w-5 text-green-600" />
             </div>
@@ -248,7 +273,10 @@ export default function Dashboard() {
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => handleQuickAction('notice')}
+            className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
             <div className="bg-purple-100 p-2 rounded-full">
               <Bell className="h-5 w-5 text-purple-600" />
             </div>
